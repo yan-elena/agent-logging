@@ -1,4 +1,7 @@
+.vscode
+.idea
 .gradle
+bin
 /build/
 
 # Ignore Gradle GUI config
@@ -10,5 +13,13 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# Compiled class file
+*.class
+
+# Log file
+/log
+.DS_Store
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
