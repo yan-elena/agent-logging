@@ -8,8 +8,15 @@ import jason.asSemantics.Event;
 import jason.asSemantics.GoalListener;
 import jason.asSemantics.Message;
 import jason.asSemantics.Option;
+import logger.Logger;
 
 public class LoggerAg extends Agent implements GoalListener, CircumstanceListener {
+
+    private final Logger logger;
+
+    public LoggerAg() {
+        logger = Logger.getLogger();
+    }
 
     @Override
     public void initAg() {
@@ -22,7 +29,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override // from Agent class
     public Option selectOption(List<Option> options) {
-        printLog("options for "+getTS().getC().getSelectedEvent().getTrigger()+" are "+options);        
+//        printLog("options for "+getTS().getC().getSelectedEvent().getTrigger()+" are "+options);
         return super.selectOption(options);
     }
 
@@ -30,14 +37,14 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalStarted(Event goal) {
-        printLog("goal "+goal.getTrigger()+" started!");
+//        printLog("goal "+goal.getTrigger()+" started!");
     }
 
     // Circumstance Listener Interface
 
     @Override
     public void eventAdded(Event e) {
-        printLog("new event "+e.getTrigger());
+//        printLog("new event "+e.getTrigger());
     }
 
     // TODO: see other methods of Goal & Circumstance Listeners

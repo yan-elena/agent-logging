@@ -1,14 +1,17 @@
 package log;
 
+import event.Action;
 import jason.architecture.*;
 import jason.asSemantics.*;
-import jason.asSyntax.*;
-import jason.runtime.RuntimeServicesFactory;
-
-import java.rmi.RemoteException;
-import java.util.*;
+import logger.Logger;
 
 public class LoggerArch extends AgArch {
+
+    private final Logger logger;
+
+    public LoggerArch() {
+        logger = Logger.getLogger();
+    }
 
     // works only with jacamo1.2-SNAPSHOT
     @Override
@@ -20,7 +23,10 @@ public class LoggerArch extends AgArch {
     @Override
     public void reasoningCycleFinished() {
         if (getTS().getC().getAction() != null)  {
-            System.out.println("log: 2.doing "+getTS().getC().getAction().getActionTerm());
+            final Action action = new Action(getCycleNumber(), getTS().getC().getAction());
+            logger.insertEvent(getAgName(), action);
+            logger.printLog();
+//            System.out.println("log: 2.doing "+getTS().getC().getAction().getActionTerm());
         }
     }
 

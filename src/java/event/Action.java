@@ -35,6 +35,6 @@ public class Action extends EventImpl {
 
     @Override
     public String toString() {
-        return "execute action " + actionTerm.getFunctor();
+        return "cycle num." + getReasoningCycleNum() + " t." + getTimestamp() +" execute action " + actionTerm.getFunctor();
     }
 }
