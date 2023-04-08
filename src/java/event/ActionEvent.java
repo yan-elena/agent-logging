@@ -10,16 +10,12 @@ public class ActionEvent extends AbstractEvent {
     private final Structure actionTerm;
     private final Intention intention;
 
-    public ActionEvent(long timestamp, int reasoningCycleNum, ActionExec action) {
-        super(timestamp, reasoningCycleNum);
+    public ActionEvent(int reasoningCycleNum, ActionExec action) {
+        super(reasoningCycleNum);
         this.action = action;
         this.actionTerm = action.getActionTerm();
         this.intention = action.getIntention();
-        System.out.println(this);
-    }
-
-    public ActionEvent(int reasoningCycleNum, ActionExec action) {
-        this(System.currentTimeMillis(), reasoningCycleNum, action);
+        System.out.println(this); //todo canc
     }
 
     public ActionExec getAction() {
@@ -35,7 +31,7 @@ public class ActionEvent extends AbstractEvent {
     }
 
     @Override
-    public String toString() {
-        return "[" + getTimestamp() + "] execute action " + actionTerm.getFunctor();
+    public String eventToString() {
+        return "Execute action " + actionTerm.getFunctor();
     }
 }

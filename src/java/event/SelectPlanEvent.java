@@ -14,14 +14,10 @@ public class SelectPlanEvent extends AbstractEvent {
     private final List<Option> options;
     private Option selected;
 
-    public SelectPlanEvent(long timestamp, int reasoningCycleNum, Trigger trigger, List<Option> options) {
-        super(timestamp, reasoningCycleNum);
+    public SelectPlanEvent(int reasoningCycleNum, Trigger trigger, List<Option> options) {
+        super(reasoningCycleNum);
         this.trigger = trigger;
         this.options = new LinkedList<>(options);
-    }
-
-    public SelectPlanEvent(int reasoningCycleNum, Trigger trigger, List<Option> options) {
-        this(System.currentTimeMillis(), reasoningCycleNum, trigger, options);
     }
 
     public Trigger getTrigger() {
@@ -42,14 +38,14 @@ public class SelectPlanEvent extends AbstractEvent {
     }
 
     @Override
-    public String toString() {
+    public String eventToString() {
         StringBuilder out = new StringBuilder();
         if (options.size() > 1) {
-            out.append("options for ").append(trigger.getLiteral().getFunctor()).append(" are: \n");
-            options.forEach(op -> out.append("\t").append(planToString(op.getPlan())).append("\n"));
+            out.append("Plan options for ").append(trigger.getLiteral().getFunctor()).append(" are: \n");
+            options.forEach(op -> out.append("\t\t").append(planToString(op.getPlan())).append("\n"));
         }
         if (selected != null) {
-            out.append("selected plan: ").append(planToString(selected.getPlan()));
+            out.append("Selected plan: ").append(planToString(selected.getPlan()));
         }
         return out.toString();
     }

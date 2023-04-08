@@ -10,6 +10,10 @@ abstract class AbstractEvent implements Event {
         this.reasoningCycleNumber = reasoningCycleNum;
     }
 
+    public AbstractEvent(int reasoningCycleNum) {
+        this(System.currentTimeMillis(), reasoningCycleNum);
+    }
+
     @Override
     public long getTimestamp() {
         return this.timestamp;
@@ -19,4 +23,13 @@ abstract class AbstractEvent implements Event {
     public int getReasoningCycleNum() {
         return this.reasoningCycleNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Cycle " + reasoningCycleNumber +
+                " - Timestamp " + timestamp +
+                ": " + eventToString();
+    }
+
+    abstract public String eventToString();
 }
