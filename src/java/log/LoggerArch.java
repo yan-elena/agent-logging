@@ -1,6 +1,6 @@
 package log;
 
-import event.Action;
+import event.ActionEvent;
 import jason.architecture.*;
 import jason.asSemantics.*;
 import logger.Logger;
@@ -23,9 +23,8 @@ public class LoggerArch extends AgArch {
     @Override
     public void reasoningCycleFinished() {
         if (getTS().getC().getAction() != null)  {
-            final Action action = new Action(getCycleNumber(), getTS().getC().getAction());
+            final ActionEvent action = new ActionEvent(getCycleNumber(), getTS().getC().getAction());
             logger.insertEvent(getAgName(), action);
-            logger.printLog();
 //            System.out.println("log: 2.doing "+getTS().getC().getAction().getActionTerm());
         }
     }

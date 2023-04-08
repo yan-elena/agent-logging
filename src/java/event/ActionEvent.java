@@ -4,20 +4,21 @@ import jason.asSemantics.ActionExec;
 import jason.asSemantics.Intention;
 import jason.asSyntax.*;
 
-public class Action extends EventImpl {
+public class ActionEvent extends AbstractEvent {
 
     private final ActionExec action;
     private final Structure actionTerm;
     private final Intention intention;
 
-    public Action(long timestamp, int reasoningCycleNum, ActionExec action) {
+    public ActionEvent(long timestamp, int reasoningCycleNum, ActionExec action) {
         super(timestamp, reasoningCycleNum);
         this.action = action;
         this.actionTerm = action.getActionTerm();
         this.intention = action.getIntention();
+        System.out.println(this);
     }
 
-    public Action(int reasoningCycleNum, ActionExec action) {
+    public ActionEvent(int reasoningCycleNum, ActionExec action) {
         this(System.currentTimeMillis(), reasoningCycleNum, action);
     }
 
@@ -35,6 +36,6 @@ public class Action extends EventImpl {
 
     @Override
     public String toString() {
-        return "cycle num." + getReasoningCycleNum() + " t." + getTimestamp() +" execute action " + actionTerm.getFunctor();
+        return "[" + getTimestamp() + "] execute action " + actionTerm.getFunctor();
     }
 }

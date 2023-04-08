@@ -1,11 +1,11 @@
 package event;
 
-abstract class EventImpl implements Event {
+abstract class AbstractEvent implements Event {
 
     private final long timestamp;
     private final int reasoningCycleNumber;
 
-    public EventImpl(long timestamp, int reasoningCycleNum) {
+    public AbstractEvent(long timestamp, int reasoningCycleNum) {
         this.timestamp = timestamp;
         this.reasoningCycleNumber = reasoningCycleNum;
     }
