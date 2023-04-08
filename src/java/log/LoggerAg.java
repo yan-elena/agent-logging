@@ -33,7 +33,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         final SelectPlanEvent event = new SelectPlanEvent(1, getTS().getC().getSelectedEvent().getTrigger(), options);
         final Option selected = super.selectOption(options);
         event.setSelected(selected);
-        this.logger.insertEvent("bob", event); // todo ag name
+        this.logger.insertEvent(ts.getAgArch().getAgName(), event);
         return selected;
     }
 
