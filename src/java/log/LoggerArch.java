@@ -4,19 +4,20 @@ import event.ActionEvent;
 import jason.architecture.*;
 import jason.asSemantics.*;
 import logger.Logger;
+import logger.LoggerImpl;
 
 public class LoggerArch extends AgArch {
 
     private final Logger logger;
 
     public LoggerArch() {
-        logger = Logger.getLogger();
+        logger = LoggerImpl.getLogger();
     }
 
     // works only with jacamo1.2-SNAPSHOT
     @Override
     public void act(ActionExec action) {
-        System.out.println("log: 1.doing "+getTS().getC().getAction().getActionTerm());
+//        System.out.println("log: 1.doing "+getTS().getC().getAction().getActionTerm());
         super.act(action);
     }
 
@@ -29,5 +30,15 @@ public class LoggerArch extends AgArch {
         }
     }
 
-    // TODO: see other methods from AgArch to Override
+    @Override
+    public void actionExecuted(ActionExec act) {
+        System.out.println("---> log: action executed "+getTS().getC().getAction().getActionTerm() + "\t" + act);
+        super.actionExecuted(act);
+    }
+
+    @Override
+    public void sendMsg(Message m) throws Exception {
+        System.out.println("---> sending " + m);
+        super.sendMsg(m);
+    }
 }
