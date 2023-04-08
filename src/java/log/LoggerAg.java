@@ -2,6 +2,7 @@ package log;
 
 import java.util.List;
 
+import event.GoalEvent;
 import event.SelectPlanEvent;
 import jason.asSemantics.Agent;
 import jason.asSemantics.CircumstanceListener;
@@ -16,6 +17,7 @@ import logger.LoggerImpl;
 public class LoggerAg extends Agent implements GoalListener, CircumstanceListener {
 
     private final Logger logger;
+    private String agentName;
 
     public LoggerAg() {
         logger = LoggerImpl.getLogger();
@@ -24,6 +26,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void initAg() {
         super.initAg();
+        this.agentName = ts.getAgArch().getAgName();
 
         // add listeners
         getTS().addGoalListener(this);
@@ -37,7 +40,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                 options);
         final Option selected = super.selectOption(options);
         event.setSelected(selected);
-        this.logger.insertEvent(ts.getAgArch().getAgName(), event);
+        logger.insertEvent(agentName, event);
         return selected;
     }
 
@@ -45,32 +48,36 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalStarted(Event goal) {
-        printLog("goal "+goal.getTrigger()+" started!");
+        addGoalEvent(goal.getTrigger(), "started");
     }
 
     @Override
     public void goalFinished(Trigger goal, GoalStates result) {
-
+        addGoalEvent(goal, "finished");
     }
 
     @Override
     public void goalSuspended(Trigger goal, Term reason) {
-
+        addGoalEvent(goal, "suspended");
     }
 
     @Override
     public void goalWaiting(Trigger goal, Term reason) {
-
+        addGoalEvent(goal, "waiting");
     }
 
     @Override
     public void goalResumed(Trigger goal, Term reason) {
-
+        addGoalEvent(goal, "resumed");
     }
 
     @Override
     public void goalExecuting(Trigger goal, Term reason) {
+        addGoalEvent(goal, "executing");
+    }
 
+    private void addGoalEvent(Trigger goal, String event) {
+        this.logger.insertEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, event));
     }
 
     // Circumstance Listener Interface
