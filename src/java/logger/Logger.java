@@ -6,5 +6,5 @@ public interface Logger {
 
     void insertEvent(String agentName, Event event);
 
-    void printLog();
+    void saveLogInFile(String fileName);
 }

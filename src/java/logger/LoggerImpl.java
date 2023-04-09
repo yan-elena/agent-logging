@@ -4,6 +4,8 @@ import agentHistory.AgentHistory;
 import agentHistory.AgentHistoryImpl;
 import event.Event;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +34,15 @@ public class LoggerImpl implements Logger {
     }
 
     @Override
-    public synchronized void printLog() {
-        history.forEach((k,v) -> System.out.println("[" + k + "]" + v));
+    public synchronized void saveLogInFile(String fileName) {
+        StringBuilder text = new StringBuilder();
+        history.forEach((k,v) -> text.append("[Log for ").append(k).append(" agent]\n").append(v).append("\n"));
+        try {
+            PrintWriter out = new PrintWriter(fileName);
+            out.println(text);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

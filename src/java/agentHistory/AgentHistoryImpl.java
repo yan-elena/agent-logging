@@ -25,8 +25,6 @@ public class AgentHistoryImpl implements AgentHistory {
 
     @Override
     public String toString() {
-        return "AgentHistory{" +
-                "history=" + history +
-                '}';
+        return String.join("\n", history.stream().map(Event::toString).toList());
     }
 }
