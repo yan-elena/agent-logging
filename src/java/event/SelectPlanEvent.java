@@ -41,8 +41,8 @@ public class SelectPlanEvent extends AbstractEvent {
     public String eventToString() {
         StringBuilder out = new StringBuilder();
         if (options.size() > 1) {
-            out.append("Plan options for ").append(trigger.getLiteral().getFunctor()).append(" are: \n");
-            options.forEach(op -> out.append("\t\t").append(planToString(op.getPlan())).append("\n"));
+            out.append("Plan options for ").append(trigger.getLiteral().getFunctor()).append(" are: ");
+            options.forEach(op -> out.append(planToString(op.getPlan())).append(", "));
         }
         if (selected != null) {
             out.append("Selected plan: ").append(planToString(selected.getPlan()));
@@ -56,10 +56,10 @@ public class SelectPlanEvent extends AbstractEvent {
         if (plan.getContext() != null) {
             out.append(plan.getContext());
         }
-        if (!plan.getBody().isEmptyBody()) {
-            out.append(" <- ").append(plan.getBody());
-        }
-        out.append(".");
+//        if (!plan.getBody().isEmptyBody()) {
+//            out.append(" <- ").append(plan.getBody());
+//        }
+//        out.append(".");
         return out.toString();
     }
 }
