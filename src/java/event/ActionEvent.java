@@ -15,7 +15,6 @@ public class ActionEvent extends AbstractEvent {
         this.action = action;
         this.actionTerm = action.getActionTerm();
         this.intention = action.getIntention();
-        System.out.println(this); //todo canc
     }
 
     public ActionExec getAction() {

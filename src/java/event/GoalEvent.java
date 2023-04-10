@@ -11,7 +11,6 @@ public class GoalEvent extends AbstractEvent {
         super(reasoningCycleNum);
         this.goal = goal;
         this.event = event;
-        System.out.println(this); //todo canc
     }
 
     @Override

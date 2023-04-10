@@ -7,9 +7,11 @@ import java.util.List;
 
 public class AgentHistoryImpl implements AgentHistory {
 
+    private final String agentName;
     private final List<Event> history;
 
-    public AgentHistoryImpl() {
+    public AgentHistoryImpl(String agentName) {
+        this.agentName = agentName;
         this.history = new LinkedList<>();
     }
 
@@ -20,6 +22,8 @@ public class AgentHistoryImpl implements AgentHistory {
 
     @Override
     public void addEvent(Event event) {
+        event.setAgentName(agentName);
+        System.out.println(event);
         this.history.add(event);
     }
 

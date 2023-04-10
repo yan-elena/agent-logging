@@ -34,7 +34,6 @@ public class SelectPlanEvent extends AbstractEvent {
 
     public void setSelected(Option selected) {
         this.selected = selected;
-        System.out.println(this); // todo canc
     }
 
     @Override
@@ -56,6 +55,7 @@ public class SelectPlanEvent extends AbstractEvent {
         if (plan.getContext() != null) {
             out.append(plan.getContext());
         }
+        //todo
 //        if (!plan.getBody().isEmptyBody()) {
 //            out.append(" <- ").append(plan.getBody());
 //        }

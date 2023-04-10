@@ -4,6 +4,7 @@ abstract class AbstractEvent implements Event {
 
     private final long timestamp;
     private final int reasoningCycleNumber;
+    private String agentName;
 
     public AbstractEvent(long timestamp, int reasoningCycleNum) {
         this.timestamp = timestamp;
@@ -25,9 +26,20 @@ abstract class AbstractEvent implements Event {
     }
 
     @Override
+    public String getAgentName() {
+        return agentName;
+    }
+
+    @Override
+    public void setAgentName(String agentName) {
+        this.agentName = agentName;
+    }
+
+    @Override
     public String toString() {
-        return "Cycle " + reasoningCycleNumber +
-                " - Timestamp " + timestamp +
+        return "[" + agentName + "]" +
+                " Cycle " + reasoningCycleNumber +
+                " Timestamp " + timestamp +
                 ": " + eventToString();
     }
 

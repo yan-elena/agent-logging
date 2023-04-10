@@ -28,7 +28,7 @@ public class LoggerImpl implements Logger {
     @Override
     public synchronized void insertEvent(String agentName, Event event) {
         if (!history.containsKey(agentName)) {
-            history.put(agentName, new AgentHistoryImpl());
+            history.put(agentName, new AgentHistoryImpl(agentName));
         }
         history.get(agentName).addEvent(event);
     }
