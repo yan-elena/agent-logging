@@ -48,12 +48,12 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalStarted(Event goal) {
-        addGoalEvent(goal.getTrigger(), "started");
+        addGoalEvent(goal.getTrigger(), GoalStates.pending, null);
     }
 
     @Override
     public void goalFinished(Trigger goal, GoalStates result) {
-        addGoalEvent(goal, "finished");
+        addGoalEvent(goal, GoalStates.finished, null);
         if (goal.getLiteral().getFunctor().equals("g1")) { //todo
             logger.saveLogInFile("log/log.txt");
         }
@@ -61,26 +61,26 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalSuspended(Trigger goal, Term reason) {
-        addGoalEvent(goal, "suspended");
+        addGoalEvent(goal, GoalStates.suspended, reason);
     }
 
     @Override
     public void goalWaiting(Trigger goal, Term reason) {
-        addGoalEvent(goal, "waiting");
+        addGoalEvent(goal, GoalStates.waiting, reason);
     }
 
     @Override
     public void goalResumed(Trigger goal, Term reason) {
-        addGoalEvent(goal, "resumed");
+        addGoalEvent(goal, GoalStates.resumed, reason);
     }
 
     @Override
     public void goalExecuting(Trigger goal, Term reason) {
-        addGoalEvent(goal, "executing");
+        addGoalEvent(goal, GoalStates.executing, reason);
     }
 
-    private void addGoalEvent(Trigger goal, String event) {
-        this.logger.insertEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, event));
+    private void addGoalEvent(Trigger goal, GoalStates state, Term reason) {
+        this.logger.insertEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, state, reason));
     }
 
     // Circumstance Listener Interface
