@@ -37,7 +37,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                 options);
         final Option selected = super.selectOption(options);
         event.setSelected(selected);
-        logger.insertEvent(agentName, event);
+        logger.publishEvent(agentName, event);
         return selected;
     }
 
@@ -62,7 +62,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     }
 
     private void addGoalEvent(Trigger goal, GoalStates state, Term reason) {
-        this.logger.insertEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, state, reason));
+        this.logger.publishEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, state, reason));
     }
 
     // Circumstance Listener Interface
@@ -83,7 +83,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     }
 
     private void addIntentionEvent(Intention intention, String event, Term reason) {
-        this.logger.insertEvent(agentName, new IntentionEvent(ts.getAgArch().getCycleNumber(), intention, event, reason));
+        this.logger.publishEvent(agentName, new IntentionEvent(ts.getAgArch().getCycleNumber(), intention, event, reason));
     }
 
     void printLog(String m) {
