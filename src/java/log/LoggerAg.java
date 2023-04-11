@@ -57,21 +57,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     }
 
     @Override
-    public void goalSuspended(Trigger goal, Term reason) {
-        addGoalEvent(goal, GoalStates.suspended, reason);
-    }
-
-    @Override
-    public void goalWaiting(Trigger goal, Term reason) {
-        addGoalEvent(goal, GoalStates.waiting, reason);
-    }
-
-    @Override
-    public void goalResumed(Trigger goal, Term reason) {
-        addGoalEvent(goal, GoalStates.resumed, reason);
-    }
-
-    @Override
     public void goalExecuting(Trigger goal, Term reason) {
         addGoalEvent(goal, GoalStates.executing, reason);
     }
@@ -90,26 +75,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void intentionAdded(Intention i) {
         addIntentionEvent(i, "added", null);
-    }
-
-    @Override
-    public void intentionDropped(Intention i) {
-        addIntentionEvent(i, "dropped", null);
-    }
-
-    @Override
-    public void intentionSuspended(Trigger t, Intention i, Term reason) {
-        addIntentionEvent(i, "suspended", reason);
-    }
-
-    @Override
-    public void intentionWaiting(Intention i, Term reason) {
-        addIntentionEvent(i, "waiting", reason);
-    }
-
-    @Override
-    public void intentionResumed(Intention i, Term reason) {
-        addIntentionEvent(i, "resumed", reason);
     }
 
     @Override
