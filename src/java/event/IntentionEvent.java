@@ -20,7 +20,7 @@ public class IntentionEvent extends AbstractEvent {
 
     @Override
     public String eventToString() {
-        return "Intention "  + intention + " " + event;
+        return event + " "  + intention;
     }
 
     public Intention getIntention() {
