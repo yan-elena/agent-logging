@@ -9,6 +9,7 @@ import java.util.List;
 
 public class SelectPlanEvent extends AbstractEvent {
 
+    private static final long LIMIT_OPTIONS = 5;
     private final Trigger trigger;
 
     private final List<Option> options;
@@ -40,26 +41,30 @@ public class SelectPlanEvent extends AbstractEvent {
     public String eventToString() {
         StringBuilder out = new StringBuilder();
         if (options.size() > 1) {
-            out.append("Plan options for ").append(trigger.getLiteral().getFunctor()).append(" are: ");
-            options.forEach(op -> out.append(planToString(op.getPlan())).append(", "));
+            out.append("Plan options for ").append(trigger.getLiteral().getFunctor()).append(" are: \n");
+            options.stream().limit(LIMIT_OPTIONS).forEach(op ->
+                    out.append("\t").append(planToString(op.getPlan(), false)).append("\n"));
+            if (options.size() > LIMIT_OPTIONS) {
+                out.append("...");
+            }
         }
         if (selected != null) {
-            out.append("Selected plan: ").append(planToString(selected.getPlan()));
+            out.append("The plan selected for ").append(trigger.getLiteral().getFunctor()).append(" is ")
+                    .append(planToString(selected.getPlan(), true));
         }
         return out.toString();
     }
 
-    private String planToString(Plan plan) {
+    private String planToString(Plan plan, boolean withBody) {
         StringBuilder out = new StringBuilder();
         out.append(plan.getTrigger());
         if (plan.getContext() != null) {
             out.append(plan.getContext());
         }
-        //todo
-//        if (!plan.getBody().isEmptyBody()) {
-//            out.append(" <- ").append(plan.getBody());
-//        }
-//        out.append(".");
+        if (withBody && !plan.getBody().isEmptyBody()) {
+            out.append(" <- ").append(plan.getBody());
+        }
+        out.append(".");
         return out.toString();
     }
 }
