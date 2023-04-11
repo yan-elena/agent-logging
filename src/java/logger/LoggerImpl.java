@@ -1,7 +1,7 @@
 package logger;
 
-import agentHistory.EventHistory;
-import agentHistory.EventHistoryImpl;
+import eventHistory.EventHistory;
+import eventHistory.EventHistoryImpl;
 import event.Event;
 
 import java.io.FileNotFoundException;

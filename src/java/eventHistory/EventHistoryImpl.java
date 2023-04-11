@@ -1,4 +1,4 @@
-package agentHistory;
+package eventHistory;
 
 import event.Event;
 
