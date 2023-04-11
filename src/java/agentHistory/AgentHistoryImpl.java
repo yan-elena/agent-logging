@@ -8,15 +8,21 @@ import java.util.List;
 public class AgentHistoryImpl implements AgentHistory {
 
     private final String agentName;
-    private final List<Event> history;
+//    private final List<Event> history;
+    private final List<String> history;
 
     public AgentHistoryImpl(String agentName) {
         this.agentName = agentName;
         this.history = new LinkedList<>();
     }
 
+//    @Override
+//    public List<Event> getHistory() {
+//        return this.history;
+//    }
+
     @Override
-    public List<Event> getHistory() {
+    public List<String> getHistory() {
         return this.history;
     }
 
@@ -24,11 +30,13 @@ public class AgentHistoryImpl implements AgentHistory {
     public void addEvent(Event event) {
         event.setAgentName(agentName);
         System.out.println(event);
-        this.history.add(event);
+//        this.history.add(event);
+        this.history.add(event.toString());
     }
 
     @Override
     public String toString() {
-        return String.join("\n", history.stream().map(Event::toString).toList());
+//        return String.join("\n", history.stream().map(Event::toString).toList());
+        return String.join("\n", history);
     }
 }
