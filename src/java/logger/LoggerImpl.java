@@ -1,7 +1,7 @@
 package logger;
 
-import agentHistory.AgentHistory;
-import agentHistory.AgentHistoryImpl;
+import agentHistory.EventHistory;
+import agentHistory.EventHistoryImpl;
 import event.Event;
 
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class LoggerImpl implements Logger {
 
     private static Logger logger;
-    private final Map<String, AgentHistory> history;
+    private final Map<String, EventHistory> history;
 
     private LoggerImpl() {
         history = new HashMap<>();
@@ -28,7 +28,7 @@ public class LoggerImpl implements Logger {
     @Override
     public synchronized void insertEvent(String agentName, Event event) {
         if (!history.containsKey(agentName)) {
-            history.put(agentName, new AgentHistoryImpl(agentName));
+            history.put(agentName, new EventHistoryImpl(agentName));
         }
         history.get(agentName).addEvent(event);
     }

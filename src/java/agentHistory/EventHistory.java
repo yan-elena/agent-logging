@@ -4,7 +4,7 @@ import event.Event;
 
 import java.util.List;
 
-public interface AgentHistory {
+public interface EventHistory {
 
 //    List<Event> getHistory();
     List<String> getHistory();

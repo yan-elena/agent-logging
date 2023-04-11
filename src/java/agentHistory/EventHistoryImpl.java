@@ -5,13 +5,13 @@ import event.Event;
 import java.util.LinkedList;
 import java.util.List;
 
-public class AgentHistoryImpl implements AgentHistory {
+public class EventHistoryImpl implements EventHistory {
 
     private final String agentName;
 //    private final List<Event> history;
     private final List<String> history;
 
-    public AgentHistoryImpl(String agentName) {
+    public EventHistoryImpl(String agentName) {
         this.agentName = agentName;
         this.history = new LinkedList<>();
     }
