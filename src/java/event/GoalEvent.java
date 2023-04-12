@@ -1,6 +1,5 @@
 package event;
 
-import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Trigger;
 
 /**
@@ -17,10 +16,10 @@ public class GoalEvent extends AbstractEvent {
      * @param goal the trigger of the goal
      * @param goalStates the state of the goal
      */
-    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates goalStates) {
+    public GoalEvent(int reasoningCycleNum, Trigger goal, String goalStates) {
         super(reasoningCycleNum);
         this.goalFunctor = goal.getLiteral().getFunctor();
-        this.goalStates = goalStates.name();
+        this.goalStates = goalStates;
     }
 
     @Override

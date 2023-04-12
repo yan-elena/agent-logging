@@ -49,18 +49,18 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalStarted(Event goal) {
-        addGoalEvent(goal.getTrigger(), GoalStates.pending);
+        addGoalEvent(goal.getTrigger(), "started");
     }
 
     @Override
     public void goalFinished(Trigger goal, GoalStates result) {
-        addGoalEvent(goal, GoalStates.finished);
+        addGoalEvent(goal, "finished");
         if (goal.getLiteral().getFunctor().equals("g1")) { //todo
             logger.saveLogInFile("log/log.txt");
         }
     }
 
-    private void addGoalEvent(Trigger goal, GoalStates state) {
+    private void addGoalEvent(Trigger goal, String state) {
         this.logger.publishEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, state));
     }
 
