@@ -7,7 +7,7 @@ import jason.asSemantics.ActionExec;
  */
 public class ActionEvent extends AbstractEvent {
 
-    private final String actionFunctor;
+    private final String action;
 
     /**
      * Creates an instance of  {@link ActionEvent} with the specified reasoning cycle number and the action
@@ -16,19 +16,19 @@ public class ActionEvent extends AbstractEvent {
      */
     public ActionEvent(int reasoningCycleNum, ActionExec action) {
         super(reasoningCycleNum);
-        this.actionFunctor = action.getActionTerm().getFunctor();
+        this.action = action.getActionTerm().toString();
     }
 
     /**
-     * Returns the functor of the executed action.
-     * @return the action functor
+     * Returns the executed action.
+     * @return the action
      */
-    public String getActionFunctor() {
-        return actionFunctor;
+    public String getAction() {
+        return action;
     }
 
     @Override
     public String eventToString() {
-        return "Execute action " + actionFunctor;
+        return "Execute action " + action;
     }
 }
