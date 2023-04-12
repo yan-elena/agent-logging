@@ -5,12 +5,19 @@ import event.Event;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Implementation of {@link EventHistory} interface.
+ */
 public class EventHistoryImpl implements EventHistory {
 
     private final String agentName;
 //    private final List<Event> history;
     private final List<String> history;
 
+    /**
+     * Creates an instance of {@link EventHistory}.
+     * @param agentName the name of the associated agent
+     */
     public EventHistoryImpl(String agentName) {
         this.agentName = agentName;
         this.history = new LinkedList<>();
