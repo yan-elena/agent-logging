@@ -19,7 +19,7 @@ public class GoalEvent extends AbstractEvent {
      */
     public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates goalStates) {
         super(reasoningCycleNum);
-        this.goalFunctor = goal.getFunctor();
+        this.goalFunctor = goal.getLiteral().getFunctor();
         this.goalStates = goalStates.name();
     }
 

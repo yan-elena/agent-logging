@@ -1,8 +1,6 @@
 package event;
 
 import jason.asSemantics.ActionExec;
-import jason.asSemantics.Intention;
-import jason.asSyntax.*;
 
 /**
  * An event that represents an action.

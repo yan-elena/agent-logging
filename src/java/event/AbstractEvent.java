@@ -49,10 +49,10 @@ abstract class AbstractEvent implements Event {
 
     @Override
     public String toString() {
-        return "[" + agentName + "]" +
-                " Cycle " + reasoningCycleNumber +
+        return "[Cycle " + reasoningCycleNumber +
                 " Timestamp " + timestamp +
-                ": " + eventToString();
+                "] " +
+                eventToString();
     }
 
     /**

@@ -26,7 +26,7 @@ public class SelectPlanEvent extends AbstractEvent {
     public SelectPlanEvent(int reasoningCycleNum, Trigger trigger, List<Option> options) {
         super(reasoningCycleNum);
         this.event = trigger.getLiteral().getFunctor();
-        this.planOptions = options.stream().limit(LIMIT_OPTIONS).map(p -> planToString(p.getPlan(), false)).toList();
+        this.planOptions = options.stream().limit(LIMIT_OPTIONS).map(this::optionToString).toList();
         if (planOptions.size() > LIMIT_OPTIONS) {
             planOptions.add("...");
         }
@@ -53,7 +53,7 @@ public class SelectPlanEvent extends AbstractEvent {
      * @param selected the selected option
      */
     public void setSelected(Option selected) {
-        this.selectedPlan = planToString(selected.getPlan(), true);
+        this.selectedPlan = optionToString(selected);
     }
 
     @Override
@@ -69,13 +69,14 @@ public class SelectPlanEvent extends AbstractEvent {
         return out.toString();
     }
 
-    private String planToString(Plan plan, boolean withBody) {
+    private String optionToString(Option option) {
         StringBuilder out = new StringBuilder();
+        Plan plan = option.getPlan();
         out.append(plan.getTrigger());
         if (plan.getContext() != null) {
             out.append(plan.getContext());
         }
-        if (withBody && !plan.getBody().isEmptyBody()) {
+        if (!plan.getBody().isEmptyBody()) {
             out.append(" <- ").append(plan.getBody());
         }
         out.append(".");

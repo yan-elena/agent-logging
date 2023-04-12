@@ -3,10 +3,8 @@ package log;
 import java.util.List;
 
 import event.GoalEvent;
-import event.IntentionEvent;
 import event.SelectPlanEvent;
 import jason.asSemantics.*;
-import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 import logger.Logger;
 import logger.LoggerImpl;
@@ -56,11 +54,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         }
     }
 
-    @Override
-    public void goalExecuting(Trigger goal, Term reason) {
-        addGoalEvent(goal, GoalStates.executing);
-    }
-
     private void addGoalEvent(Trigger goal, GoalStates state) {
         this.logger.publishEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, state));
     }
@@ -70,24 +63,5 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void eventAdded(Event e) {
 //        printLog("new event "+e.getTrigger());
-    }
-
-    @Override
-    public void intentionAdded(Intention i) {
-        addIntentionEvent(i, "added", null);
-    }
-
-    @Override
-    public void intentionExecuting(Intention i, Term reason) {
-        addIntentionEvent(i, "executing", reason);
-    }
-
-    private void addIntentionEvent(Intention intention, String event, Term reason) {
-        this.logger.publishEvent(agentName, new IntentionEvent(ts.getAgArch().getCycleNumber(), intention, event, reason));
-    }
-
-    void printLog(String m) {
-        if (!m.contains("+!jcm::")) // filter some msgs
-            System.out.println("log: "+m);
     }
 }
