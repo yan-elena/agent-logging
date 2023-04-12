@@ -1,60 +1,47 @@
 package event;
 
 import jason.asSemantics.GoalListener.GoalStates;
-import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
-
-import java.util.Optional;
 
 /**
  * A class that representing an event related to a goal.
  */
 public class GoalEvent extends AbstractEvent {
 
-    private final GoalStates goalStates;
-    private final Trigger goal;
-    private final Optional<Term> reason;
+    private final String goalStates;
+    private final String goalFunctor;
 
     /**
      * Creates an instance of {@link GoalEvent}.
      * @param reasoningCycleNum the reasoning cycle number
      * @param goal the trigger of the goal
      * @param goalStates the state of the goal
-     * @param reason an optional reason for the event
      */
-    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates goalStates, Term reason) {
+    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates goalStates) {
         super(reasoningCycleNum);
-        this.goal = goal;
-        this.goalStates = goalStates;
-        this.reason = Optional.ofNullable(reason);
+        this.goalFunctor = goal.getFunctor();
+        this.goalStates = goalStates.name();
     }
 
     @Override
     public String eventToString() {
-        return "Goal " + goal.getLiteral().getFunctor() + " " + goalStates.name();
+        return "Goal " + goalFunctor + " " + goalStates;
     }
 
     /**
      * Returns the state of the goal associated with the event.
      * @return the state of the goal
      */
-    public GoalStates getGoalStates() {
+    public String getGoalStates() {
         return goalStates;
     }
 
     /**
-     * Returns the trigger of the goal associated with the event.
-     * @return the trigger of the goal
+     * Returns the functor of the goal associated with the event.
+     * @return the functor of the goal
      */
-    public Trigger getGoal() {
-        return goal;
+    public String getGoalFunctor() {
+        return goalFunctor;
     }
 
-    /**
-     * Returns an optional reason for the event.
-     * @return an optional reason
-     */
-    public Optional<Term> getReason() {
-        return reason;
-    }
 }
