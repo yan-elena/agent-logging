@@ -4,7 +4,6 @@ import jason.asSemantics.Option;
 import jason.asSyntax.Plan;
 import jason.asSyntax.Trigger;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -13,10 +12,10 @@ import java.util.List;
 public class SelectPlanEvent extends AbstractEvent {
 
     private static final long LIMIT_OPTIONS = 5;
-    private final Trigger trigger;
 
-    private final List<Option> options;
-    private Option selected;
+    private final String event;
+    private final List<String> planOptions;
+    private String selectedPlan;
 
     /**
      * Creates an instance of  {@link SelectPlanEvent}.
@@ -26,32 +25,27 @@ public class SelectPlanEvent extends AbstractEvent {
      */
     public SelectPlanEvent(int reasoningCycleNum, Trigger trigger, List<Option> options) {
         super(reasoningCycleNum);
-        this.trigger = trigger;
-        this.options = new LinkedList<>(options);
+        this.event = trigger.getLiteral().getFunctor();
+        this.planOptions = options.stream().limit(LIMIT_OPTIONS).map(p -> planToString(p.getPlan(), false)).toList();
+        if (planOptions.size() > LIMIT_OPTIONS) {
+            planOptions.add("...");
+        }
     }
 
     /**
-     * Returns the trigger of the event.
-     * @return the trigger
+     * Returns a list of plan options to select from.
+     * @return list of plan options
      */
-    public Trigger getTrigger() {
-        return trigger;
-    }
-
-    /**
-     * Returns a list of options to select from.
-     * @return
-     */
-    public List<Option> getOptions() {
-        return options;
+    public List<String> getPlanOptions() {
+        return planOptions;
     }
 
     /**
      * Returns the option that was selected.
      * @return the selected option
      */
-    public Option getSelected() {
-        return selected;
+    public String getSelected() {
+        return selectedPlan;
     }
 
     /**
@@ -59,23 +53,18 @@ public class SelectPlanEvent extends AbstractEvent {
      * @param selected the selected option
      */
     public void setSelected(Option selected) {
-        this.selected = selected;
+        this.selectedPlan = planToString(selected.getPlan(), true);
     }
 
     @Override
     public String eventToString() {
         StringBuilder out = new StringBuilder();
-        if (options.size() > 1) {
-            out.append("Plan options for ").append(trigger.getLiteral().getFunctor()).append(" are: \n");
-            options.stream().limit(LIMIT_OPTIONS).forEach(op ->
-                    out.append("\t").append(planToString(op.getPlan(), false)).append("\n"));
-            if (options.size() > LIMIT_OPTIONS) {
-                out.append("...");
-            }
+        if (planOptions.size() > 1) {
+            out.append("Plan options for ").append(event).append(" are: \n");
+            planOptions.forEach(op -> out.append("\t").append(op).append("\n"));
         }
-        if (selected != null) {
-            out.append("The plan selected for ").append(trigger.getLiteral().getFunctor()).append(" is ")
-                    .append(planToString(selected.getPlan(), true));
+        if (selectedPlan != null) {
+            out.append("The plan selected for ").append(event).append(" is ").append(selectedPlan);
         }
         return out.toString();
     }
