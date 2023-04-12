@@ -9,9 +9,7 @@ import jason.asSyntax.*;
  */
 public class ActionEvent extends AbstractEvent {
 
-    private final ActionExec action;
-    private final Structure actionTerm;
-    private final Intention intention;
+    private final String actionFunctor;
 
     /**
      * Creates an instance of  {@link ActionEvent} with the specified reasoning cycle number and the action
@@ -20,37 +18,19 @@ public class ActionEvent extends AbstractEvent {
      */
     public ActionEvent(int reasoningCycleNum, ActionExec action) {
         super(reasoningCycleNum);
-        this.action = action;
-        this.actionTerm = action.getActionTerm();
-        this.intention = action.getIntention();
+        this.actionFunctor = action.getActionTerm().getFunctor();
     }
 
     /**
-     * Returns the executed action.
-     * @return the executed action
+     * Returns the functor of the executed action.
+     * @return the action functor
      */
-    public ActionExec getAction() {
-        return action;
-    }
-
-    /**
-     * Returns the term representing the executed action.
-     * @return the term of the executed action
-     */
-    public Structure getActionTerm() {
-        return actionTerm;
-    }
-
-    /**
-     * Returns the intention associated with the action.
-     * @return the intention of the action
-     */
-    public Intention getIntention() {
-        return intention;
+    public String getActionFunctor() {
+        return actionFunctor;
     }
 
     @Override
     public String eventToString() {
-        return "Execute action " + actionTerm.getFunctor();
+        return "Execute action " + actionFunctor;
     }
 }
