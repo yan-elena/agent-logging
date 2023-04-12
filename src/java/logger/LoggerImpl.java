@@ -9,6 +9,12 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Implementation of the {@link Logger} interface.
+ *
+ * This class keeps track of the history of events for each agent. It uses a singleton pattern to ensure that only one
+ * instance is created.
+ */
 public class LoggerImpl implements Logger {
 
     private static Logger logger;
@@ -18,6 +24,10 @@ public class LoggerImpl implements Logger {
         history = new HashMap<>();
     }
 
+    /**
+     * Returns the single instance of this logger. If the instance has not yet been created, it will be created.
+     * @return the instance of this logger
+     */
     public static Logger getLogger() {
         if (logger == null) {
             logger = new LoggerImpl();

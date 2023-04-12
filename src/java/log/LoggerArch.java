@@ -6,10 +6,16 @@ import jason.asSemantics.*;
 import logger.Logger;
 import logger.LoggerImpl;
 
+/**
+ * This class provides an agent architecture for implementing the logging functionality in an agent.
+ */
 public class LoggerArch extends AgArch {
 
     private final Logger logger;
 
+    /**
+     * Creates a new instance of {@link LoggerArch} and initialized the logger.
+     */
     public LoggerArch() {
         logger = LoggerImpl.getLogger();
     }

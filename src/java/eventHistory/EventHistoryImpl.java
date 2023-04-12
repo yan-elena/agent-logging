@@ -6,7 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Implementation of {@link EventHistory} interface.
+ * Implementation of the {@link EventHistory} interface.
+ *
+ * This class is responsible for maintaining the history of events for a single agent.
  */
 public class EventHistoryImpl implements EventHistory {
 
@@ -15,7 +17,7 @@ public class EventHistoryImpl implements EventHistory {
     private final List<String> history;
 
     /**
-     * Creates an instance of {@link EventHistory}.
+     * Creates an instance of {@link EventHistory} for the specified agent.
      * @param agentName the name of the associated agent
      */
     public EventHistoryImpl(String agentName) {
