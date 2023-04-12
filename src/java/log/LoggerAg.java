@@ -9,11 +9,17 @@ import jason.asSyntax.Trigger;
 import logger.Logger;
 import logger.LoggerImpl;
 
+/**
+ * This class logs events on goals and on the circumstance.
+ */
 public class LoggerAg extends Agent implements GoalListener, CircumstanceListener {
 
     private final Logger logger;
     private String agentName;
 
+    /**
+     * Creates a new instance of {@link LoggerAg} and initialized the logger.
+     */
     public LoggerAg() {
         logger = LoggerImpl.getLogger();
     }

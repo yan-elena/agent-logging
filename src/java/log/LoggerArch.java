@@ -7,7 +7,7 @@ import logger.Logger;
 import logger.LoggerImpl;
 
 /**
- * This class provides an agent architecture for implementing the logging functionality in an agent.
+ * This class extends the agent architecture for implementing the logging functionality in an agent.
  */
 public class LoggerArch extends AgArch {
 
