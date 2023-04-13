@@ -4,9 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import data.serializer.*;
 import event.ActionEvent;
-import event.GoalEvent;
 import event.SelectPlanEvent;
-import eventHistory.EventHistory;
+import event.goalEvent.GoalAddedEvent;
 import eventHistory.EventHistoryImpl;
 import logger.LoggerImpl;
 
@@ -27,7 +26,7 @@ public class GsonUtils {
 //                .registerTypeAdapter(EventHistory.class, new EventHistoryDeserializer())
                 .registerTypeAdapter(ActionEvent.class, new ActionEventSerializer())
 //                .registerTypeAdapter(ActionEvent.class, new ActionEventDeserializer())
-                .registerTypeAdapter(GoalEvent.class, new GoalEventSerializer())
+                .registerTypeAdapter(GoalAddedEvent.class, new GoalEventSerializer())
 //                .registerTypeAdapter(GoalEvent.class, new GoalEventDeserializer())
                 .registerTypeAdapter(SelectPlanEvent.class, new SelectPlanEventSerializer())
 //                .registerTypeAdapter(SelectPlanEvent.class, new SelectPlanEventDeserializer())

@@ -3,7 +3,7 @@ package event;
 /**
  * An abstract base class for all events, containing common attributes and methods for registering an event.
  */
-abstract class AbstractEvent implements Event {
+public abstract class AbstractEvent implements Event {
 
     private final long timestamp;
     private final int reasoningCycleNumber;

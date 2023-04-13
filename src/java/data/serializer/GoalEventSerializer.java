@@ -4,7 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import event.GoalEvent;
+import event.goalEvent.GoalEvent;
 
 import java.lang.reflect.Type;
 
@@ -16,8 +16,8 @@ public class GoalEventSerializer implements JsonSerializer<GoalEvent> {
         object.addProperty("agentName", src.getAgentName());
         object.addProperty("cycle", src.getReasoningCycleNum());
         object.addProperty("timestamp", src.getTimestamp());
-        object.addProperty("action", src.getGoalFunctor());
-        object.addProperty("state", src.getGoalStates());
+        object.addProperty("type", src.getClass().getSimpleName());
+        object.add("goalInfo", context.serialize(src.getGoalInfo()));
         object.addProperty("event", src.eventToString());
         return object;
     }

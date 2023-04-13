@@ -38,7 +38,6 @@ public class EventHistoryImpl implements EventHistory {
     @Override
     public void addEvent(Event event) {
         event.setAgentName(agentName);
-        System.out.println(event);
         this.history.add(event);
 //        this.history.add(event.toString());
     }

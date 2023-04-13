@@ -2,7 +2,8 @@ package log;
 
 import java.util.List;
 
-import event.GoalEvent;
+import event.goalEvent.GoalAddedEvent;
+import event.goalEvent.GoalEvent;
 import event.SelectPlanEvent;
 import jason.asSemantics.*;
 import jason.asSyntax.Trigger;
@@ -49,16 +50,13 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalStarted(Event goal) {
-        addGoalEvent(goal.getTrigger(), "started");
+        System.out.println("goalStarted: \n" + goal.getTrigger().getSrcInfo());
+        this.logger.publishEvent(agentName, new GoalAddedEvent(ts.getAgArch().getCycleNumber(), goal.getTrigger()));
     }
 
     @Override
     public void goalFinished(Trigger goal, GoalStates result) {
-        addGoalEvent(goal, "finished");
-    }
-
-    private void addGoalEvent(Trigger goal, String state) {
-        this.logger.publishEvent(agentName, new GoalEvent(ts.getAgArch().getCycleNumber(), goal, state));
+//        this.logger.publishEvent(agentName, new GoalAddedEvent(ts.getAgArch().getCycleNumber(), goal);
     }
 
     // Circumstance Listener Interface
