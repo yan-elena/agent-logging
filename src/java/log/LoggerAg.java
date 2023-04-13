@@ -57,6 +57,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         addGoalEvent(goal, "finished");
         if (goal.getLiteral().getFunctor().equals("g1")) { //todo
             logger.saveLogInFile("log/log.txt");
+            logger.saveLogAsJson("log/log.json");
         }
     }
 

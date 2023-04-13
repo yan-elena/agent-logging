@@ -1,5 +1,7 @@
 package logger;
 
+import com.google.gson.Gson;
+import data.GsonUtils;
 import eventHistory.EventHistory;
 import eventHistory.EventHistoryImpl;
 import event.Event;
@@ -19,8 +21,10 @@ public class LoggerImpl implements Logger {
 
     private static Logger logger;
     private final Map<String, EventHistory> history;
+    private final Gson gson;
 
     private LoggerImpl() {
+        gson = GsonUtils.createGson();
         history = new HashMap<>();
     }
 
@@ -48,12 +52,28 @@ public class LoggerImpl implements Logger {
     }
 
     @Override
+    public Map<String, EventHistory> getHistory() {
+        return history;
+    }
+
+    @Override
     public synchronized void saveLogInFile(String fileName) {
         StringBuilder text = new StringBuilder();
         history.forEach((k,v) -> text.append("[Log for ").append(k).append(" agent]\n").append(v).append("\n"));
         try {
             PrintWriter out = new PrintWriter(fileName);
             out.println(text);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public synchronized void saveLogAsJson(String fileName) {
+        try {
+            PrintWriter out = new PrintWriter(fileName);
+            out.println(gson.toJson(this));
             out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();

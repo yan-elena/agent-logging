@@ -13,8 +13,8 @@ import java.util.List;
 public class EventHistoryImpl implements EventHistory {
 
     private final String agentName;
-//    private final List<Event> history;
-    private final List<String> history;
+    private final List<Event> history;
+//    private final List<String> history;
 
     /**
      * Creates an instance of {@link EventHistory} for the specified agent.
@@ -25,27 +25,27 @@ public class EventHistoryImpl implements EventHistory {
         this.history = new LinkedList<>();
     }
 
-//    @Override
-//    public List<Event> getHistory() {
-//        return this.history;
-//    }
-
     @Override
-    public List<String> getHistory() {
+    public List<Event> getHistory() {
         return this.history;
     }
+
+//    @Override
+//    public List<String> getHistory() {
+//        return this.history;
+//    }
 
     @Override
     public void addEvent(Event event) {
         event.setAgentName(agentName);
         System.out.println(event);
-//        this.history.add(event);
-        this.history.add(event.toString());
+        this.history.add(event);
+//        this.history.add(event.toString());
     }
 
     @Override
     public String toString() {
-//        return String.join("\n", history.stream().map(Event::toString).toList());
-        return String.join("\n", history);
+        return String.join("\n", history.stream().map(Event::toString).toList());
+//        return String.join("\n", history);
     }
 }
