@@ -42,7 +42,19 @@ public class LoggerArch extends AgArch {
 
     @Override
     public void stop() {
-        logger.saveLogInFile("log/log.txt"); //todo
+        logger.saveLogInFile("log/log.txt");
+        logger.saveLogAsJson("log/log.json");
         super.stop();
+    }
+
+    @Override
+    public void checkMail() {
+        super.checkMail();
+    }
+
+    @Override
+    public void actionExecuted(ActionExec act) {
+        super.actionExecuted(act);
+        System.out.println(act);
     }
 }

@@ -1,6 +1,7 @@
 !g1.
 
-+!g1 : count(X) & X < 3  <- a1; !g2; a3.
++!g1 : count(X) & X < 3  <- a1; !g2; a3; .my_name(N); .kill_agent(N).
++!g1 : count(X) & X < 5  <- a1; !g2; a3.
 +!g1 : count(X) & X >= 3 <- a4; !g3.
 
 +!g2 <- a2; inc.
