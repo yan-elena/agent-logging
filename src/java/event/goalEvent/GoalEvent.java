@@ -31,7 +31,7 @@ public class GoalEvent extends AbstractEvent {
     }
 
     @Override
-    public String eventToString() {
+    public String logEvent() {
         StringBuilder out = new StringBuilder();
         out.append("Goal ").append(this.goal.getGoalFunctor()).append(" ").append(this.goal.getGoalStates());
         if (goal.getReason().isPresent()) {

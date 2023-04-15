@@ -28,7 +28,7 @@ public class ActionEvent extends AbstractEvent {
     }
 
     @Override
-    public String eventToString() {
+    public String logEvent() {
         return "Execute action " + action;
     }
 }

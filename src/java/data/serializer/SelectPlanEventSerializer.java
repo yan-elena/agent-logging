@@ -18,7 +18,7 @@ public class SelectPlanEventSerializer implements JsonSerializer<SelectPlanEvent
         object.addProperty("timestamp", src.getTimestamp());
         object.add("options", context.serialize(src.getPlanOptions()));
         object.addProperty("selected", src.getSelected());
-        object.addProperty("event", src.eventToString());
+        object.addProperty("event", src.logEvent());
         return object;
     }
 }

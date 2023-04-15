@@ -52,12 +52,12 @@ public abstract class AbstractEvent implements Event {
         return "[Cycle " + reasoningCycleNumber +
                 " Timestamp " + timestamp +
                 "] " +
-                eventToString();
+                logEvent();
     }
 
     /**
-     * Abstract method that returns a string representation of the event.
-     * @return the string representation of the event
+     * Abstract method that returns a log message of the event.
+     * @return the log message of the event
      */
-    abstract public String eventToString();
+    abstract public String logEvent();
 }

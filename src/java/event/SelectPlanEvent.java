@@ -57,7 +57,7 @@ public class SelectPlanEvent extends AbstractEvent {
     }
 
     @Override
-    public String eventToString() {
+    public String logEvent() {
         StringBuilder out = new StringBuilder();
         if (planOptions.size() > 1) {
             out.append("Plan options for ").append(event).append(" are: \n");

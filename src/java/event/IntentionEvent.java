@@ -29,7 +29,7 @@ public class IntentionEvent extends AbstractEvent {
     }
 
     @Override
-    public String eventToString() {
+    public String logEvent() {
         return event + " "  + intention;
     }
 

@@ -17,7 +17,7 @@ public class ActionEventSerializer implements JsonSerializer<ActionEvent> {
         object.addProperty("cycle", src.getReasoningCycleNum());
         object.addProperty("timestamp", src.getTimestamp());
         object.addProperty("action", src.getAction());
-        object.addProperty("event", src.eventToString());
+        object.addProperty("event", src.logEvent());
         return object;
     }
 }

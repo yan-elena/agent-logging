@@ -30,7 +30,7 @@ public class GoalFinishedEvent extends GoalEvent{
     }
 
     @Override
-    public String eventToString() {
+    public String logEvent() {
         return "Goal " + this.getGoalInfo().getGoalFunctor() + " finished with status: " + result;
     }
 }

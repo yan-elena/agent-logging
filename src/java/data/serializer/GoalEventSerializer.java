@@ -18,7 +18,7 @@ public class GoalEventSerializer implements JsonSerializer<GoalEvent> {
         object.addProperty("timestamp", src.getTimestamp());
         object.addProperty("type", src.getClass().getSimpleName());
         object.add("goalInfo", context.serialize(src.getGoalInfo()));
-        object.addProperty("event", src.eventToString());
+        object.addProperty("event", src.logEvent());
         return object;
     }
 }
