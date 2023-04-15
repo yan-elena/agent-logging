@@ -9,13 +9,11 @@ import java.util.List;
  */
 public interface EventHistory {
 
-
     /**
-     * Returns a list of strings representing the history of events.
+     * Returns a list of event representing the history of events.
      * @return events history
      */
     List<Event> getHistory();
-//    List<String> getHistory();
 
     /**
      * Adds an event to the history.

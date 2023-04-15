@@ -14,7 +14,6 @@ public class EventHistoryImpl implements EventHistory {
 
     private final String agentName;
     private final List<Event> history;
-//    private final List<String> history;
 
     /**
      * Creates an instance of {@link EventHistory} for the specified agent.
@@ -30,21 +29,14 @@ public class EventHistoryImpl implements EventHistory {
         return this.history;
     }
 
-//    @Override
-//    public List<String> getHistory() {
-//        return this.history;
-//    }
-
     @Override
     public void addEvent(Event event) {
         event.setAgentName(agentName);
         this.history.add(event);
-//        this.history.add(event.toString());
     }
 
     @Override
     public String toString() {
         return String.join("\n", history.stream().map(Event::toString).toList());
-//        return String.join("\n", history);
     }
 }
