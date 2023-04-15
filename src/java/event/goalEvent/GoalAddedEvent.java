@@ -20,6 +20,6 @@ public class GoalAddedEvent extends GoalEvent {
 
     @Override
     public String eventToString() {
-        return "New goal " + this.goal.getGoalFunctor() + " added";
+        return "New goal " + this.getGoalInfo().getGoalFunctor() + " added";
     }
 }

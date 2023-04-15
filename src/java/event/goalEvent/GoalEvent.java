@@ -10,7 +10,7 @@ import jason.asSyntax.Trigger;
  */
 public abstract class GoalEvent extends AbstractEvent {
 
-    protected final GoalInfo goal;
+    private final GoalInfo goal;
 
     /**
      * Creates an instance of {@link GoalEvent}.
@@ -30,4 +30,13 @@ public abstract class GoalEvent extends AbstractEvent {
         return goal;
     }
 
+    @Override
+    public String eventToString() {
+        StringBuilder out = new StringBuilder();
+        out.append("Goal ").append(this.goal.getGoalFunctor()).append(" ").append(this.goal.getGoalStates());
+        if (goal.getReason().isPresent()) {
+            out.append(" with reason: ").append(goal.getReason().get());
+        }
+        return out.toString();
+    }
 }

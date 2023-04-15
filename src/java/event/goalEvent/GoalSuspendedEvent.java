@@ -9,8 +9,6 @@ import jason.asSyntax.Trigger;
  */
 public class GoalSuspendedEvent extends GoalEvent {
 
-    private final String reason;
-
     /**
      * Creates an instance of {@link GoalSuspendedEvent}.
      * @param reasoningCycleNum the reasoning cycle number
@@ -19,11 +17,6 @@ public class GoalSuspendedEvent extends GoalEvent {
      */
     public GoalSuspendedEvent(int reasoningCycleNum, Trigger goal, Term reason) {
         super(reasoningCycleNum, goal, GoalStates.suspended);
-        this.reason = reason.toString();
-    }
-
-    @Override
-    public String eventToString() {
-        return "Goal " + this.goal.getGoalFunctor() + " " + this.goal.getGoalStates() + " with reason: " + reason;
+        this.getGoalInfo().setReason(reason);
     }
 }

@@ -23,6 +23,6 @@ public class GoalFinishedEvent extends GoalEvent{
 
     @Override
     public String eventToString() {
-        return "Goal " + this.goal.getGoalFunctor() + " finished with status: " + result;
+        return "Goal " + this.getGoalInfo().getGoalFunctor() + " finished with status: " + result;
     }
 }
