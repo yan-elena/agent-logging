@@ -12,7 +12,7 @@ public class GoalAddedEvent extends GoalEvent {
      * Creates an instance of {@link GoalAddedEvent}.
      *
      * @param reasoningCycleNum the reasoning cycle number
-     * @param goal              the trigger of the goal
+     * @param goal the trigger of the goal
      */
     public GoalAddedEvent(int reasoningCycleNum, Trigger goal) {
         super(reasoningCycleNum, goal, GoalStates.pending);
@@ -20,6 +20,6 @@ public class GoalAddedEvent extends GoalEvent {
 
     @Override
     public String eventToString() {
-        return "New " + this.goal.getGoalFunctor() + " added";
+        return "New goal " + this.goal.getGoalFunctor() + " added";
     }
 }

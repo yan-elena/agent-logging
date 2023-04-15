@@ -2,11 +2,10 @@ package log;
 
 import java.util.List;
 
-import event.goalEvent.GoalAddedEvent;
-import event.goalEvent.GoalEvent;
+import event.goalEvent.*;
 import event.SelectPlanEvent;
-import event.goalEvent.GoalFinishedEvent;
 import jason.asSemantics.*;
+import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 import logger.Logger;
 import logger.LoggerImpl;
@@ -59,10 +58,35 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         this.logger.publishEvent(agentName, new GoalFinishedEvent(ts.getAgArch().getCycleNumber(), goal, result));
     }
 
+    @Override
+    public void goalFailed(Trigger goal, Term reason) {
+        this.logger.publishEvent(agentName, new GoalFailedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+    }
+
+    @Override
+    public void goalSuspended(Trigger goal, Term reason) {
+        this.logger.publishEvent(agentName, new GoalSuspendedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+    }
+
+    @Override
+    public void goalWaiting(Trigger goal, Term reason) {
+        this.logger.publishEvent(agentName, new GoalWaitingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+    }
+
+    @Override
+    public void goalResumed(Trigger goal, Term reason) {
+        this.logger.publishEvent(agentName, new GoalResumedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+    }
+
+    @Override
+    public void goalExecuting(Trigger goal, Term reason) {
+        this.logger.publishEvent(agentName, new GoalExecutingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+    }
+
     // Circumstance Listener Interface
 
     @Override
     public void eventAdded(Event e) {
-        System.out.println("new event "+e.getTrigger());
+//        System.out.println("new event "+e.getTrigger());
     }
 }
