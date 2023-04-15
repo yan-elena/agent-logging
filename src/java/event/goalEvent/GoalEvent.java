@@ -1,14 +1,14 @@
 package event.goalEvent;
 
 import event.AbstractEvent;
-import eventInfo.GoalInfo;
+import event.eventInfo.GoalInfo;
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Trigger;
 
 /**
  * A class that representing an event related to a goal.
  */
-public abstract class GoalEvent extends AbstractEvent {
+public class GoalEvent extends AbstractEvent {
 
     private final GoalInfo goal;
 

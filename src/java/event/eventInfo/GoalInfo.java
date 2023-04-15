@@ -1,4 +1,4 @@
-package eventInfo;
+package event.eventInfo;
 
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Term;

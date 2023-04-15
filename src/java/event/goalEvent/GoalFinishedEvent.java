@@ -12,13 +12,21 @@ public class GoalFinishedEvent extends GoalEvent{
 
     /**
      * Creates an instance of {@link GoalFinishedEvent}.
-     *  @param reasoningCycleNum the reasoning cycle number
+     * @param reasoningCycleNum the reasoning cycle number
      * @param goal the trigger of the goal
      * @param result the result of the goal
      */
     public GoalFinishedEvent(int reasoningCycleNum, Trigger goal, GoalStates result) {
         super(reasoningCycleNum, goal, GoalStates.finished);
         this.result = result;
+    }
+
+    /**
+     * Returns the result of the finished goal.
+     * @return goal result
+     */
+    public GoalStates getResult() {
+        return result;
     }
 
     @Override

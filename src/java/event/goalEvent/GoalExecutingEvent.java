@@ -1,11 +1,8 @@
 package event.goalEvent;
 
-import event.Event;
 import jason.asSemantics.GoalListener;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
-
-import java.util.Optional;
 
 /**
  * A specific goal event that represents an executed goal event.
