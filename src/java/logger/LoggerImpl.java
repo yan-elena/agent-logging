@@ -42,13 +42,13 @@ public class LoggerImpl implements Logger {
     @Override
     public synchronized void publishEvent(String agentName, Event event) {
         // filter some event
-        if (!(event.toString().contains("jcm") || event.toString().contains("focus") ||
-                event.toString().contains("/main/w") || event.toString().contains("cobj_2"))) {
+//        if (!(event.toString().contains("jcm") || event.toString().contains("focus") ||
+//                event.toString().contains("/main/w") || event.toString().contains("cobj_2"))) {
             if (!history.containsKey(agentName)) {
                 history.put(agentName, new EventHistoryImpl(agentName));
             }
             history.get(agentName).addEvent(event);
-        }
+//        }
     }
 
     @Override
