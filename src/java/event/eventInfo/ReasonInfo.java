@@ -18,6 +18,15 @@ public class ReasonInfo {
     private final Optional<List<String>> terms;
 
     /**
+     * Creates an empty instance of {@link ReasonInfo}.
+     */
+    public ReasonInfo() {
+        this.reason = Optional.empty();
+        this.functor = Optional.empty();
+        this.terms = Optional.empty();
+    }
+
+    /**
      * Creates an instance of {@link ReasonInfo}.
      * @param reason the reason as a term from which the information is to be extracted
      * @throws ParseException if the reason is not a term

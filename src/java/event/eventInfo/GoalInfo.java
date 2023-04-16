@@ -14,7 +14,7 @@ public class GoalInfo {
 
     private final String goalFunctor;
     private final GoalStates goalStates;
-    private Optional<ReasonInfo> reason;
+    private ReasonInfo reason;
 //    private final String sourceInfo;
 
     /**
@@ -25,7 +25,7 @@ public class GoalInfo {
     public GoalInfo(Trigger goal, GoalStates state) {
         this.goalFunctor = goal.getLiteral().getFunctor();
         this.goalStates = state;
-        this.reason = Optional.empty();
+        this.reason = new ReasonInfo();
 //        this.sourceInfo = goal.getSrcInfo();
     }
 
@@ -38,7 +38,7 @@ public class GoalInfo {
         this.goalFunctor = goal.getLiteral().getFunctor();
         this.goalStates = state;
         try {
-            this.reason = Optional.of(new ReasonInfo(reason));
+            this.reason = new ReasonInfo(reason);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -65,7 +65,7 @@ public class GoalInfo {
      * Returns the reason of a specific goal event.
      * @return the reason of the goal
      */
-    public Optional<ReasonInfo> getReason() {
+    public ReasonInfo getReasonInfo() {
         return reason;
     }
 
@@ -75,7 +75,7 @@ public class GoalInfo {
      */
     public void setReason(Term reason) {
         try {
-            this.reason = Optional.of(new ReasonInfo(reason));
+            this.reason = new ReasonInfo(reason);
         } catch (ParseException e) {
             e.printStackTrace();
         }

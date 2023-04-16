@@ -34,6 +34,6 @@ public class GoalEvent extends AbstractEvent {
     @Override
     public String logEvent() {
         return "Goal " + this.goal.getGoalFunctor() + " " + this.goal.getGoalStates() +
-                getGoalInfo().getReason().map(ReasonInfo::toString).orElse("");
+                getGoalInfo().getReasonInfo().toString();
     }
 }
