@@ -32,7 +32,7 @@ public class ReasonInfo {
      * @throws ParseException if the reason is not a term
      */
     public ReasonInfo(Term reason) throws ParseException {
-        this.reason = Optional.ofNullable(reason).map(Term::toString);
+        this.reason = Optional.ofNullable(reason).map(t -> t.toString().replace("_", " "));
         if (reason != null) {
             if (reason.isStructure()) {
                 Structure reasonStructure = ASSyntax.parseStructure(reason.toString());
@@ -74,6 +74,21 @@ public class ReasonInfo {
 
     @Override
     public String toString() {
+        if (reason.isPresent()) {
+            if (functor.isPresent()) {
+                Optional<ReasonType> type = ReasonType.getReasonType(functor.get());
+                if (type.isPresent() && terms.isPresent()) {
+                    switch (type.get()) {
+                        case ACTION_EXECUTED -> {
+                            return " because action " + terms.get().get(0) + " is executed";
+                        }
+                        case ACTION -> {
+                            return " to execute action " + terms.get().get(0);
+                        }
+                    }
+                }
+            }
+        }
         return reason.map(r -> " with reason: " + r).orElse("");
     }
 }

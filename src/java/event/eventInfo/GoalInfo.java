@@ -5,8 +5,6 @@ import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 import jason.asSyntax.parser.ParseException;
 
-import java.util.Optional;
-
 /**
  * A class that save the relevant information about a goal and its associated states.
  */

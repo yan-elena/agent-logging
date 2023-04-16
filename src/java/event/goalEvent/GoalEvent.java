@@ -2,7 +2,6 @@ package event.goalEvent;
 
 import event.AbstractEvent;
 import event.eventInfo.GoalInfo;
-import event.eventInfo.ReasonInfo;
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Trigger;
 
