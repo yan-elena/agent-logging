@@ -3,6 +3,7 @@ package event.eventInfo;
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
+import jason.asSyntax.parser.ParseException;
 
 import java.util.Optional;
 
@@ -13,7 +14,7 @@ public class GoalInfo {
 
     private final String goalFunctor;
     private final GoalStates goalStates;
-    private Optional<String> reason;
+    private Optional<ReasonInfo> reason;
 //    private final String sourceInfo;
 
     /**
@@ -36,7 +37,11 @@ public class GoalInfo {
     public GoalInfo(Trigger goal, GoalStates state, Term reason) {
         this.goalFunctor = goal.getLiteral().getFunctor();
         this.goalStates = state;
-        this.reason = Optional.ofNullable(reason.toString());
+        try {
+            this.reason = Optional.of(new ReasonInfo(reason));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 //        this.sourceInfo = goal.getSrcInfo();
     }
 
@@ -60,7 +65,7 @@ public class GoalInfo {
      * Returns the reason of a specific goal event.
      * @return the reason of the goal
      */
-    public Optional<String> getReason() {
+    public Optional<ReasonInfo> getReason() {
         return reason;
     }
 
@@ -69,7 +74,11 @@ public class GoalInfo {
      * @param reason the reason to set
      */
     public void setReason(Term reason) {
-        this.reason = Optional.ofNullable(reason).map(Term::toString);
+        try {
+            this.reason = Optional.of(new ReasonInfo(reason));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
 //    public String getSourceInfo() {

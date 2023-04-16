@@ -1,5 +1,6 @@
 package event.goalEvent;
 
+import event.eventInfo.ReasonInfo;
 import jason.asSemantics.GoalListener;
 import jason.asSyntax.ASSyntax;
 import jason.asSyntax.Structure;
@@ -7,13 +8,16 @@ import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 import jason.asSyntax.parser.ParseException;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * A specific goal event that represents an executed goal event.
  */
 public class GoalExecutingEvent extends GoalEvent {
 
     /**
-     * Creates an instance of {@link GoalExecutingEvent}
+     * Creates an instance of {@link GoalExecutingEvent}.
      * @param reasoningCycleNum the reasoning cycle number
      * @param goal the trigger of the goal
      * @param reason the reason of the executing event
@@ -28,17 +32,15 @@ public class GoalExecutingEvent extends GoalEvent {
         StringBuilder out = new StringBuilder();
         out.append("Goal ").append(getGoalInfo().getGoalFunctor()).append(" ").append(getGoalInfo().getGoalStates());
         if (getGoalInfo().getReason().isPresent()) {
-            try {
-                Term reason = ASSyntax.parseTerm(getGoalInfo().getReason().get());
-                if (reason.isStructure()) {
-                    Structure reasonStruct = ASSyntax.parseStructure(reason.toString());
-                    out.append(" because ").append(reasonStruct.getFunctor().replace("_",
-                            " " + reasonStruct.getTerm(0).toString()  + " is "));
-                } else {
-                    out.append(" with reason: ").append(getGoalInfo().getReason().get());
+            Optional<ReasonInfo> reasonInfo = getGoalInfo().getReason();
+            if (reasonInfo.isPresent()) {
+                Optional<String> reasonFunctor = reasonInfo.get().getFunctor();
+                Optional<List<String>> reasonTerm = reasonInfo.get().getTerms();
+                if (reasonFunctor.isPresent() && reasonTerm.isPresent()) {
+                    out.append(" because ").append(reasonFunctor.get().replace("_", " " + reasonTerm.get().get(0) + " is "));
                 }
-            } catch (ParseException e) {
-                e.printStackTrace();
+            } else {
+                out.append(getGoalInfo().getReason());
             }
         }
         return out.toString();

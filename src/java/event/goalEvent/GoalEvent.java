@@ -2,6 +2,7 @@ package event.goalEvent;
 
 import event.AbstractEvent;
 import event.eventInfo.GoalInfo;
+import event.eventInfo.ReasonInfo;
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Trigger;
 
@@ -32,11 +33,7 @@ public class GoalEvent extends AbstractEvent {
 
     @Override
     public String logEvent() {
-        StringBuilder out = new StringBuilder();
-        out.append("Goal ").append(this.goal.getGoalFunctor()).append(" ").append(this.goal.getGoalStates());
-        if (goal.getReason().isPresent()) {
-            out.append(" with reason: ").append(goal.getReason().get());
-        }
-        return out.toString();
+        return "Goal " + this.goal.getGoalFunctor() + " " + this.goal.getGoalStates() +
+                getGoalInfo().getReason().map(ReasonInfo::toString).orElse("");
     }
 }
