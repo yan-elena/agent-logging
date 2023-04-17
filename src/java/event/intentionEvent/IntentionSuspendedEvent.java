@@ -1,12 +1,26 @@
 package event.intentionEvent;
 
-import event.Event;
 import jason.asSemantics.Intention;
 import jason.asSyntax.Term;
 
+/**
+ * A specific intention event representing the suspension of an intention.
+ */
 public class IntentionSuspendedEvent extends IntentionEvent {
 
-    public IntentionSuspendedEvent(int cycleNumber, Intention intention, Term reason) {
-        super(cycleNumber, intention, reason);
+    private static final String SUSPENDED_EVENT = "suspended";
+
+    /**
+     * Creates an instance of {@link IntentionAddedEvent}.
+     * @param reasoningCycleNum the reasoning cycle number
+     * @param intention the intention of the event
+     */
+    public IntentionSuspendedEvent(int reasoningCycleNum, Intention intention, Term reason) {
+        super(reasoningCycleNum, intention, reason);
+    }
+
+    @Override
+    String getEvent() {
+        return SUSPENDED_EVENT;
     }
 }

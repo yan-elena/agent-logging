@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * A class that representing an event related to an intention.
  */
-public class IntentionEvent extends AbstractEvent {
+public abstract class IntentionEvent extends AbstractEvent {
 
     private final IntentionInfo intentionInfo;
     private final Optional<ReasonInfo> reasonInfo;
@@ -41,8 +41,18 @@ public class IntentionEvent extends AbstractEvent {
 
     @Override
     public String logEvent() {
-        return intentionInfo + " "  + this.reasonInfo.map(ReasonInfo::toString).orElse("");
+        return "Intention " + intentionInfo.getId() +
+                " "  + getEvent() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
+                " state: " + intentionInfo.getState() +
+                "\n\ttrigger: " + intentionInfo.getTrigger() +
+                (intentionInfo.getPlanBody().isEmpty() ? "" : "\n\tplanBody: " + intentionInfo.getPlanBody());
     }
+
+    /**
+     * Returns the type of the event.
+     * @return intention event
+     */
+    abstract String getEvent();
 
     /**
      * Returns the {@link IntentionInfo} related to the event.

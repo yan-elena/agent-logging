@@ -2,7 +2,6 @@ package event.eventInfo;
 
 import jason.asSemantics.Intention;
 import jason.asSyntax.*;
-import jason.stdlib.structure;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +42,14 @@ public class IntentionInfo {
     }
 
     /**
+     * Returns the id of the intention.
+     * @return intention id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
      * Returns the state of the intention.
      * @return intention state
      */
@@ -50,11 +57,19 @@ public class IntentionInfo {
         return state;
     }
 
-    @Override
-    public String toString() {
-        return "intention " + id +
-                " state=" + state +
-                ":\ntrigger=" + trigger +
-                "\nplanBody=" + planBody;
+    /**
+     * Returns the trigger of the intention.
+     * @return intention trigger
+     */
+    public String getTrigger() {
+        return trigger;
+    }
+
+    /**
+     * Returns the plan body of the intention.
+     * @return intention plan body
+     */
+    public List<String> getPlanBody() {
+        return planBody;
     }
 }
