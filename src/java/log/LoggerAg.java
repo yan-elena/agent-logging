@@ -3,9 +3,11 @@ package log;
 import java.util.List;
 import java.util.Queue;
 
+import event.triggeringEvent.BeliefAdditionEvent;
 import event.goalEvent.*;
 import event.SelectPlanEvent;
 import event.intentionEvent.*;
+import event.triggeringEvent.BeliefDeletionEvent;
 import jason.asSemantics.*;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
@@ -89,7 +91,17 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void eventAdded(Event e) {
-//        System.out.println("new event "+e.getTrigger());
+        if (e.getTrigger().getType() == Trigger.TEType.belief) {
+            switch (e.getTrigger().getOperator()) {
+                case add -> logger.publishEvent(agentName, new BeliefAdditionEvent(ts.getAgArch().getCycleNumber(), e.getTrigger()));
+                case del -> logger.publishEvent(agentName, new BeliefDeletionEvent(ts.getAgArch().getCycleNumber(), e.getTrigger()));
+            }
+//        } else if (e.getTrigger().getType() == Trigger.TEType.achieve ) {
+//            switch (e.getTrigger().getOperator()) {
+//                case add -> logger.publishEvent(agentName, new AchievementGoalAddition(ts.getAgArch().getCycleNumber(), e.getTrigger()));
+//                case del -> logger.publishEvent(agentName, new AchievementGoalDeletion(ts.getAgArch().getCycleNumber(), e.getTrigger()));
+//            }
+        }
     }
 
     @Override
@@ -122,9 +134,26 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         this.logger.publishEvent(agentName, new IntentionExecutingEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
+    // Agent class
+
+
+    @Override
+    public Message selectMessage(Queue<Message> messages) {
+        return super.selectMessage(messages);
+    }
+
+    @Override
+    public Event selectEvent(Queue<Event> events) {
+        return super.selectEvent(events);
+    }
+
+    @Override
+    public ActionExec selectAction(Queue<ActionExec> actions) {
+        return super.selectAction(actions);
+    }
+
     @Override
     public Intention selectIntention(Queue<Intention> intentions) {
         return super.selectIntention(intentions);
     }
-
 }
