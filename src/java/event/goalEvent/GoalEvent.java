@@ -15,7 +15,7 @@ import java.util.Optional;
  */
 public class GoalEvent extends AbstractEvent {
 
-    private final GoalInfo goal;
+    private final GoalInfo goalInfo;
     private final Optional<ReasonInfo> reasonInfo;
 
     /**
@@ -25,7 +25,7 @@ public class GoalEvent extends AbstractEvent {
      */
     public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states) {
         super(reasoningCycleNum);
-        this.goal = new GoalInfo(goal, states);
+        this.goalInfo = new GoalInfo(goal, states);
         this.reasonInfo = Optional.empty();
     }
 
@@ -37,7 +37,7 @@ public class GoalEvent extends AbstractEvent {
      */
     public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states, Term reason) throws ParseException {
         super(reasoningCycleNum);
-        this.goal = new GoalInfo(goal, states);
+        this.goalInfo = new GoalInfo(goal, states);
         this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
     }
 
@@ -46,7 +46,7 @@ public class GoalEvent extends AbstractEvent {
      * @return the goal
      */
     public GoalInfo getGoalInfo() {
-        return goal;
+        return goalInfo;
     }
 
     /**
@@ -59,6 +59,6 @@ public class GoalEvent extends AbstractEvent {
 
     @Override
     public String logEvent() {
-        return "Goal " + this.goal.getGoalFunctor() + " " + this.goal.getGoalStates() + this.reasonInfo.map(ReasonInfo::toString).orElse("");
+        return "Goal " + this.goalInfo.getGoalFunctor() + " " + this.goalInfo.getGoalStates() + this.reasonInfo.map(ReasonInfo::toString).orElse("");
     }
 }
