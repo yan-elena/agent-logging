@@ -3,7 +3,6 @@ package event.goalEvent;
 import jason.asSemantics.GoalListener;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
-import jason.asSyntax.parser.ParseException;
 
 /**
  * A specific goal event that represents an executed goal event.
@@ -16,7 +15,7 @@ public class GoalExecutingEvent extends GoalEvent {
      * @param goal the trigger of the goal
      * @param reason the reason of the executing event
      */
-    public GoalExecutingEvent(int reasoningCycleNum, Trigger goal, Term reason) throws ParseException {
+    public GoalExecutingEvent(int reasoningCycleNum, Trigger goal, Term reason) {
         super(reasoningCycleNum, goal, GoalListener.GoalStates.executing, reason);
     }
 

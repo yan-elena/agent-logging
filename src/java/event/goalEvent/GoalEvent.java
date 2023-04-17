@@ -6,7 +6,6 @@ import event.eventInfo.ReasonInfo;
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
-import jason.asSyntax.parser.ParseException;
 
 import java.util.Optional;
 
@@ -35,7 +34,7 @@ public class GoalEvent extends AbstractEvent {
      * @param goal the trigger of the goal
      * @param reason the reason of the event
      */
-    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states, Term reason) throws ParseException {
+    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states, Term reason) {
         super(reasoningCycleNum);
         this.goalInfo = new GoalInfo(goal, states);
         this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
