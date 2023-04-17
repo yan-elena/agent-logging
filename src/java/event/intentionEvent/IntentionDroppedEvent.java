@@ -1,5 +1,6 @@
 package event.intentionEvent;
 
+import event.eventInfo.ReasonInfo;
 import jason.asSemantics.Intention;
 
 /**
@@ -19,7 +20,19 @@ public class IntentionDroppedEvent extends IntentionEvent {
     }
 
     @Override
-    public String getEvent() {
+    public String getEventMessage() {
         return DROPPED_EVENT;
+    }
+
+    @Override
+    public String logEvent() {
+        if (intentionInfo.getTrigger().contains("finished intention")) {
+            return "Intention " + intentionInfo.getId() +
+                    " " + getEventMessage() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
+                    " state: " + intentionInfo.getState() +
+                    "\n\t " + intentionInfo.getTrigger();
+        } else {
+            return super.logEvent();
+        }
     }
 }

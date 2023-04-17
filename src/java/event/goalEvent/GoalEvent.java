@@ -14,8 +14,8 @@ import java.util.Optional;
  */
 public class GoalEvent extends AbstractEvent {
 
-    private final GoalInfo goalInfo;
-    private final Optional<ReasonInfo> reasonInfo;
+    protected final GoalInfo goalInfo;
+    protected final Optional<ReasonInfo> reasonInfo;
 
     /**
      * Creates an instance of {@link GoalEvent}.

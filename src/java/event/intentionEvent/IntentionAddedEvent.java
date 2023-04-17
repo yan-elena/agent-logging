@@ -19,7 +19,7 @@ public class IntentionAddedEvent extends IntentionEvent {
     }
 
     @Override
-    public String getEvent() {
+    public String getEventMessage() {
         return ADDED_EVENT;
     }
 }

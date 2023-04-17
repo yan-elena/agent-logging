@@ -20,7 +20,7 @@ public class IntentionExecutingEvent extends IntentionEvent {
     }
 
     @Override
-    public String getEvent() {
+    public String getEventMessage() {
         return EXECUTING_EVENT;
     }
 }

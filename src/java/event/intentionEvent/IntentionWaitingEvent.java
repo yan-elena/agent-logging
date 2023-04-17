@@ -20,7 +20,7 @@ public class IntentionWaitingEvent extends IntentionEvent {
     }
 
     @Override
-    public String getEvent() {
+    public String getEventMessage() {
         return WAITING_EVENT;
     }
 }
