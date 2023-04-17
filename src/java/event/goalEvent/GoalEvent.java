@@ -10,9 +10,9 @@ import jason.asSyntax.Trigger;
 import java.util.Optional;
 
 /**
- * A class that representing an event related to a goal.
+ * An abstract class that representing an event related to a goal.
  */
-public class GoalEvent extends AbstractEvent {
+public abstract class GoalEvent extends AbstractEvent {
 
     protected final GoalInfo goalInfo;
     protected final Optional<ReasonInfo> reasonInfo;

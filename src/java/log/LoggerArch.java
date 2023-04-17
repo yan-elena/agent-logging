@@ -1,8 +1,8 @@
 package log;
 
 import event.ActionEvent;
-import jason.architecture.*;
-import jason.asSemantics.*;
+import jason.architecture.AgArch;
+import jason.asSemantics.ActionExec;
 import logger.Logger;
 import logger.LoggerImpl;
 
@@ -38,13 +38,12 @@ public class LoggerArch extends AgArch {
     public void stop() {
         logger.saveAgentLogInFile(getAgName());
         logger.saveAgentLogAsJson(getAgName());
-//        logger.saveLogInFile("log");
-//        logger.saveLogAsJson("log");
         super.stop();
     }
 
     @Override
     public void actionExecuted(ActionExec act) {
+        System.out.println("action executed " + act);
         super.actionExecuted(act);
     }
 }
