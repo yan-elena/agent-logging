@@ -2,6 +2,7 @@ package event.eventInfo;
 
 import jason.asSemantics.Intention;
 import jason.asSyntax.*;
+import jason.stdlib.structure;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,14 +24,21 @@ public class IntentionInfo {
     public IntentionInfo(Intention intention) {
         this.id = intention.getId();
         this.state = intention.getStateBasedOnPlace();
-        Structure structure = ((Structure) ((ListTermImpl) intention.getAsTerm().getTerm(1)).getTerm(0));
-        PlanBody planBody = (PlanBody) structure.getTerm(2);
-
-        this.trigger = structure.getTerm(1).toString();
         this.planBody = new LinkedList<>();
-        while (planBody != null) {
-            this.planBody.add(planBody.toString());
-            planBody = planBody.getBodyNext();
+
+        ListTermImpl terms = (ListTermImpl) intention.getAsTerm().getTerm(1);
+        if (!terms.isEmpty()) {
+            Structure structure = ((Structure) terms.getTerm(0));
+            PlanBody planBody = (PlanBody) structure.getTerm(2);
+
+            this.trigger = structure.getTerm(1).toString();
+            while (planBody != null) {
+                this.planBody.add(planBody.toString());
+                planBody = planBody.getBodyNext();
+            }
+        } else {
+            System.out.println(intention);
+            this.trigger = intention.toString();
         }
     }
 
@@ -45,7 +53,7 @@ public class IntentionInfo {
     @Override
     public String toString() {
         return "intention " + id +
-                " " + state +
+                " state=" + state +
                 ":\ntrigger=" + trigger +
                 "\nplanBody=" + planBody;
     }

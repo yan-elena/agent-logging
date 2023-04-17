@@ -3,10 +3,9 @@ package log;
 import java.util.List;
 import java.util.Queue;
 
-import event.eventInfo.IntentionInfo;
 import event.goalEvent.*;
 import event.SelectPlanEvent;
-import event.intentionEvent.IntentionEvent;
+import event.intentionEvent.*;
 import jason.asSemantics.*;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
@@ -95,43 +94,37 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void intentionAdded(Intention i) {
-//        addIntentionEvent(i, "added", null);
-        new IntentionInfo(i);
+        this.logger.publishEvent(agentName, new IntentionAddedEvent(ts.getAgArch().getCycleNumber(), i));
     }
 
     @Override
     public void intentionDropped(Intention i) {
-
+        this.logger.publishEvent(agentName, new IntentionDroppedEvent(ts.getAgArch().getCycleNumber(), i));
     }
 
     @Override
     public void intentionSuspended(Trigger t, Intention i, Term reason) {
-
+        this.logger.publishEvent(agentName, new IntentionSuspendedEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
     @Override
     public void intentionWaiting(Intention i, Term reason) {
-
+        this.logger.publishEvent(agentName, new IntentionWaitingEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
     @Override
     public void intentionResumed(Intention i, Term reason) {
+        this.logger.publishEvent(agentName, new IntentionResumedEvent(ts.getAgArch().getCycleNumber(), i, reason));
+    }
 
+    @Override
+    public void intentionExecuting(Intention i, Term reason) {
+        this.logger.publishEvent(agentName, new IntentionExecutingEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
     @Override
     public Intention selectIntention(Queue<Intention> intentions) {
         return super.selectIntention(intentions);
-    }
-
-    @Override
-    public void intentionExecuting(Intention i, Term reason) {
-//        System.out.println("intentionExecuting\n " + i);
-//        addIntentionEvent(i, "executing", reason);
-    }
-
-    private void addIntentionEvent(Intention intention, Term reason) {
-        this.logger.publishEvent(agentName, new IntentionEvent(ts.getAgArch().getCycleNumber(), intention, reason));
     }
 
 }

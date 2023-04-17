@@ -20,6 +20,17 @@ public class IntentionEvent extends AbstractEvent {
      * Creates an instance of {@link IntentionEvent}.
      * @param reasoningCycleNum the number of the reasoning cycle
      * @param intention the intention that the event is related to
+     */
+    public IntentionEvent(int reasoningCycleNum, Intention intention) {
+        super(reasoningCycleNum);
+        this.intentionInfo = new IntentionInfo(intention);
+        this.reasonInfo = Optional.empty();
+    }
+
+    /**
+     * Creates an instance of {@link IntentionEvent} with a specific reason.
+     * @param reasoningCycleNum the number of the reasoning cycle
+     * @param intention the intention that the event is related to
      * @param reason an optional reason for the event
      */
     public IntentionEvent(int reasoningCycleNum, Intention intention, Term reason) {
