@@ -19,6 +19,7 @@ import java.util.Map;
  */
 public class LoggerImpl implements Logger {
 
+    public static final String PATH = "log/";
     private static Logger logger;
     private final Map<String, EventHistory> history;
     private final Gson gson;
@@ -57,12 +58,35 @@ public class LoggerImpl implements Logger {
     }
 
     @Override
-    public synchronized void saveLogInFile(String fileName) {
-        StringBuilder text = new StringBuilder();
-        history.forEach((k,v) -> text.append("[Log for ").append(k).append(" agent]\n").append(v).append("\n"));
+    public synchronized void saveAgentLogInFile(String agentName) {
+        String output = String.join("\n", history.get(agentName).getHistory().stream().map(Event::toString).toList());
         try {
-            PrintWriter out = new PrintWriter(fileName);
-            out.println(text);
+            PrintWriter out = new PrintWriter(PATH + agentName + ".txt");
+            out.println(output);
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public synchronized void saveAgentLogAsJson(String agentName) {
+        try {
+            PrintWriter out = new PrintWriter(PATH + agentName + ".json");
+            out.println(gson.toJson(history.get(agentName).getHistory()));
+            out.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public synchronized void saveLogInFile(String fileName) {
+        StringBuilder output = new StringBuilder();
+        history.forEach((k,v) -> output.append("[Log for ").append(k).append(" agent]\n").append(v).append("\n"));
+        try {
+            PrintWriter out = new PrintWriter(PATH + fileName + ".txt");
+            out.println(output);
             out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -72,7 +96,7 @@ public class LoggerImpl implements Logger {
     @Override
     public synchronized void saveLogAsJson(String fileName) {
         try {
-            PrintWriter out = new PrintWriter(fileName);
+            PrintWriter out = new PrintWriter(PATH + fileName + ".json");
             out.println(gson.toJson(this));
             out.close();
         } catch (FileNotFoundException e) {

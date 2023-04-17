@@ -17,7 +17,23 @@ public interface Logger {
      */
     void publishEvent(String agentName, Event event);
 
+    /**
+     * Returns the history of events.
+     * @return the event history
+     */
     Map<String, EventHistory> getHistory();
+
+    /**
+     * Saves the single agent log in file.
+     * @param agentName the name of the agent to save
+     */
+    void saveAgentLogInFile(String agentName);
+
+    /**
+     * Saves the single agent log as json in file.
+     * @param agentName the name of the agent to save
+     */
+    void saveAgentLogAsJson(String agentName);
 
     /**
      * Saves the log in file specified by the given file name.
@@ -25,5 +41,9 @@ public interface Logger {
      */
     void saveLogInFile(String fileName);
 
+    /**
+     * Saves the log as json in file specified by the given file name.
+     * @param fileName the name of the file to save the log
+     */
     void saveLogAsJson(String fileName);
 }

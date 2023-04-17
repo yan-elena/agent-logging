@@ -36,8 +36,10 @@ public class LoggerArch extends AgArch {
 
     @Override
     public void stop() {
-        logger.saveLogInFile("log/log.txt");
-        logger.saveLogAsJson("log/log.json");
+        logger.saveAgentLogInFile(getAgName());
+        logger.saveAgentLogAsJson(getAgName());
+//        logger.saveLogInFile("log");
+//        logger.saveLogAsJson("log");
         super.stop();
     }
 
