@@ -10,6 +10,7 @@ import event.intentionEvent.IntentionEvent;
 import jason.asSemantics.*;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
+import jason.asSyntax.parser.ParseException;
 import logger.Logger;
 import logger.LoggerImpl;
 
@@ -63,27 +64,47 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalFailed(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalFailedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        try {
+            this.logger.publishEvent(agentName, new GoalFailedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void goalSuspended(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalSuspendedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        try {
+            this.logger.publishEvent(agentName, new GoalSuspendedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void goalWaiting(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalWaitingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        try {
+            this.logger.publishEvent(agentName, new GoalWaitingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void goalResumed(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalResumedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        try {
+            this.logger.publishEvent(agentName, new GoalResumedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void goalExecuting(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalExecutingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        try {
+            this.logger.publishEvent(agentName, new GoalExecutingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     // Circumstance Listener Interface

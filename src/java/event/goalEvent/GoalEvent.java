@@ -2,8 +2,13 @@ package event.goalEvent;
 
 import event.AbstractEvent;
 import event.eventInfo.GoalInfo;
+import event.eventInfo.ReasonInfo;
 import jason.asSemantics.GoalListener.GoalStates;
+import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
+import jason.asSyntax.parser.ParseException;
+
+import java.util.Optional;
 
 /**
  * A class that representing an event related to a goal.
@@ -11,6 +16,7 @@ import jason.asSyntax.Trigger;
 public class GoalEvent extends AbstractEvent {
 
     private final GoalInfo goal;
+    private final Optional<ReasonInfo> reasonInfo;
 
     /**
      * Creates an instance of {@link GoalEvent}.
@@ -20,6 +26,19 @@ public class GoalEvent extends AbstractEvent {
     public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states) {
         super(reasoningCycleNum);
         this.goal = new GoalInfo(goal, states);
+        this.reasonInfo = Optional.empty();
+    }
+
+    /**
+     * Creates an instance of {@link GoalEvent} with a reason.
+     * @param reasoningCycleNum the reasoning cycle number
+     * @param goal the trigger of the goal
+     * @param reason the reason of the event
+     */
+    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states, Term reason) throws ParseException {
+        super(reasoningCycleNum);
+        this.goal = new GoalInfo(goal, states);
+        this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
     }
 
     /**
@@ -30,9 +49,16 @@ public class GoalEvent extends AbstractEvent {
         return goal;
     }
 
+    /**
+     * Returns the reason of a specific goal event.
+     * @return the reason of the goal
+     */
+    public Optional<ReasonInfo> getReasonInfo() {
+        return reasonInfo;
+    }
+
     @Override
     public String logEvent() {
-        return "Goal " + this.goal.getGoalFunctor() + " " + this.goal.getGoalStates() +
-                getGoalInfo().getReasonInfo().toString();
+        return "Goal " + this.goal.getGoalFunctor() + " " + this.goal.getGoalStates() + this.reasonInfo.map(ReasonInfo::toString).orElse("");
     }
 }

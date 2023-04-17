@@ -13,46 +13,38 @@ import java.util.Optional;
  */
 public class ReasonInfo {
 
-    private final Optional<String> reason;
+    private final String reason;
     private final Optional<String> functor;
     private final Optional<List<String>> terms;
 
     /**
-     * Creates an empty instance of {@link ReasonInfo}.
-     */
-    public ReasonInfo() {
-        this.reason = Optional.empty();
-        this.functor = Optional.empty();
-        this.terms = Optional.empty();
-    }
-
-    /**
      * Creates an instance of {@link ReasonInfo}.
      * @param reason the reason as a term from which the information is to be extracted
-     * @throws ParseException if the reason is not a term
      */
-    public ReasonInfo(Term reason) throws ParseException {
-        this.reason = Optional.ofNullable(reason).map(t -> t.toString().replace("_", " "));
-        if (reason != null) {
-            if (reason.isStructure()) {
-                Structure reasonStructure = ASSyntax.parseStructure(reason.toString());
+    public ReasonInfo(Term reason) {
+        Optional<String> functor = Optional.empty();
+        Optional<List<String>> terms = Optional.empty();
+        this.reason = reason.toString().replace("_", " ");
+        if (reason.isStructure()) {
+            try {
+                Structure reasonStructure  = ASSyntax.parseStructure(reason.toString());
                 functor = Optional.of(reasonStructure.getFunctor());
                 terms = Optional.of(reasonStructure.getTerms().stream().map(Term::toString).toList());
-            } else {
-                functor = Optional.of(reason.toString());
-                terms = Optional.empty();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
         } else {
-            this.functor = Optional.empty();
-            this.terms = Optional.empty();
+            functor = Optional.of(reason.toString());
         }
+        this.terms = terms;
+        this.functor = functor;
     }
 
     /**
      * Returns the reason.
      * @return reason
      */
-    public Optional<String> getReason() {
+    public String getReason() {
         return reason;
     }
 
@@ -74,21 +66,19 @@ public class ReasonInfo {
 
     @Override
     public String toString() {
-        if (reason.isPresent()) {
-            if (functor.isPresent()) {
-                Optional<ReasonType> type = ReasonType.getReasonType(functor.get());
-                if (type.isPresent() && terms.isPresent()) {
-                    switch (type.get()) {
-                        case ACTION_EXECUTED -> {
-                            return " because action " + terms.get().get(0) + " is executed";
-                        }
-                        case ACTION -> {
-                            return " to execute action " + terms.get().get(0);
-                        }
+        if (functor.isPresent()) {
+            Optional<ReasonType> type = ReasonType.getReasonType(functor.get());
+            if (type.isPresent() && terms.isPresent()) {
+                switch (type.get()) {
+                    case ACTION_EXECUTED -> {
+                        return " because action " + terms.get().get(0) + " is executed";
+                    }
+                    case ACTION -> {
+                        return " to execute action " + terms.get().get(0);
                     }
                 }
             }
         }
-        return reason.map(r -> " with reason: " + r).orElse("");
+        return " with reason: " + reason;
     }
 }

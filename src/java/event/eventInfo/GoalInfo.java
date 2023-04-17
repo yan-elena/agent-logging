@@ -12,7 +12,6 @@ public class GoalInfo {
 
     private final String goalFunctor;
     private final GoalStates goalStates;
-    private ReasonInfo reason;
 //    private final String sourceInfo;
 
     /**
@@ -23,23 +22,6 @@ public class GoalInfo {
     public GoalInfo(Trigger goal, GoalStates state) {
         this.goalFunctor = goal.getLiteral().getFunctor();
         this.goalStates = state;
-        this.reason = new ReasonInfo();
-//        this.sourceInfo = goal.getSrcInfo();
-    }
-
-    /**
-     * Creates a new instance of {@link GoalInfo} from the given goal and state.
-     * @param goal a {@link Trigger} object that represents the goal
-     * @param state a {@link GoalStates} object that represents the goal current state
-     */
-    public GoalInfo(Trigger goal, GoalStates state, Term reason) {
-        this.goalFunctor = goal.getLiteral().getFunctor();
-        this.goalStates = state;
-        try {
-            this.reason = new ReasonInfo(reason);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 //        this.sourceInfo = goal.getSrcInfo();
     }
 
@@ -57,26 +39,6 @@ public class GoalInfo {
      */
     public GoalStates getGoalStates() {
         return goalStates;
-    }
-
-    /**
-     * Returns the reason of a specific goal event.
-     * @return the reason of the goal
-     */
-    public ReasonInfo getReasonInfo() {
-        return reason;
-    }
-
-    /**
-     * Sets the reason of the goal event.
-     * @param reason the reason to set
-     */
-    public void setReason(Term reason) {
-        try {
-            this.reason = new ReasonInfo(reason);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
 //    public String getSourceInfo() {
