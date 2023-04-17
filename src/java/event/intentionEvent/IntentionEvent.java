@@ -1,5 +1,6 @@
-package event;
+package event.intentionEvent;
 
+import event.AbstractEvent;
 import jason.asSemantics.Intention;
 import jason.asSyntax.Term;
 

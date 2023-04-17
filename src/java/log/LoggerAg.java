@@ -1,9 +1,12 @@
 package log;
 
 import java.util.List;
+import java.util.Queue;
 
+import event.eventInfo.IntentionInfo;
 import event.goalEvent.*;
 import event.SelectPlanEvent;
+import event.intentionEvent.IntentionEvent;
 import jason.asSemantics.*;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
@@ -89,4 +92,46 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     public void eventAdded(Event e) {
 //        System.out.println("new event "+e.getTrigger());
     }
+
+    @Override
+    public void intentionAdded(Intention i) {
+//        addIntentionEvent(i, "added", null);
+        new IntentionInfo(i);
+    }
+
+    @Override
+    public void intentionDropped(Intention i) {
+
+    }
+
+    @Override
+    public void intentionSuspended(Trigger t, Intention i, Term reason) {
+
+    }
+
+    @Override
+    public void intentionWaiting(Intention i, Term reason) {
+
+    }
+
+    @Override
+    public void intentionResumed(Intention i, Term reason) {
+
+    }
+
+    @Override
+    public Intention selectIntention(Queue<Intention> intentions) {
+        return super.selectIntention(intentions);
+    }
+
+    @Override
+    public void intentionExecuting(Intention i, Term reason) {
+//        System.out.println("intentionExecuting\n " + i);
+//        addIntentionEvent(i, "executing", reason);
+    }
+
+    private void addIntentionEvent(Intention intention, String event, Term reason) {
+        this.logger.publishEvent(agentName, new IntentionEvent(ts.getAgArch().getCycleNumber(), intention, event, reason));
+    }
+
 }
