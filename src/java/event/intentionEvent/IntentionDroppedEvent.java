@@ -19,7 +19,7 @@ public class IntentionDroppedEvent extends IntentionEvent {
     }
 
     @Override
-    String getEvent() {
+    public String getEvent() {
         return DROPPED_EVENT;
     }
 }

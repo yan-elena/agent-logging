@@ -3,7 +3,7 @@ package event;
 import jason.asSemantics.ActionExec;
 
 /**
- * An event that represents an action.
+ * An event that represents an execution of an action.
  */
 public class ActionEvent extends AbstractEvent {
 
@@ -20,7 +20,7 @@ public class ActionEvent extends AbstractEvent {
     }
 
     /**
-     * Returns the executed action.
+     * Returns the executing action.
      * @return the action
      */
     public String getAction() {

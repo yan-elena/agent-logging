@@ -35,12 +35,6 @@ public class LoggerArch extends AgArch {
     }
 
     @Override
-    public void sendMsg(Message m) throws Exception {
-        //todo
-        super.sendMsg(m);
-    }
-
-    @Override
     public void stop() {
         logger.saveLogInFile("log/log.txt");
         logger.saveLogAsJson("log/log.json");
@@ -48,13 +42,7 @@ public class LoggerArch extends AgArch {
     }
 
     @Override
-    public void checkMail() {
-        super.checkMail();
-    }
-
-    @Override
     public void actionExecuted(ActionExec act) {
         super.actionExecuted(act);
-        System.out.println(act);
     }
 }

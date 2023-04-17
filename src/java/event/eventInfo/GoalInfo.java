@@ -1,9 +1,7 @@
 package event.eventInfo;
 
 import jason.asSemantics.GoalListener.GoalStates;
-import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
-import jason.asSyntax.parser.ParseException;
 
 /**
  * A class that save the relevant information about a goal and its associated states.
@@ -12,7 +10,6 @@ public class GoalInfo {
 
     private final String goalFunctor;
     private final GoalStates goalStates;
-//    private final String sourceInfo;
 
     /**
      * Creates a new instance of {@link GoalInfo} from the given goal and state.
@@ -22,7 +19,6 @@ public class GoalInfo {
     public GoalInfo(Trigger goal, GoalStates state) {
         this.goalFunctor = goal.getLiteral().getFunctor();
         this.goalStates = state;
-//        this.sourceInfo = goal.getSrcInfo();
     }
 
     /**
@@ -40,8 +36,4 @@ public class GoalInfo {
     public GoalStates getGoalStates() {
         return goalStates;
     }
-
-//    public String getSourceInfo() {
-//        return sourceInfo;
-//    }
 }

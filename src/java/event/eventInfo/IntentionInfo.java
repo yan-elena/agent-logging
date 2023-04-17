@@ -36,8 +36,7 @@ public class IntentionInfo {
                 planBody = planBody.getBodyNext();
             }
         } else {
-            System.out.println(intention);
-            this.trigger = intention.toString();
+            this.trigger = intention.toString().substring(intention.toString().indexOf("<"));
         }
     }
 

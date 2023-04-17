@@ -20,7 +20,7 @@ public class IntentionSuspendedEvent extends IntentionEvent {
     }
 
     @Override
-    String getEvent() {
+    public String getEvent() {
         return SUSPENDED_EVENT;
     }
 }

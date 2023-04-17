@@ -52,7 +52,7 @@ public abstract class IntentionEvent extends AbstractEvent {
      * Returns the type of the event.
      * @return intention event
      */
-    abstract String getEvent();
+    public abstract String getEvent();
 
     /**
      * Returns the {@link IntentionInfo} related to the event.

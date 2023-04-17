@@ -20,7 +20,7 @@ public class IntentionResumedEvent extends IntentionEvent {
     }
 
     @Override
-    String getEvent() {
+    public String getEvent() {
         return RESUMED_EVENT;
     }
 }

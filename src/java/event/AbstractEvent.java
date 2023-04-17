@@ -50,9 +50,11 @@ public abstract class AbstractEvent implements Event {
     @Override
     public String toString() {
         return "[Cycle " + reasoningCycleNumber +
-                " Timestamp " + timestamp +
+                " - Timestamp " + timestamp +
                 "] " +
-                logEvent();
+                this.getClass().getSimpleName() +
+                "\n" + logEvent() +
+                "\n";
     }
 
     /**
