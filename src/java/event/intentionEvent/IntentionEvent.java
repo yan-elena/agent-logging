@@ -1,6 +1,8 @@
 package event.intentionEvent;
 
 import event.AbstractEvent;
+import event.eventInfo.IntentionInfo;
+import event.eventInfo.ReasonInfo;
 import jason.asSemantics.Intention;
 import jason.asSyntax.Term;
 
@@ -11,50 +13,39 @@ import java.util.Optional;
  */
 public class IntentionEvent extends AbstractEvent {
 
-    private final Intention intention;
-    private final String event;
-    private final Optional<Term> reason;
+    private final IntentionInfo intentionInfo;
+    private final Optional<ReasonInfo> reasonInfo;
 
     /**
      * Creates an instance of {@link IntentionEvent}.
      * @param reasoningCycleNum the number of the reasoning cycle
      * @param intention the intention that the event is related to
-     * @param event the description of the event
      * @param reason an optional reason for the event
      */
-    public IntentionEvent(int reasoningCycleNum, Intention intention, String event, Term reason) {
+    public IntentionEvent(int reasoningCycleNum, Intention intention, Term reason) {
         super(reasoningCycleNum);
-        this.intention = intention;
-        this.event = event;
-        this.reason = Optional.ofNullable(reason);
+        this.intentionInfo = new IntentionInfo(intention);
+        this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
     }
 
     @Override
     public String logEvent() {
-        return event + " "  + intention;
+        return intentionInfo + " "  + this.reasonInfo.map(ReasonInfo::toString).orElse("");
     }
 
     /**
-     * Returns the intention related to the event.
-     * @return the intention of the event
+     * Returns the {@link IntentionInfo} related to the event.
+     * @return the intention info of the event
      */
-    public Intention getIntention() {
-        return intention;
-    }
-
-    /**
-     * Returns the description of the event.
-     * @return the event description
-     */
-    public String getEvent() {
-        return event;
+    public IntentionInfo getIntentionInfo() {
+        return intentionInfo;
     }
 
     /**
      * Returns an optional of a reason for the intention.
-     * @return an optional reason
+     * @return an optional reason info
      */
-    public Optional<Term> getReason() {
-        return reason;
+    public Optional<ReasonInfo> getReason() {
+        return reasonInfo;
     }
 }
