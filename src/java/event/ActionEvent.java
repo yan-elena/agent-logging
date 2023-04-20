@@ -15,7 +15,7 @@ public class ActionEvent extends AbstractEvent {
      * @param action the executed action
      */
     public ActionEvent(int reasoningCycleNum, ActionExec action) {
-        super(reasoningCycleNum);
+        super();
         this.action = action.getActionTerm().toString();
     }
 

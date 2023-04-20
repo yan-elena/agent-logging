@@ -144,6 +144,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public Event selectEvent(Queue<Event> events) {
+//        getTS().getC().getSelectedEvent()
         return super.selectEvent(events);
     }
 
@@ -154,6 +155,8 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public Intention selectIntention(Queue<Intention> intentions) {
+//        getTS().getC().getSelectedIntention()
         return super.selectIntention(intentions);
     }
+
 }

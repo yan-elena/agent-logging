@@ -24,7 +24,7 @@ public class SelectPlanEvent extends AbstractEvent {
      * @param options a list of options to select from
      */
     public SelectPlanEvent(int reasoningCycleNum, Trigger trigger, List<Option> options) {
-        super(reasoningCycleNum);
+        super();
         this.event = trigger.getLiteral().getFunctor();
         this.planOptions = options.stream().limit(LIMIT_OPTIONS).map(this::optionToString).toList();
         if (planOptions.size() > LIMIT_OPTIONS) {

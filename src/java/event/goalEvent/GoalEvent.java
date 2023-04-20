@@ -23,7 +23,7 @@ public abstract class GoalEvent extends AbstractEvent {
      * @param goal the trigger of the goal
      */
     public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states) {
-        super(reasoningCycleNum);
+        super();
         this.goalInfo = new GoalInfo(goal, states);
         this.reasonInfo = Optional.empty();
     }
@@ -35,7 +35,7 @@ public abstract class GoalEvent extends AbstractEvent {
      * @param reason the reason of the event
      */
     public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states, Term reason) {
-        super(reasoningCycleNum);
+        super();
         this.goalInfo = new GoalInfo(goal, states);
         this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
     }

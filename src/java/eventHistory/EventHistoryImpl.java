@@ -12,15 +12,12 @@ import java.util.List;
  */
 public class EventHistoryImpl implements EventHistory {
 
-    private final String agentName;
     private final List<Event> history;
 
     /**
      * Creates an instance of {@link EventHistory} for the specified agent.
-     * @param agentName the name of the associated agent
      */
-    public EventHistoryImpl(String agentName) {
-        this.agentName = agentName;
+    public EventHistoryImpl() {
         this.history = new LinkedList<>();
     }
 
@@ -31,7 +28,6 @@ public class EventHistoryImpl implements EventHistory {
 
     @Override
     public void addEvent(Event event) {
-        event.setAgentName(agentName);
         this.history.add(event);
     }
 

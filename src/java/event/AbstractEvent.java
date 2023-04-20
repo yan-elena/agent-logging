@@ -6,25 +6,21 @@ package event;
 public abstract class AbstractEvent implements Event {
 
     private final long timestamp;
-    private final int reasoningCycleNumber;
-    private String agentName;
 
     /**
      * Constructor of AbstractEvent with the specified timestamp and reasoning cycle number.
      * @param timestamp         the timestamp of the event
-     * @param reasoningCycleNum the reasoning cycle number of the event
+     *
      */
-    public AbstractEvent(long timestamp, int reasoningCycleNum) {
+    public AbstractEvent(long timestamp) {
         this.timestamp = timestamp;
-        this.reasoningCycleNumber = reasoningCycleNum;
     }
 
     /**
      * Constructor of AbstractEvent with the current time as the timestamp and the specified reasoning cycle number.
-     * @param reasoningCycleNum the reasoning cycle number of the event
      */
-    public AbstractEvent(int reasoningCycleNum) {
-        this(System.currentTimeMillis(), reasoningCycleNum);
+    public AbstractEvent() {
+        this(System.currentTimeMillis());
     }
 
     @Override
@@ -33,24 +29,8 @@ public abstract class AbstractEvent implements Event {
     }
 
     @Override
-    public int getReasoningCycleNum() {
-        return this.reasoningCycleNumber;
-    }
-
-    @Override
-    public String getAgentName() {
-        return agentName;
-    }
-
-    @Override
-    public void setAgentName(String agentName) {
-        this.agentName = agentName;
-    }
-
-    @Override
     public String toString() {
-        return "[Cycle " + reasoningCycleNumber +
-                " - Timestamp " + timestamp +
+        return "[Timestamp " + timestamp +
                 "] " +
                 this.getClass().getSimpleName() +
                 "\n" + logEvent() +

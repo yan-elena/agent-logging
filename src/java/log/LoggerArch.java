@@ -46,4 +46,10 @@ public class LoggerArch extends AgArch {
         System.out.println("action executed " + act);
         super.actionExecuted(act);
     }
+
+    @Override
+    public void checkMail() {
+        super.checkMail();
+//        getTS().getC().getMailBox()
+    }
 }

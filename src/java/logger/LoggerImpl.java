@@ -46,7 +46,7 @@ public class LoggerImpl implements Logger {
 //        if (!(event.toString().contains("jcm") || event.toString().contains("focus") ||
 //                event.toString().contains("/main/w") || event.toString().contains("cobj_2"))) {
             if (!history.containsKey(agentName)) {
-                history.put(agentName, new EventHistoryImpl(agentName));
+                history.put(agentName, new EventHistoryImpl());
             }
             history.get(agentName).addEvent(event);
 //        }

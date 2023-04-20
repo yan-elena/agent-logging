@@ -17,7 +17,7 @@ public abstract class TriggeringEvent extends AbstractEvent {
      * @param trigger the trigger of the event
      */
     public TriggeringEvent(int reasoningCycleNum, Trigger trigger) {
-        super(reasoningCycleNum);
+        super();
         this.eventInfo = new EventInfo(trigger);
     }
 

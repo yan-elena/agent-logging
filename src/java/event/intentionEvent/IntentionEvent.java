@@ -22,7 +22,7 @@ public abstract class IntentionEvent extends AbstractEvent {
      * @param intention the intention that the event is related to
      */
     public IntentionEvent(int reasoningCycleNum, Intention intention) {
-        super(reasoningCycleNum);
+        super();
         this.intentionInfo = new IntentionInfo(intention);
         this.reasonInfo = Optional.empty();
     }
@@ -34,7 +34,7 @@ public abstract class IntentionEvent extends AbstractEvent {
      * @param reason an optional reason for the event
      */
     public IntentionEvent(int reasoningCycleNum, Intention intention, Term reason) {
-        super(reasoningCycleNum);
+        super();
         this.intentionInfo = new IntentionInfo(intention);
         this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
     }
