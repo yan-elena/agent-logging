@@ -1,6 +1,7 @@
 package log;
 
 import event.ActionEvent;
+import event.ReasoningCycleStarted;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
 import logger.Logger;
@@ -25,6 +26,11 @@ public class LoggerArch extends AgArch {
     public void act(ActionExec action) {
         logger.publishEvent(getAgName(), new ActionEvent(getCycleNumber(), getTS().getC().getAction()));
         super.act(action);
+    }
+
+    @Override
+    public void reasoningCycleStarting() {
+        logger.publishEvent(getAgName(), new ReasoningCycleStarted(getCycleNumber()));
     }
 
     @Override
