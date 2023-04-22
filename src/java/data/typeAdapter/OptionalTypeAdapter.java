@@ -1,4 +1,4 @@
-package data.serializer;
+package data.typeAdapter;
 
 import com.google.gson.*;
 

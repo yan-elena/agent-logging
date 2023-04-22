@@ -1,4 +1,4 @@
-package data.serializer;
+package data.typeAdapter;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -12,7 +12,7 @@ import java.util.logging.LogRecord;
 /**
  * Serializer for the class {@link LogRecord}.
  */
-public class LogRecordSerializer implements JsonSerializer<LogRecord> {
+public class LogRecordTypeAdapter implements JsonSerializer<LogRecord> {
 
     @Override
     public JsonElement serialize(LogRecord src, Type typeOfSrc, JsonSerializationContext context) {
