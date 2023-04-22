@@ -1,7 +1,7 @@
 package logger;
 
 import com.google.gson.*;
-import data.GsonUtils;
+import gson.GsonUtils;
 
 import java.io.IOException;
 import java.io.PrintWriter;

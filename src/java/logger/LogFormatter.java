@@ -1,7 +1,7 @@
 package logger;
 
 import com.google.gson.Gson;
-import data.GsonUtils;
+import gson.GsonUtils;
 
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;

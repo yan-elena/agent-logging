@@ -1,7 +1,7 @@
-package eventHistory;
+package logger.eventHistory;
 
 import com.google.gson.Gson;
-import data.GsonUtils;
+import gson.GsonUtils;
 import event.Event;
 import logger.JsonFileHandler;
 import logger.LogFormatter;

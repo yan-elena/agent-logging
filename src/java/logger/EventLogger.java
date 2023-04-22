@@ -1,7 +1,7 @@
 package logger;
 
 import event.Event;
-import eventHistory.EventHistory;
+import logger.eventHistory.EventHistory;
 
 import java.util.Map;
 

@@ -1,4 +1,4 @@
-package eventHistory;
+package logger.eventHistory;
 
 import event.Event;
 

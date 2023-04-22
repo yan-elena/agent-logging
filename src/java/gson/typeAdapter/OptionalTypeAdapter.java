@@ -1,4 +1,4 @@
-package data.typeAdapter;
+package gson.typeAdapter;
 
 import com.google.gson.*;
 

@@ -1,8 +1,8 @@
-package data;
+package gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import data.typeAdapter.*;
+import gson.typeAdapter.*;
 
 import java.util.Optional;
 import java.util.logging.LogRecord;

@@ -1,9 +1,7 @@
 package logger;
 
-import com.google.gson.Gson;
-import data.GsonUtils;
-import eventHistory.EventHistory;
-import eventHistory.EventHistoryImpl;
+import logger.eventHistory.EventHistory;
+import logger.eventHistory.EventHistoryImpl;
 import event.Event;
 
 import java.util.HashMap;
@@ -20,10 +18,8 @@ public class EventLoggerImpl implements EventLogger {
     private static final String PATH = "log/";
     private static EventLogger eventLogger;
     private final Map<String, EventHistory> history;
-    private final Gson gson;
 
     private EventLoggerImpl() {
-        gson = GsonUtils.createGson();
         history = new HashMap<>();
     }
 
