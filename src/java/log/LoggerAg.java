@@ -11,22 +11,22 @@ import event.triggeringEvent.BeliefDeletionEvent;
 import jason.asSemantics.*;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
-import logger.Logger;
-import logger.LoggerImpl;
+import logger.EventLogger;
+import logger.EventLoggerImpl;
 
 /**
  * This class logs events on goals and on the circumstance.
  */
 public class LoggerAg extends Agent implements GoalListener, CircumstanceListener {
 
-    private final Logger logger;
+    private final EventLogger eventLogger;
     private String agentName;
 
     /**
      * Creates a new instance of {@link LoggerAg} and initialized the logger.
      */
     public LoggerAg() {
-        logger = LoggerImpl.getLogger();
+        eventLogger = EventLoggerImpl.getLogger();
     }
 
     @Override
@@ -46,7 +46,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                 options);
         final Option selected = super.selectOption(options);
         event.setSelected(selected);
-        logger.publishEvent(agentName, event);
+        eventLogger.publishEvent(agentName, event);
         return selected;
     }
 
@@ -54,37 +54,37 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalStarted(Event goal) {
-        this.logger.publishEvent(agentName, new GoalAddedEvent(ts.getAgArch().getCycleNumber(), goal.getTrigger()));
+        this.eventLogger.publishEvent(agentName, new GoalAddedEvent(ts.getAgArch().getCycleNumber(), goal.getTrigger()));
     }
 
     @Override
     public void goalFinished(Trigger goal, GoalStates result) {
-        this.logger.publishEvent(agentName, new GoalFinishedEvent(ts.getAgArch().getCycleNumber(), goal, result));
+        this.eventLogger.publishEvent(agentName, new GoalFinishedEvent(ts.getAgArch().getCycleNumber(), goal, result));
     }
 
     @Override
     public void goalFailed(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalFailedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        this.eventLogger.publishEvent(agentName, new GoalFailedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
     }
 
     @Override
     public void goalSuspended(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalSuspendedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        this.eventLogger.publishEvent(agentName, new GoalSuspendedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
     }
 
     @Override
     public void goalWaiting(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalWaitingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        this.eventLogger.publishEvent(agentName, new GoalWaitingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
     }
 
     @Override
     public void goalResumed(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalResumedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        this.eventLogger.publishEvent(agentName, new GoalResumedEvent(ts.getAgArch().getCycleNumber(), goal, reason));
     }
 
     @Override
     public void goalExecuting(Trigger goal, Term reason) {
-        this.logger.publishEvent(agentName, new GoalExecutingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
+        this.eventLogger.publishEvent(agentName, new GoalExecutingEvent(ts.getAgArch().getCycleNumber(), goal, reason));
     }
 
     // Circumstance Listener Interface
@@ -93,8 +93,8 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     public void eventAdded(Event e) {
         if (e.getTrigger().getType() == Trigger.TEType.belief) {
             switch (e.getTrigger().getOperator()) {
-                case add -> logger.publishEvent(agentName, new BeliefAdditionEvent(ts.getAgArch().getCycleNumber(), e.getTrigger()));
-                case del -> logger.publishEvent(agentName, new BeliefDeletionEvent(ts.getAgArch().getCycleNumber(), e.getTrigger()));
+                case add -> eventLogger.publishEvent(agentName, new BeliefAdditionEvent(ts.getAgArch().getCycleNumber(), e.getTrigger()));
+                case del -> eventLogger.publishEvent(agentName, new BeliefDeletionEvent(ts.getAgArch().getCycleNumber(), e.getTrigger()));
             }
 //        } else if (e.getTrigger().getType() == Trigger.TEType.achieve ) {
 //            switch (e.getTrigger().getOperator()) {
@@ -106,32 +106,32 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void intentionAdded(Intention i) {
-        this.logger.publishEvent(agentName, new IntentionAddedEvent(ts.getAgArch().getCycleNumber(), i));
+        this.eventLogger.publishEvent(agentName, new IntentionAddedEvent(ts.getAgArch().getCycleNumber(), i));
     }
 
     @Override
     public void intentionDropped(Intention i) {
-        this.logger.publishEvent(agentName, new IntentionDroppedEvent(ts.getAgArch().getCycleNumber(), i));
+        this.eventLogger.publishEvent(agentName, new IntentionDroppedEvent(ts.getAgArch().getCycleNumber(), i));
     }
 
     @Override
     public void intentionSuspended(Trigger t, Intention i, Term reason) {
-        this.logger.publishEvent(agentName, new IntentionSuspendedEvent(ts.getAgArch().getCycleNumber(), i, reason));
+        this.eventLogger.publishEvent(agentName, new IntentionSuspendedEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
     @Override
     public void intentionWaiting(Intention i, Term reason) {
-        this.logger.publishEvent(agentName, new IntentionWaitingEvent(ts.getAgArch().getCycleNumber(), i, reason));
+        this.eventLogger.publishEvent(agentName, new IntentionWaitingEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
     @Override
     public void intentionResumed(Intention i, Term reason) {
-        this.logger.publishEvent(agentName, new IntentionResumedEvent(ts.getAgArch().getCycleNumber(), i, reason));
+        this.eventLogger.publishEvent(agentName, new IntentionResumedEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
     @Override
     public void intentionExecuting(Intention i, Term reason) {
-        this.logger.publishEvent(agentName, new IntentionExecutingEvent(ts.getAgArch().getCycleNumber(), i, reason));
+        this.eventLogger.publishEvent(agentName, new IntentionExecutingEvent(ts.getAgArch().getCycleNumber(), i, reason));
     }
 
     // Agent class

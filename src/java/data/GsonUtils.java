@@ -7,7 +7,7 @@ import event.ActionEvent;
 import event.SelectPlanEvent;
 import event.goalEvent.GoalAddedEvent;
 import eventHistory.EventHistoryImpl;
-import logger.LoggerImpl;
+import logger.EventLoggerImpl;
 
 /**
  * This is a utility class to instantiate the {@link com.google.gson.JsonSerializer} and {@link com.google.gson.JsonDeserializer}.
@@ -30,7 +30,7 @@ public class GsonUtils {
 //                .registerTypeAdapter(GoalEvent.class, new GoalEventDeserializer())
                 .registerTypeAdapter(SelectPlanEvent.class, new SelectPlanEventSerializer())
 //                .registerTypeAdapter(SelectPlanEvent.class, new SelectPlanEventDeserializer())
-                .registerTypeAdapter(LoggerImpl.class, new LoggerSerializer())
+                .registerTypeAdapter(EventLoggerImpl.class, new LoggerSerializer())
                 .create();
     }
 }

@@ -1,14 +1,14 @@
 package data.serializer;
 
 import com.google.gson.*;
-import logger.LoggerImpl;
+import logger.EventLoggerImpl;
 
 import java.lang.reflect.Type;
 
-public class LoggerSerializer implements JsonSerializer<LoggerImpl> {
+public class LoggerSerializer implements JsonSerializer<EventLoggerImpl> {
 
     @Override
-    public JsonElement serialize(LoggerImpl src, Type typeOfSrc, JsonSerializationContext context) {
+    public JsonElement serialize(EventLoggerImpl src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
         JsonArray array = new JsonArray();
         src.getHistory().forEach((agent, history) -> {

@@ -4,46 +4,46 @@ import event.ActionEvent;
 import event.ReasoningCycleStarted;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
-import logger.Logger;
-import logger.LoggerImpl;
+import logger.EventLogger;
+import logger.EventLoggerImpl;
 
 /**
  * This class extends the agent architecture for implementing the logging functionality in an agent.
  */
 public class LoggerArch extends AgArch {
 
-    private final Logger logger;
+    private final EventLogger eventLogger;
 
     /**
      * Creates a new instance of {@link LoggerArch} and initialized the logger.
      */
     public LoggerArch() {
-        logger = LoggerImpl.getLogger();
+        eventLogger = EventLoggerImpl.getLogger();
     }
 
     // works only with jacamo1.2-SNAPSHOT
     @Override
     public void act(ActionExec action) {
-        logger.publishEvent(getAgName(), new ActionEvent(getCycleNumber(), getTS().getC().getAction()));
+        eventLogger.publishEvent(getAgName(), new ActionEvent(getCycleNumber(), getTS().getC().getAction()));
         super.act(action);
     }
 
     @Override
     public void reasoningCycleStarting() {
-        logger.publishEvent(getAgName(), new ReasoningCycleStarted(getCycleNumber()));
+        eventLogger.publishEvent(getAgName(), new ReasoningCycleStarted(getCycleNumber()));
     }
 
     @Override
     public void reasoningCycleFinished() {
         if (getTS().getC().getAction() != null)  {
-            logger.publishEvent(getAgName(), new ActionEvent(getCycleNumber(), getTS().getC().getAction()));
+            eventLogger.publishEvent(getAgName(), new ActionEvent(getCycleNumber(), getTS().getC().getAction()));
         }
     }
 
     @Override
     public void stop() {
-        logger.saveAgentLogInFile(getAgName());
-        logger.saveAgentLogAsJson(getAgName());
+        eventLogger.saveAgentLogInFile(getAgName());
+        eventLogger.saveAgentLogAsJson(getAgName());
         super.stop();
     }
 

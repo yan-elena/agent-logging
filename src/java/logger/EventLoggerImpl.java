@@ -12,19 +12,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Implementation of the {@link Logger} interface.
+ * Implementation of the {@link EventLogger} interface.
  *
  * This class keeps track of the history of events for each agent. It uses a singleton pattern to ensure that only one
  * instance is created.
  */
-public class LoggerImpl implements Logger {
+public class EventLoggerImpl implements EventLogger {
 
     public static final String PATH = "log/";
-    private static Logger logger;
+    private static EventLogger eventLogger;
     private final Map<String, EventHistory> history;
     private final Gson gson;
 
-    private LoggerImpl() {
+    private EventLoggerImpl() {
         gson = GsonUtils.createGson();
         history = new HashMap<>();
     }
@@ -33,11 +33,11 @@ public class LoggerImpl implements Logger {
      * Returns the single instance of this logger. If the instance has not yet been created, it will be created.
      * @return the instance of this logger
      */
-    public static Logger getLogger() {
-        if (logger == null) {
-            logger = new LoggerImpl();
+    public static EventLogger getLogger() {
+        if (eventLogger == null) {
+            eventLogger = new EventLoggerImpl();
         }
-        return logger;
+        return eventLogger;
     }
 
     @Override
