@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class EventLoggerImpl implements EventLogger {
 
-    public static final String PATH = "log/";
+    private static final String PATH = "log/";
     private static EventLogger eventLogger;
     private final Map<String, EventHistory> history;
     private final Gson gson;
@@ -42,14 +42,10 @@ public class EventLoggerImpl implements EventLogger {
 
     @Override
     public synchronized void publishEvent(String agentName, Event event) {
-        // filter some event
-//        if (!(event.toString().contains("jcm") || event.toString().contains("focus") ||
-//                event.toString().contains("/main/w") || event.toString().contains("cobj_2"))) {
-            if (!history.containsKey(agentName)) {
-                history.put(agentName, new EventHistoryImpl());
-            }
-            history.get(agentName).addEvent(event);
-//        }
+        if (!history.containsKey(agentName)) {
+            history.put(agentName, new EventHistoryImpl(agentName));
+        }
+        history.get(agentName).addEvent(event);
     }
 
     @Override
@@ -102,5 +98,10 @@ public class EventLoggerImpl implements EventLogger {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void saveLog(String agentName) {
+        history.get(agentName).saveLog();
     }
 }

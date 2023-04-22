@@ -46,4 +46,10 @@ public interface EventLogger {
      * @param fileName the name of the file to save the log
      */
     void saveLogAsJson(String fileName);
+
+    /**
+     * Saves the log of the agent.
+     * @param agentName the name of the agent to log
+     */
+    void saveLog(String agentName);
 }

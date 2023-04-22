@@ -42,8 +42,7 @@ public class LoggerArch extends AgArch {
 
     @Override
     public void stop() {
-        eventLogger.saveAgentLogInFile(getAgName());
-        eventLogger.saveAgentLogAsJson(getAgName());
+        eventLogger.saveLog(getAgName());
         super.stop();
     }
 

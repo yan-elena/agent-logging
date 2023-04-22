@@ -20,4 +20,9 @@ public interface EventHistory {
      * @param event the event to be added
      */
     void addEvent(Event event);
+
+    /**
+     * Save the event history log.
+     */
+    void saveLog();
 }

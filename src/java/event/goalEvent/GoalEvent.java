@@ -7,6 +7,8 @@ import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 
+import java.io.Serializable;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -14,8 +16,8 @@ import java.util.Optional;
  */
 public abstract class GoalEvent extends AbstractEvent {
 
-    protected final GoalInfo goalInfo;
-    protected final Optional<ReasonInfo> reasonInfo;
+    protected GoalInfo goalInfo;
+    protected Optional<ReasonInfo> reasonInfo;
 
     /**
      * Creates an instance of {@link GoalEvent}.
