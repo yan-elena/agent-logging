@@ -3,7 +3,7 @@ package event;
 /**
  * A class that representing a new reasoning cycle started event.
  */
-public class ReasoningCycleStarted extends AbstractEvent {
+public class ReasoningCycleStarted implements Event {
 
     private final int cycleNumber;
 

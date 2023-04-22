@@ -1,6 +1,6 @@
 package event.intentionEvent;
 
-import event.AbstractEvent;
+import event.Event;
 import event.eventInfo.IntentionInfo;
 import event.eventInfo.ReasonInfo;
 import jason.asSemantics.Intention;
@@ -11,30 +11,26 @@ import java.util.Optional;
 /**
  * A class that representing an event related to an intention.
  */
-public abstract class IntentionEvent extends AbstractEvent {
+public abstract class IntentionEvent implements Event {
 
     protected final IntentionInfo intentionInfo;
     protected final Optional<ReasonInfo> reasonInfo;
 
     /**
      * Creates an instance of {@link IntentionEvent}.
-     * @param reasoningCycleNum the number of the reasoning cycle
      * @param intention the intention that the event is related to
      */
-    public IntentionEvent(int reasoningCycleNum, Intention intention) {
-        super();
+    public IntentionEvent(Intention intention) {
         this.intentionInfo = new IntentionInfo(intention);
         this.reasonInfo = Optional.empty();
     }
 
     /**
      * Creates an instance of {@link IntentionEvent} with a specific reason.
-     * @param reasoningCycleNum the number of the reasoning cycle
      * @param intention the intention that the event is related to
      * @param reason an optional reason for the event
      */
-    public IntentionEvent(int reasoningCycleNum, Intention intention, Term reason) {
-        super();
+    public IntentionEvent(Intention intention, Term reason) {
         this.intentionInfo = new IntentionInfo(intention);
         this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
     }

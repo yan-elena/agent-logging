@@ -24,7 +24,7 @@ public class LoggerArch extends AgArch {
     // works only with jacamo1.2-SNAPSHOT
     @Override
     public void act(ActionExec action) {
-        eventLogger.publishEvent(getAgName(), new ActionEvent(getCycleNumber(), getTS().getC().getAction()));
+        eventLogger.publishEvent(getAgName(), new ActionEvent(getTS().getC().getAction()));
         super.act(action);
     }
 
@@ -36,7 +36,7 @@ public class LoggerArch extends AgArch {
     @Override
     public void reasoningCycleFinished() {
         if (getTS().getC().getAction() != null)  {
-            eventLogger.publishEvent(getAgName(), new ActionEvent(getCycleNumber(), getTS().getC().getAction()));
+            eventLogger.publishEvent(getAgName(), new ActionEvent(getTS().getC().getAction()));
         }
     }
 

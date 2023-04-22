@@ -11,11 +11,10 @@ public class IntentionAddedEvent extends IntentionEvent {
 
     /**
      * Creates an instance of {@link IntentionAddedEvent}.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param intention the intention of the event
      */
-    public IntentionAddedEvent(int reasoningCycleNum, Intention intention) {
-        super(reasoningCycleNum, intention);
+    public IntentionAddedEvent(Intention intention) {
+        super(intention);
     }
 
     @Override

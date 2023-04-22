@@ -12,11 +12,10 @@ public class IntentionSuspendedEvent extends IntentionEvent {
 
     /**
      * Creates an instance of {@link IntentionAddedEvent}.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param intention the intention of the event
      */
-    public IntentionSuspendedEvent(int reasoningCycleNum, Intention intention, Term reason) {
-        super(reasoningCycleNum, intention, reason);
+    public IntentionSuspendedEvent(Intention intention, Term reason) {
+        super(intention, reason);
     }
 
     @Override

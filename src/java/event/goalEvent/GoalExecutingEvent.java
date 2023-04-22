@@ -11,12 +11,11 @@ public class GoalExecutingEvent extends GoalEvent {
 
     /**
      * Creates an instance of {@link GoalExecutingEvent}.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param goal the trigger of the goal
      * @param reason the reason of the executing event
      */
-    public GoalExecutingEvent(int reasoningCycleNum, Trigger goal, Term reason) {
-        super(reasoningCycleNum, goal, GoalListener.GoalStates.executing, reason);
+    public GoalExecutingEvent(Trigger goal, Term reason) {
+        super(goal, GoalListener.GoalStates.executing, reason);
     }
 
 }

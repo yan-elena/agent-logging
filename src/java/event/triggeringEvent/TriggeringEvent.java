@@ -1,23 +1,21 @@
 package event.triggeringEvent;
 
-import event.AbstractEvent;
+import event.Event;
 import event.eventInfo.EventInfo;
 import jason.asSyntax.Trigger;
 
 /**
  * An abstract class that representing a triggering event.
  */
-public abstract class TriggeringEvent extends AbstractEvent {
+public abstract class TriggeringEvent implements Event {
 
     protected final EventInfo eventInfo;
 
     /**
      * Creates a new instance of {@link TriggeringEvent} from the event trigger.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param trigger the trigger of the event
      */
-    public TriggeringEvent(int reasoningCycleNum, Trigger trigger) {
-        super();
+    public TriggeringEvent(Trigger trigger) {
         this.eventInfo = new EventInfo(trigger);
     }
 

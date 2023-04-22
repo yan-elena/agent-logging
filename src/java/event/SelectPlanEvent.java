@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * A class that representing an event for a plan selection.
  */
-public class SelectPlanEvent extends AbstractEvent {
+public class SelectPlanEvent implements Event  {
 
     private static final long LIMIT_OPTIONS = 5;
 
@@ -19,12 +19,10 @@ public class SelectPlanEvent extends AbstractEvent {
 
     /**
      * Creates an instance of  {@link SelectPlanEvent}.
-     * @param reasoningCycleNum the number of the reasoning cycle
      * @param trigger the trigger of the event
      * @param options a list of options to select from
      */
-    public SelectPlanEvent(int reasoningCycleNum, Trigger trigger, List<Option> options) {
-        super();
+    public SelectPlanEvent(Trigger trigger, List<Option> options) {
         this.event = trigger.getLiteral().getFunctor();
         this.planOptions = options.stream().limit(LIMIT_OPTIONS).map(this::optionToString).toList();
         if (planOptions.size() > LIMIT_OPTIONS) {

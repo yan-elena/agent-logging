@@ -12,11 +12,10 @@ public class IntentionDroppedEvent extends IntentionEvent {
 
     /**
      * Creates a new instance of {@link IntentionDroppedEvent}.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param intention the intention of the dropped event
      */
-    public IntentionDroppedEvent(int reasoningCycleNum, Intention intention) {
-        super(reasoningCycleNum, intention);
+    public IntentionDroppedEvent(Intention intention) {
+        super(intention);
     }
 
     @Override

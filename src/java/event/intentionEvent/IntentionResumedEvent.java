@@ -12,11 +12,10 @@ public class IntentionResumedEvent extends IntentionEvent {
 
     /**
      * Creates an instance of {@link IntentionAddedEvent}.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param intention the intention of the event
      */
-    public IntentionResumedEvent(int reasoningCycleNum, Intention intention, Term reason) {
-        super(reasoningCycleNum, intention, reason);
+    public IntentionResumedEvent(Intention intention, Term reason) {
+        super(intention, reason);
     }
 
     @Override

@@ -6,12 +6,6 @@ package event;
 public interface Event {
 
     /**
-     * Returns the timestamp at which the event occurred.
-     * @return the timestamp of the event
-     */
-    long getTimestamp();
-
-    /**
      * Returns the log message of the event.
      * @return the log message
      */

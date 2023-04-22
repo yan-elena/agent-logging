@@ -9,11 +9,10 @@ public class BeliefAdditionEvent extends TriggeringEvent{
 
     /**
      * Creates a new instance of {@link BeliefAdditionEvent} from the event trigger.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param trigger the trigger of the event
      */
-    public BeliefAdditionEvent(int reasoningCycleNum, Trigger trigger) {
-        super(reasoningCycleNum, trigger);
+    public BeliefAdditionEvent(Trigger trigger) {
+        super(trigger);
     }
 
     @Override

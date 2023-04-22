@@ -1,43 +1,37 @@
 package event.goalEvent;
 
-import event.AbstractEvent;
+import event.Event;
 import event.eventInfo.GoalInfo;
 import event.eventInfo.ReasonInfo;
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 
-import java.io.Serializable;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
  * An abstract class that representing an event related to a goal.
  */
-public abstract class GoalEvent extends AbstractEvent {
+public abstract class GoalEvent implements Event {
 
     protected GoalInfo goalInfo;
     protected Optional<ReasonInfo> reasonInfo;
 
     /**
      * Creates an instance of {@link GoalEvent}.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param goal the trigger of the goal
      */
-    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states) {
-        super();
+    public GoalEvent(Trigger goal, GoalStates states) {
         this.goalInfo = new GoalInfo(goal, states);
         this.reasonInfo = Optional.empty();
     }
 
     /**
      * Creates an instance of {@link GoalEvent} with a reason.
-     * @param reasoningCycleNum the reasoning cycle number
      * @param goal the trigger of the goal
      * @param reason the reason of the event
      */
-    public GoalEvent(int reasoningCycleNum, Trigger goal, GoalStates states, Term reason) {
-        super();
+    public GoalEvent(Trigger goal, GoalStates states, Term reason) {
         this.goalInfo = new GoalInfo(goal, states);
         this.reasonInfo = reason != null ? Optional.of(new ReasonInfo(reason)) : Optional.empty();
     }
