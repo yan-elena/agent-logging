@@ -2,6 +2,7 @@ package gson;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import event.AbstractEvent;
 import gson.typeAdapter.*;
 
 import java.util.Optional;

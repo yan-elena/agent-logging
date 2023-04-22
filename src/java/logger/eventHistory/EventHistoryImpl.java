@@ -1,6 +1,7 @@
 package logger.eventHistory;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import gson.GsonUtils;
 import event.Event;
 import logger.JsonFileHandler;
@@ -58,7 +59,12 @@ public class EventHistoryImpl implements EventHistory {
     @Override
     public void addEvent(Event event) {
         this.history.add(event);
-        this.logger.info(gson.toJson(event));
+
+        JsonObject object = new JsonObject();
+        object.addProperty("type", event.getClass().getSimpleName());
+        object.add("event", gson.toJsonTree(event));
+        object.addProperty("log", event.logEvent());
+        this.logger.info(gson.toJson(object));
     }
 
     @Override

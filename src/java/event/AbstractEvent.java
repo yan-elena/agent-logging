@@ -37,9 +37,4 @@ public abstract class AbstractEvent implements Event {
                 "\n";
     }
 
-    /**
-     * Abstract method that returns a log message of the event.
-     * @return the log message of the event
-     */
-    abstract public String logEvent();
 }

@@ -15,7 +15,6 @@ import java.util.Map;
  */
 public class EventLoggerImpl implements EventLogger {
 
-    private static final String PATH = "log/";
     private static EventLogger eventLogger;
     private final Map<String, EventHistory> history;
 

@@ -11,4 +11,9 @@ public interface Event {
      */
     long getTimestamp();
 
+    /**
+     * Returns the log message of the event.
+     * @return the log message
+     */
+    String logEvent();
 }

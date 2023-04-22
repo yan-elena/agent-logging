@@ -18,7 +18,7 @@ public class LogRecordTypeAdapter implements JsonSerializer<LogRecord> {
     public JsonElement serialize(LogRecord src, Type typeOfSrc, JsonSerializationContext context) {
         JsonObject object = new JsonObject();
         object.addProperty("timestamp", src.getMillis());
-        object.add("event", GsonUtils.createGson().fromJson(src.getMessage(), JsonObject.class));
+        object.add("message", GsonUtils.createGson().fromJson(src.getMessage(), JsonObject.class));
         return object;
     }
 }

@@ -1,6 +1,7 @@
 package logger;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import gson.GsonUtils;
 
 import java.util.logging.Formatter;
@@ -22,6 +23,7 @@ public class LogFormatter extends Formatter {
 
     @Override
     public String format(LogRecord record) {
-        return "[" +record.getMillis()+"] " + record.getMessage() + "\n";
+        JsonObject object = gson.fromJson(record.getMessage(), JsonObject.class);
+        return "[" + record.getMillis() + " - " + object.get("type").getAsString() + "] " + object.get("log").getAsString() + "\n";
     }
 }
