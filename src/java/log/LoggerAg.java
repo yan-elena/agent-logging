@@ -52,7 +52,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalStarted(Event goal) {
-        this.eventLogger.publishEvent(agentName, new GoalCreated(goal.getTrigger()));
+        this.eventLogger.publishEvent(agentName, new GoalCreated(goal));
     }
 
     @Override

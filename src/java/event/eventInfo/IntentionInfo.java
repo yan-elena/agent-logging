@@ -30,7 +30,7 @@ public class IntentionInfo {
             Structure structure = ((Structure) terms.getTerm(0));
             PlanBody planBody = (PlanBody) structure.getTerm(2);
 
-            this.trigger = structure.getTerm(1).toString();
+            this.trigger = ((Trigger)structure.getTerm(1)).getLiteral().getFunctor();
             while (planBody != null) {
                 this.planBody.add(planBody.toString());
                 planBody = planBody.getBodyNext();
