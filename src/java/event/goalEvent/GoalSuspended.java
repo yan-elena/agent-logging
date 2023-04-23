@@ -7,14 +7,14 @@ import jason.asSyntax.Trigger;
 /**
  * A specific goal event that represents a suspended goal event.
  */
-public class GoalSuspendedEvent extends GoalEvent {
+public class GoalSuspended extends GoalEvent {
 
     /**
-     * Creates an instance of {@link GoalSuspendedEvent}.
+     * Creates an instance of {@link GoalSuspended}.
      * @param goal the trigger of the goal
      * @param reason the reason of the suspended event
      */
-    public GoalSuspendedEvent(Trigger goal, Term reason) {
+    public GoalSuspended(Trigger goal, Term reason) {
         super(goal, GoalStates.suspended, reason);
     }
 }
