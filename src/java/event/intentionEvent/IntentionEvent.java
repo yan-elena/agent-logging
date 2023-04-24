@@ -39,7 +39,7 @@ public abstract class IntentionEvent implements Event {
     public String logEvent() {
         return "Intention " + intentionInfo.getId() +
                 " "  + getEventMessage() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
-                " state: " + intentionInfo.getState() +
+                ", state: " + intentionInfo.getState() +
                 "\n\ttrigger: " + intentionInfo.getTrigger() +
                 (intentionInfo.getPlanBody().isEmpty() ? "" : "\n\tplanBody: " + intentionInfo.getPlanBody());
     }

@@ -94,32 +94,22 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void intentionAdded(Intention i) {
-        this.eventLogger.publishEvent(agentName, new IntentionAddedEvent(i));
+        this.eventLogger.publishEvent(agentName, new IntentionCreated(i));
     }
 
     @Override
     public void intentionDropped(Intention i) {
-        this.eventLogger.publishEvent(agentName, new IntentionDroppedEvent(i));
+        this.eventLogger.publishEvent(agentName, new IntentionRemoved(i));
     }
 
     @Override
     public void intentionSuspended(Trigger t, Intention i, Term reason) {
-        this.eventLogger.publishEvent(agentName, new IntentionSuspendedEvent(i, reason));
+        this.eventLogger.publishEvent(agentName, new IntentionSuspended(i, reason));
     }
 
     @Override
     public void intentionWaiting(Intention i, Term reason) {
-        this.eventLogger.publishEvent(agentName, new IntentionWaitingEvent(i, reason));
-    }
-
-    @Override
-    public void intentionResumed(Intention i, Term reason) {
-        this.eventLogger.publishEvent(agentName, new IntentionResumedEvent(i, reason));
-    }
-
-    @Override
-    public void intentionExecuting(Intention i, Term reason) {
-        this.eventLogger.publishEvent(agentName, new IntentionExecutingEvent(i, reason));
+        this.eventLogger.publishEvent(agentName, new IntentionWaiting(i, reason));
     }
 
     // Agent class

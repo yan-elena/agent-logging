@@ -6,21 +6,21 @@ import jason.asSemantics.Intention;
 /**
  * A specific intention event to represent a dropping intention event.
  */
-public class IntentionDroppedEvent extends IntentionEvent {
+public class IntentionRemoved extends IntentionEvent {
 
-    public static final String DROPPED_EVENT = "dropped";
+    public static final String REMOVED_EVENT = "removed";
 
     /**
-     * Creates a new instance of {@link IntentionDroppedEvent}.
+     * Creates a new instance of {@link IntentionRemoved}.
      * @param intention the intention of the dropped event
      */
-    public IntentionDroppedEvent(Intention intention) {
+    public IntentionRemoved(Intention intention) {
         super(intention);
     }
 
     @Override
     public String getEventMessage() {
-        return DROPPED_EVENT;
+        return REMOVED_EVENT;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class IntentionDroppedEvent extends IntentionEvent {
         if (intentionInfo.getTrigger().contains("finished intention")) {
             return "Intention " + intentionInfo.getId() +
                     " " + getEventMessage() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
-                    " state: " + intentionInfo.getState() +
+                    ", state: " + intentionInfo.getState() +
                     "\n\t " + intentionInfo.getTrigger();
         } else {
             return super.logEvent();

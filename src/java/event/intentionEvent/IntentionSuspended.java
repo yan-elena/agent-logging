@@ -6,15 +6,15 @@ import jason.asSyntax.Term;
 /**
  * A specific intention event representing the suspension of an intention.
  */
-public class IntentionSuspendedEvent extends IntentionEvent {
+public class IntentionSuspended extends IntentionEvent {
 
     private static final String SUSPENDED_EVENT = "suspended";
 
     /**
-     * Creates an instance of {@link IntentionAddedEvent}.
+     * Creates an instance of {@link IntentionSuspended}.
      * @param intention the intention of the event
      */
-    public IntentionSuspendedEvent(Intention intention, Term reason) {
+    public IntentionSuspended(Intention intention, Term reason) {
         super(intention, reason);
     }
 

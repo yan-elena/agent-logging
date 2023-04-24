@@ -6,15 +6,15 @@ import jason.asSyntax.Term;
 /**
  * A specific intention event representing the waiting of an intention.
  */
-public class IntentionWaitingEvent extends IntentionEvent {
+public class IntentionWaiting extends IntentionEvent {
 
     private static final String WAITING_EVENT = "waiting";
 
     /**
-     * Creates an instance of {@link IntentionAddedEvent}.
+     * Creates an instance of {@link IntentionWaiting}.
      * @param intention the intention of the event
      */
-    public IntentionWaitingEvent(Intention intention, Term reason) {
+    public IntentionWaiting(Intention intention, Term reason) {
         super(intention, reason);
     }
 
