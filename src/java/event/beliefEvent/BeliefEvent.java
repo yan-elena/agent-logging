@@ -1,21 +1,21 @@
-package event.triggeringEvent;
+package event.beliefEvent;
 
 import event.Event;
 import event.eventInfo.EventInfo;
 import jason.asSyntax.Trigger;
 
 /**
- * An abstract class that representing a triggering event.
+ * An abstract class that representing a belief event.
  */
-public abstract class TriggeringEvent implements Event {
+public abstract class BeliefEvent implements Event {
 
     protected final EventInfo eventInfo;
 
     /**
-     * Creates a new instance of {@link TriggeringEvent} from the event trigger.
+     * Creates a new instance of {@link BeliefEvent} from the event trigger.
      * @param trigger the trigger of the event
      */
-    public TriggeringEvent(Trigger trigger) {
+    public BeliefEvent(Trigger trigger) {
         this.eventInfo = new EventInfo(trigger);
     }
 

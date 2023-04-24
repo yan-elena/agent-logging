@@ -3,11 +3,11 @@ package log;
 import java.util.List;
 import java.util.Queue;
 
-import event.triggeringEvent.BeliefAdditionEvent;
+import event.beliefEvent.BeliefAdditionEvent;
 import event.goalEvent.*;
 import event.SelectPlanEvent;
 import event.intentionEvent.*;
-import event.triggeringEvent.BeliefDeletionEvent;
+import event.beliefEvent.BeliefDeletionEvent;
 import jason.asSemantics.*;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;

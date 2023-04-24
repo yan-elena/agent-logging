@@ -1,11 +1,11 @@
-package event.triggeringEvent;
+package event.beliefEvent;
 
 import jason.asSyntax.Trigger;
 
 /**
  * An event that represents the deletion of a belief from a belief base.
  */
-public class BeliefDeletionEvent extends TriggeringEvent {
+public class BeliefDeletionEvent extends BeliefEvent {
 
     /**
      * Creates a new instance of {@link BeliefDeletionEvent} from the event trigger.
