@@ -27,9 +27,10 @@ public class IntentionRemoved extends IntentionEvent {
     public String logEvent() {
         if (intentionInfo.getTrigger().contains("finished intention")) {
             return "Intention " + intentionInfo.getId() +
-                    " " + getEventMessage() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
-                    ", state: " + intentionInfo.getState() +
-                    "\n\t " + intentionInfo.getTrigger();
+                    " " + getEventMessage() +
+                    ", " + intentionInfo.getTrigger() +
+                    " " + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
+                    ", state: " + intentionInfo.getState();
         } else {
             return super.logEvent();
         }

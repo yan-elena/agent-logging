@@ -25,7 +25,8 @@ public class GoalCreated extends GoalEvent {
     @Override
     public String logEvent() {
         return "Goal " + this.getGoalInfo().getGoalFunctor() +
-                intention.map(intentionInfo -> " (sub-goal of " + intentionInfo.getTrigger() + ")").orElse("") +
+                (intention.isPresent() && !intention.get().getTrigger().contains("finished intention") ?
+                        " (sub-goal of " + intention.get().getTrigger() + ")" : "") +
                 " created";
     }
 }
