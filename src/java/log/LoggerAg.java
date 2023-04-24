@@ -1,18 +1,27 @@
 package log;
 
-import java.util.List;
-import java.util.Queue;
-
-import event.beliefEvent.BeliefAdditionEvent;
-import event.goalEvent.*;
 import event.SelectPlanEvent;
-import event.intentionEvent.*;
-import event.beliefEvent.BeliefDeletionEvent;
+import event.beliefEvent.BeliefAdded;
+import event.beliefEvent.BeliefFromSrcAdded;
+import event.beliefEvent.BeliefFromSrcRemoved;
+import event.beliefEvent.BeliefRemoved;
+import event.goalEvent.GoalCreated;
+import event.goalEvent.GoalRemoved;
+import event.goalEvent.GoalSuspended;
+import event.goalEvent.PlanSelected;
+import event.intentionEvent.IntentionCreated;
+import event.intentionEvent.IntentionRemoved;
+import event.intentionEvent.IntentionSuspended;
+import event.intentionEvent.IntentionWaiting;
 import jason.asSemantics.*;
+import jason.asSyntax.Literal;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
+
+import java.util.List;
+import java.util.Queue;
 
 /**
  * This class logs events on goals and on the circumstance.
@@ -79,10 +88,26 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void eventAdded(Event e) {
-        if (e.getTrigger().getType() == Trigger.TEType.belief) {
-            switch (e.getTrigger().getOperator()) {
-                case add -> eventLogger.publishEvent(agentName, new BeliefAdditionEvent(e.getTrigger()));
-                case del -> eventLogger.publishEvent(agentName, new BeliefDeletionEvent(e.getTrigger()));
+        Trigger trigger = e.getTrigger();
+        if (trigger.getType() == Trigger.TEType.belief) {
+
+            System.out.println("trigger: " + trigger);
+//            Literal type = trigger.getLiteral().getAnnot("percept_type");
+//            System.out.println("type: " + (type!= null ? type.getTerm(0): "null"));
+//            System.out.println("source: " + (type!= null ? trigger.getLiteral().getAnnot("source").getTerm(0):
+//                    "null"));
+
+            Literal source = trigger.getLiteral().getAnnot("source");
+            if (source == null || source.toString().equals("self")) {
+                switch (trigger.getOperator()) {
+                    case add -> eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
+                    case del -> eventLogger.publishEvent(agentName, new BeliefRemoved(trigger));
+                }
+            } else {
+                switch (trigger.getOperator()) {
+                    case add -> eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
+                    case del -> eventLogger.publishEvent(agentName, new BeliefFromSrcRemoved(trigger));
+                }
             }
 //        } else if (e.getTrigger().getType() == Trigger.TEType.achieve ) {
 //            switch (e.getTrigger().getOperator()) {

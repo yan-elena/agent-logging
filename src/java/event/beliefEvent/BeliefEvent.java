@@ -1,7 +1,7 @@
 package event.beliefEvent;
 
 import event.Event;
-import event.eventInfo.EventInfo;
+import event.eventInfo.BeliefInfo;
 import jason.asSyntax.Trigger;
 
 /**
@@ -9,21 +9,21 @@ import jason.asSyntax.Trigger;
  */
 public abstract class BeliefEvent implements Event {
 
-    protected final EventInfo eventInfo;
+    protected final BeliefInfo beliefInfo;
 
     /**
      * Creates a new instance of {@link BeliefEvent} from the event trigger.
      * @param trigger the trigger of the event
      */
     public BeliefEvent(Trigger trigger) {
-        this.eventInfo = new EventInfo(trigger);
+        this.beliefInfo = new BeliefInfo(trigger);
     }
 
     /**
      * Returns the information of the triggering event.
      * @return event information
      */
-    public EventInfo getEventInfo() {
-        return eventInfo;
+    public BeliefInfo getEventInfo() {
+        return beliefInfo;
     }
 }
