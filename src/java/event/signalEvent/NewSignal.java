@@ -1,5 +1,6 @@
-package event;
+package event.signalEvent;
 
+import event.Event;
 import event.eventInfo.SignalInfo;
 import jason.asSyntax.Trigger;
 

@@ -1,7 +1,7 @@
 package log;
 
-import event.NewSignal;
-import event.NewSpeechActMessage;
+import event.signalEvent.NewSignal;
+import event.speechActMessageEvent.NewSpeechActMessage;
 import event.SelectPlanEvent;
 import event.beliefEvent.BeliefAdded;
 import event.beliefEvent.BeliefFromSrcAdded;

@@ -1,11 +1,14 @@
 package log;
 
-import event.ActionEvent;
-import event.ReasoningCycleStarted;
+import event.actionEvent.ActionEvent;
+import event.reasoningCycleEvent.ReasoningCycleStarted;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
+import jason.asSyntax.Literal;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
+
+import java.util.Collection;
 
 /**
  * This class extends the agent architecture for implementing the logging functionality in an agent.
@@ -35,9 +38,22 @@ public class LoggerArch extends AgArch {
 
     @Override
     public void reasoningCycleFinished() {
-        if (getTS().getC().getAction() != null)  {
-            eventLogger.publishEvent(getAgName(), new ActionEvent(getTS().getC().getAction()));
+        ActionExec action = getTS().getC().getAction();
+        if (action != null)  {
+            System.out.println("action finish: " + action);
+//            if (action.getResult())
+            eventLogger.publishEvent(getAgName(), new ActionEvent(action));
         }
+    }
+
+    @Override
+    public Collection<Literal> perceive() {
+        Collection<Literal> percepts = super.perceive();
+
+        if (percepts != null) {
+            System.out.println("perceive " + percepts);
+        }
+        return percepts;
     }
 
     @Override
@@ -52,9 +68,4 @@ public class LoggerArch extends AgArch {
         super.actionExecuted(act);
     }
 
-    @Override
-    public void checkMail() {
-        super.checkMail();
-//        getTS().getC().getMailBox()
-    }
 }

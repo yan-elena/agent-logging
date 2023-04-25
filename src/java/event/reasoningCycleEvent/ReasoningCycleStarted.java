@@ -1,4 +1,6 @@
-package event;
+package event.reasoningCycleEvent;
+
+import event.Event;
 
 /**
  * A class that representing a new reasoning cycle started event.

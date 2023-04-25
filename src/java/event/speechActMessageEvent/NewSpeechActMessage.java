@@ -1,5 +1,6 @@
-package event;
+package event.speechActMessageEvent;
 
+import event.Event;
 import event.eventInfo.MessageInfo;
 import jason.asSemantics.Message;
 

@@ -1,5 +1,6 @@
-package event;
+package event.actionEvent;
 
+import event.Event;
 import jason.asSemantics.ActionExec;
 
 /**
