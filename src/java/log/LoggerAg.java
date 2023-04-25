@@ -1,5 +1,6 @@
 package log;
 
+import event.NewSignal;
 import event.NewSpeechActMessage;
 import event.SelectPlanEvent;
 import event.beliefEvent.BeliefAdded;
@@ -15,13 +16,13 @@ import event.intentionEvent.IntentionRemoved;
 import event.intentionEvent.IntentionSuspended;
 import event.intentionEvent.IntentionWaiting;
 import jason.asSemantics.*;
-import jason.asSyntax.Literal;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 
 /**
@@ -94,12 +95,14 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         Trigger trigger = e.getTrigger();
         if (trigger.getType() == Trigger.TEType.belief) {
 
-            Literal source = trigger.getLiteral().getAnnot("source");
-            if (source == null || source.toString().equals("self")) {
+            Optional<Term> source = Optional.ofNullable(trigger.getLiteral().getAnnot("source")).map(s -> s.getTerm(0));
+            if (source.isEmpty() || source.get().toString().equals("self")) {
                 switch (trigger.getOperator()) {
                     case add -> eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
                     case del -> eventLogger.publishEvent(agentName, new BeliefRemoved(trigger));
                 }
+            } else if (source.get().toString().equals("percept")){
+                eventLogger.publishEvent(agentName, new NewSignal(trigger));
             } else {
                 switch (trigger.getOperator()) {
                     case add -> eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
