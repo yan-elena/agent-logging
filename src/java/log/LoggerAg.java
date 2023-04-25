@@ -6,7 +6,6 @@ import event.beliefEvent.BeliefAdded;
 import event.beliefEvent.BeliefFromSrcAdded;
 import event.beliefEvent.BeliefFromSrcRemoved;
 import event.beliefEvent.BeliefRemoved;
-import event.eventInfo.MessageInfo;
 import event.goalEvent.GoalCreated;
 import event.goalEvent.GoalRemoved;
 import event.goalEvent.GoalSuspended;
@@ -176,7 +175,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     public boolean socAcc(Message m) {
         boolean accept = super.socAcc(m);
         if (accept) {
-            this.eventLogger.publishEvent(agentName, new NewSpeechActMessage(new MessageInfo(m)));
+            this.eventLogger.publishEvent(agentName, new NewSpeechActMessage(m));
         }
         return accept;
     }

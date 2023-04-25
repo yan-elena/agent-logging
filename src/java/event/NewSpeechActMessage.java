@@ -1,6 +1,7 @@
 package event;
 
 import event.eventInfo.MessageInfo;
+import jason.asSemantics.Message;
 
 /**
  * An event that represents a new speech act message from other agents.
@@ -13,8 +14,8 @@ public class NewSpeechActMessage implements Event {
      * Creates a new {@link NewSpeechActMessage}.
      * @param message the message information
      */
-    public NewSpeechActMessage(MessageInfo message) {
-        this.message = message;
+    public NewSpeechActMessage(Message message) {
+        this.message = new MessageInfo(message);
     }
 
     @Override
