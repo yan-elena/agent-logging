@@ -20,10 +20,10 @@ public abstract class BeliefEvent implements Event {
     }
 
     /**
-     * Returns the information of the triggering event.
-     * @return event information
+     * Returns the information of the belief.
+     * @return belief information
      */
-    public BeliefInfo getEventInfo() {
+    public BeliefInfo getBeliefInfo() {
         return beliefInfo;
     }
 }
