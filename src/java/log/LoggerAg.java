@@ -1,10 +1,12 @@
 package log;
 
+import event.NewSpeechActMessage;
 import event.SelectPlanEvent;
 import event.beliefEvent.BeliefAdded;
 import event.beliefEvent.BeliefFromSrcAdded;
 import event.beliefEvent.BeliefFromSrcRemoved;
 import event.beliefEvent.BeliefRemoved;
+import event.eventInfo.MessageInfo;
 import event.goalEvent.GoalCreated;
 import event.goalEvent.GoalRemoved;
 import event.goalEvent.GoalSuspended;
@@ -38,6 +40,8 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         eventLogger = EventLoggerImpl.getLogger();
     }
 
+    // from Agent class
+
     @Override
     public void initAg() {
         super.initAg();
@@ -48,7 +52,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         getTS().getC().addEventListener(this);
     }
 
-    @Override // from Agent class
+    @Override
     public Option selectOption(List<Option> options) {
         final SelectPlanEvent event = new SelectPlanEvent(getTS().getC().getSelectedEvent().getTrigger(), options);
         final Option selected = super.selectOption(options);
@@ -90,12 +94,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     public void eventAdded(Event e) {
         Trigger trigger = e.getTrigger();
         if (trigger.getType() == Trigger.TEType.belief) {
-
-            System.out.println("trigger: " + trigger);
-//            Literal type = trigger.getLiteral().getAnnot("percept_type");
-//            System.out.println("type: " + (type!= null ? type.getTerm(0): "null"));
-//            System.out.println("source: " + (type!= null ? trigger.getLiteral().getAnnot("source").getTerm(0):
-//                    "null"));
 
             Literal source = trigger.getLiteral().getAnnot("source");
             if (source == null || source.toString().equals("self")) {
@@ -162,4 +160,24 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         return super.selectIntention(intentions);
     }
 
+//    @Override
+//    public int buf(Collection<Literal> percepts) {
+//        System.out.println("buf: " + percepts);
+//        return super.buf(percepts);
+//    }
+//
+//    @Override
+//    public List<Literal>[] brf(Literal beliefToAdd, Literal beliefToDel, Intention i) throws RevisionFailedException {
+//        System.out.println("brf: \nbeliefToAdd: " + beliefToAdd + "\nbeliefToDel: " + beliefToDel + "\nintention: " + i);
+//        return super.brf(beliefToAdd, beliefToDel, i);
+//    }
+
+    @Override
+    public boolean socAcc(Message m) {
+        boolean accept = super.socAcc(m);
+        if (accept) {
+            this.eventLogger.publishEvent(agentName, new NewSpeechActMessage(new MessageInfo(m)));
+        }
+        return accept;
+    }
 }

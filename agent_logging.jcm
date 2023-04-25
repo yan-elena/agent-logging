@@ -20,6 +20,11 @@ mas log_ag {
       ag-class:    log.LoggerAg
     }
 
+    agent alice {
+      ag-arch:     log.LoggerArch
+      ag-class:    log.LoggerAg
+    }
+
     workspace w {
       artifact c1: example.Counter(2) 
     }

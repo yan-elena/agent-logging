@@ -41,6 +41,7 @@ public class EventHistoryImpl implements EventHistory {
             fileHandler.setFormatter(new LogFormatter());
             logger.addHandler(fileHandler);
             logger.addHandler(new JsonFileHandler(agentName));
+            logger.setUseParentHandlers(false); // remove the console handler
         } catch (IOException e) {
             e.printStackTrace();
         }
