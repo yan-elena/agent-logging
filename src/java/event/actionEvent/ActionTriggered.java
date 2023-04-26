@@ -6,15 +6,15 @@ import jason.asSemantics.ActionExec;
 /**
  * An event that represents an execution of an action.
  */
-public class ActionEvent implements Event {
+public class ActionTriggered implements Event {
 
     private final String action;
 
     /**
-     * Creates an instance of  {@link ActionEvent} with the specified reasoning cycle number and the action
+     * Creates an instance of  {@link ActionTriggered} with the specified reasoning cycle number and the action
      * @param action the executed action
      */
-    public ActionEvent(ActionExec action) {
+    public ActionTriggered(ActionExec action) {
         this.action = action.getActionTerm().toString();
     }
 

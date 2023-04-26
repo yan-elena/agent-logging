@@ -1,7 +1,5 @@
 package log;
 
-import event.signalEvent.NewSignal;
-import event.speechActMessageEvent.NewSpeechActMessage;
 import event.SelectPlanEvent;
 import event.beliefEvent.BeliefAdded;
 import event.beliefEvent.BeliefFromSrcAdded;
@@ -15,14 +13,17 @@ import event.intentionEvent.IntentionCreated;
 import event.intentionEvent.IntentionRemoved;
 import event.intentionEvent.IntentionSuspended;
 import event.intentionEvent.IntentionWaiting;
+import event.signalEvent.NewSignal;
+import event.speechActMessageEvent.NewSpeechActMessage;
 import jason.asSemantics.*;
+import jason.asSyntax.Literal;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Queue;
 
 /**
@@ -95,25 +96,33 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         Trigger trigger = e.getTrigger();
         if (trigger.getType() == Trigger.TEType.belief) {
 
-            Optional<Term> source = Optional.ofNullable(trigger.getLiteral().getAnnot("source")).map(s -> s.getTerm(0));
-            if (source.isEmpty() || source.get().toString().equals("self")) {
-                switch (trigger.getOperator()) {
-                    case add -> eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
-                    case del -> eventLogger.publishEvent(agentName, new BeliefRemoved(trigger));
-                }
-            } else if (source.get().toString().equals("percept")){
+            Literal sourceLiteral = trigger.getLiteral().getAnnot("source");
+            List<String> sources = sourceLiteral != null ? sourceLiteral.getTerms().stream().map(Term::toString).toList() : new LinkedList<>();
+            Literal beliefBaseLiteral = getBB().contains(trigger.getLiteral());
+            if (sources.contains("percept")) {
                 eventLogger.publishEvent(agentName, new NewSignal(trigger));
             } else {
                 switch (trigger.getOperator()) {
-                    case add -> eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
-                    case del -> eventLogger.publishEvent(agentName, new BeliefFromSrcRemoved(trigger));
+                    case add -> {
+                        if (beliefBaseLiteral != null) {
+                            if (sources.isEmpty() || sources.contains("self")) {
+                                eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
+                            } else {
+                                eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
+                            }
+                        }
+                    }
+                    case del -> {
+                        if (beliefBaseLiteral == null) {
+                            if (sources.isEmpty() || sources.contains("self")) {
+                                eventLogger.publishEvent(agentName, new BeliefRemoved(trigger));
+                            } else {
+                                eventLogger.publishEvent(agentName, new BeliefFromSrcRemoved(trigger));
+                            }
+                        }
+                    }
                 }
             }
-//        } else if (e.getTrigger().getType() == Trigger.TEType.achieve ) {
-//            switch (e.getTrigger().getOperator()) {
-//                case add -> logger.publishEvent(agentName, new AchievementGoalAddition(e.getTrigger()));
-//                case del -> logger.publishEvent(agentName, new AchievementGoalDeletion(e.getTrigger()));
-//            }
         }
     }
 

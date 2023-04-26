@@ -1,6 +1,6 @@
 package log;
 
-import event.actionEvent.ActionEvent;
+import event.actionEvent.ActionTriggered;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
@@ -27,7 +27,7 @@ public class LoggerArch extends AgArch {
     // works only with jacamo1.2-SNAPSHOT
     @Override
     public void act(ActionExec action) {
-        eventLogger.publishEvent(getAgName(), new ActionEvent(getTS().getC().getAction()));
+        eventLogger.publishEvent(getAgName(), new ActionTriggered(getTS().getC().getAction()));
         super.act(action);
     }
 
@@ -40,9 +40,9 @@ public class LoggerArch extends AgArch {
     public void reasoningCycleFinished() {
         ActionExec action = getTS().getC().getAction();
         if (action != null)  {
-            System.out.println("action finish: " + action);
+//            System.out.println("action finish: " + action);
 //            if (action.getResult())
-            eventLogger.publishEvent(getAgName(), new ActionEvent(action));
+            eventLogger.publishEvent(getAgName(), new ActionTriggered(action));
         }
     }
 
@@ -68,4 +68,9 @@ public class LoggerArch extends AgArch {
         super.actionExecuted(act);
     }
 
+    @Override
+    public void checkMail() {
+        super.checkMail();
+//        System.out.println("checkMail: " + getTS().getC().getMailBox());
+    }
 }

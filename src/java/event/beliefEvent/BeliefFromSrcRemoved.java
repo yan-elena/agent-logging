@@ -18,6 +18,6 @@ public class BeliefFromSrcRemoved extends BeliefEvent {
 
     @Override
     public String logEvent() {
-        return "Removed belief " + beliefInfo.getFunctor() + " from source: " + beliefInfo.getSource().orElse("null");
+        return "Removed belief " + beliefInfo.getFunctor() + " from source: " + beliefInfo.getSource().get();
     }
 }

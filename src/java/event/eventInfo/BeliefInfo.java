@@ -15,8 +15,8 @@ public class BeliefInfo {
     private final String literal;
     private final String functor;
     private final String operator;
-    private final Optional<String> perceptType;
-    private final Optional<String> source;
+    private final Optional<List<String>> perceptType;
+    private final Optional<List<String>> source;
     private final Optional<List<String>> terms;
 
     /**
@@ -34,8 +34,8 @@ public class BeliefInfo {
         }
         Literal type = trigger.getLiteral().getAnnot("percept_type");
         Literal src = trigger.getLiteral().getAnnot("source");
-        this.perceptType = type == null ? Optional.empty() : Optional.of(type.getTerm(0).toString());
-        this.source = src == null ? Optional.empty() : Optional.of(src.getTerm(0).toString());
+        this.perceptType = type == null ? Optional.empty() : Optional.of(type.getTerms().stream().map(Term::toString).toList());
+        this.source = src == null ? Optional.empty() : Optional.of(src.getTerms().stream().map(Term::toString).toList());
     }
 
     /**
@@ -63,18 +63,18 @@ public class BeliefInfo {
     }
 
     /**
-     * Returns the percept type of the belief.
+     * Returns the list of percept type of the belief.
      * @return an optional of the type
      */
-    public Optional<String> getPerceptType() {
+    public Optional<List<String>> getPerceptType() {
         return perceptType;
     }
 
     /**
-     * Returns the source of the belief
+     * Returns the list of sources of the belief
      * @return an optional of the source
      */
-    public Optional<String> getSource() {
+    public Optional<List<String>> getSource() {
         return source;
     }
 
