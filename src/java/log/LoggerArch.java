@@ -1,6 +1,7 @@
 package log;
 
 import event.actionEvent.ActionTriggered;
+import event.planEvent.PlanLibraryEvent;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
@@ -22,6 +23,12 @@ public class LoggerArch extends AgArch {
      */
     public LoggerArch() {
         eventLogger = EventLoggerImpl.getLogger();
+    }
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+        this.eventLogger.publishEvent(getAgName(), new PlanLibraryEvent(getTS().getAg().getPL().getPlans()));
     }
 
     // works only with jacamo1.2-SNAPSHOT
