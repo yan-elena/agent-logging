@@ -3,13 +3,16 @@ package log;
 import event.actionEvent.ActionTriggered;
 import event.planEvent.PlanLibraryEvent;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
+import event.speechActMessageEvent.MailBoxMessages;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
+import jason.asSemantics.Message;
 import jason.asSyntax.Literal;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
 import java.util.Collection;
+import java.util.Queue;
 
 /**
  * This class extends the agent architecture for implementing the logging functionality in an agent.
@@ -17,6 +20,7 @@ import java.util.Collection;
 public class LoggerArch extends AgArch {
 
     private final EventLogger eventLogger;
+    private ActionExec actionExec;
 
     /**
      * Creates a new instance of {@link LoggerArch} and initialized the logger.
@@ -78,6 +82,10 @@ public class LoggerArch extends AgArch {
     @Override
     public void checkMail() {
         super.checkMail();
-//        System.out.println("checkMail: " + getTS().getC().getMailBox());
+        Queue<Message> mailBox = getTS().getC().getMailBox();
+
+        if (!mailBox.isEmpty()) {
+            this.eventLogger.publishEvent(getAgName(), new MailBoxMessages(mailBox.stream().toList()));
+        }
     }
 }

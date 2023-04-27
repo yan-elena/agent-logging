@@ -21,6 +21,6 @@ public class NewSpeechActMessage implements Event {
 
     @Override
     public String logEvent() {
-        return "Receive new " + message.getType() + " message from " + message.getSender() + ": " + message.getMessage();
+        return "New speech act message [" + message.getType() + "] from " + message.getSender() + ": " + message.getMessage();
     }
 }
