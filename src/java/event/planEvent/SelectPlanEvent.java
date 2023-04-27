@@ -1,5 +1,6 @@
-package event;
+package event.planEvent;
 
+import event.Event;
 import event.eventInfo.PlanInfo;
 import jason.asSemantics.Option;
 import jason.asSyntax.Trigger;
@@ -9,7 +10,7 @@ import java.util.List;
 /**
  * A class that representing an event for a plan selection.
  */
-public class SelectPlanEvent implements Event  {
+public class SelectPlanEvent implements Event {
 
     private final String event;
     private final List<PlanInfo> planOptions;

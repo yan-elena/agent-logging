@@ -1,6 +1,6 @@
 package log;
 
-import event.SelectPlanEvent;
+import event.planEvent.SelectPlanEvent;
 import event.beliefEvent.BeliefAdded;
 import event.beliefEvent.BeliefFromSrcAdded;
 import event.beliefEvent.BeliefFromSrcRemoved;
