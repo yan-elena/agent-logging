@@ -1,6 +1,5 @@
 package log;
 
-import event.planEvent.SelectPlanEvent;
 import event.beliefEvent.BeliefAdded;
 import event.beliefEvent.BeliefFromSrcAdded;
 import event.beliefEvent.BeliefFromSrcRemoved;
@@ -13,8 +12,10 @@ import event.intentionEvent.IntentionCreated;
 import event.intentionEvent.IntentionRemoved;
 import event.intentionEvent.IntentionSuspended;
 import event.intentionEvent.IntentionWaiting;
+import event.planEvent.SelectPlanEvent;
 import event.signalEvent.NewSignal;
 import event.speechActMessageEvent.NewSpeechActMessage;
+import event.speechActMessageEvent.SelectMessage;
 import jason.asSemantics.*;
 import jason.asSyntax.Literal;
 import jason.asSyntax.Term;
@@ -151,7 +152,11 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public Message selectMessage(Queue<Message> messages) {
-        return super.selectMessage(messages);
+        SelectMessage event = new SelectMessage(messages.stream().toList());
+        Message message = super.selectMessage(messages);
+        event.setSelected(message);
+        this.eventLogger.publishEvent(agentName, event);
+        return message;
     }
 
     @Override

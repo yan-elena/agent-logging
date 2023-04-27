@@ -64,4 +64,9 @@ public class MessageInfo {
     public String getMessage() {
         return message;
     }
+
+    @Override
+    public String toString() {
+        return "[" + type + " message]" + " from " + sender + ": " + message;
+    }
 }
