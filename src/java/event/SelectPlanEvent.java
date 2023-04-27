@@ -1,7 +1,7 @@
 package event;
 
+import event.eventInfo.PlanInfo;
 import jason.asSemantics.Option;
-import jason.asSyntax.Plan;
 import jason.asSyntax.Trigger;
 
 import java.util.List;
@@ -11,11 +11,9 @@ import java.util.List;
  */
 public class SelectPlanEvent implements Event  {
 
-    private static final long LIMIT_OPTIONS = 5;
-
     private final String event;
-    private final List<String> planOptions;
-    private String selectedPlan;
+    private final List<PlanInfo> planOptions;
+    private PlanInfo selectedPlan;
 
     /**
      * Creates an instance of  {@link SelectPlanEvent}.
@@ -24,17 +22,14 @@ public class SelectPlanEvent implements Event  {
      */
     public SelectPlanEvent(Trigger trigger, List<Option> options) {
         this.event = trigger.getLiteral().getFunctor();
-        this.planOptions = options.stream().limit(LIMIT_OPTIONS).map(this::optionToString).toList();
-        if (planOptions.size() > LIMIT_OPTIONS) {
-            planOptions.add("...");
-        }
+        this.planOptions = options.stream().map(p -> new PlanInfo(p.getPlan())).toList();
     }
 
     /**
      * Returns a list of plan options to select from.
-     * @return list of plan options
+     * @return list of {@link PlanInfo} options
      */
-    public List<String> getPlanOptions() {
+    public List<PlanInfo> getPlanOptions() {
         return planOptions;
     }
 
@@ -42,7 +37,7 @@ public class SelectPlanEvent implements Event  {
      * Returns the option that was selected.
      * @return the selected option
      */
-    public String getSelected() {
+    public PlanInfo getSelected() {
         return selectedPlan;
     }
 
@@ -51,33 +46,17 @@ public class SelectPlanEvent implements Event  {
      * @param selected the selected option
      */
     public void setSelected(Option selected) {
-        this.selectedPlan = optionToString(selected);
+        this.selectedPlan = new PlanInfo(selected.getPlan());
     }
 
     @Override
     public String logEvent() {
-        StringBuilder out = new StringBuilder();
-        if (planOptions.size() > 1) {
-            out.append("Plan options for ").append(event).append(" are: \n");
-            planOptions.forEach(op -> out.append("\t").append(op).append("\n"));
-        }
+        StringBuilder log = new StringBuilder();
+        log.append("Plan options for ").append(event).append(" are: \n");
+        log.append(String.join("\n\t", planOptions.stream().map(PlanInfo::toString).toList()));
         if (selectedPlan != null) {
-            out.append("The plan selected for ").append(event).append(" is ").append(selectedPlan);
+            log.append("\nThe plan selected for ").append(event).append(" is ").append(selectedPlan);
         }
-        return out.toString();
-    }
-
-    private String optionToString(Option option) {
-        StringBuilder out = new StringBuilder();
-        Plan plan = option.getPlan();
-        out.append(plan.getTrigger());
-        if (plan.getContext() != null) {
-            out.append(plan.getContext());
-        }
-        if (!plan.getBody().isEmptyBody()) {
-            out.append(" <- ").append(plan.getBody());
-        }
-        out.append(".");
-        return out.toString();
+        return log.toString();
     }
 }
