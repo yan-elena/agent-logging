@@ -12,8 +12,8 @@ import event.intentionEvent.IntentionCreated;
 import event.intentionEvent.IntentionRemoved;
 import event.intentionEvent.IntentionSuspended;
 import event.intentionEvent.IntentionWaiting;
+import event.perceptEvent.NewPercept;
 import event.planEvent.SelectPlanEvent;
-import event.signalEvent.NewSignal;
 import event.speechActMessageEvent.NewSpeechActMessage;
 import event.speechActMessageEvent.SelectedMessage;
 import jason.asSemantics.*;
@@ -101,7 +101,8 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
             List<String> sources = sourceLiteral != null ? sourceLiteral.getTerms().stream().map(Term::toString).toList() : new LinkedList<>();
             Literal beliefBaseLiteral = getBB().contains(trigger.getLiteral());
             if (sources.contains("percept")) {
-                eventLogger.publishEvent(agentName, new NewSignal(trigger));
+//                eventLogger.publishEvent(agentName, new NewSignal(trigger));
+                eventLogger.publishEvent(agentName, new NewPercept(trigger));
             } else {
                 switch (trigger.getOperator()) {
                     case add -> {
