@@ -158,35 +158,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     }
 
     @Override
-    public Event selectEvent(Queue<Event> events) {
-//        getTS().getC().getSelectedEvent()
-        return super.selectEvent(events);
-    }
-
-    @Override
-    public ActionExec selectAction(Queue<ActionExec> actions) {
-        return super.selectAction(actions);
-    }
-
-    @Override
-    public Intention selectIntention(Queue<Intention> intentions) {
-//        getTS().getC().getSelectedIntention()
-        return super.selectIntention(intentions);
-    }
-
-//    @Override
-//    public int buf(Collection<Literal> percepts) {
-//        System.out.println("buf: " + percepts);
-//        return super.buf(percepts);
-//    }
-//
-//    @Override
-//    public List<Literal>[] brf(Literal beliefToAdd, Literal beliefToDel, Intention i) throws RevisionFailedException {
-//        System.out.println("brf: \nbeliefToAdd: " + beliefToAdd + "\nbeliefToDel: " + beliefToDel + "\nintention: " + i);
-//        return super.brf(beliefToAdd, beliefToDel, i);
-//    }
-
-    @Override
     public boolean socAcc(Message m) {
         boolean accept = super.socAcc(m);
         if (accept) {

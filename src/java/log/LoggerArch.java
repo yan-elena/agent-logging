@@ -7,11 +7,9 @@ import event.speechActMessageEvent.MailBoxMessages;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
-import jason.asSyntax.Literal;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
-import java.util.Collection;
 import java.util.Queue;
 
 /**
@@ -51,20 +49,8 @@ public class LoggerArch extends AgArch {
     public void reasoningCycleFinished() {
         ActionExec action = getTS().getC().getAction();
         if (action != null)  {
-//            System.out.println("action finish: " + action);
-//            if (action.getResult())
             eventLogger.publishEvent(getAgName(), new ActionTriggered(action));
         }
-    }
-
-    @Override
-    public Collection<Literal> perceive() {
-        Collection<Literal> percepts = super.perceive();
-
-        if (percepts != null) {
-            System.out.println("perceive " + percepts);
-        }
-        return percepts;
     }
 
     @Override
@@ -75,7 +61,7 @@ public class LoggerArch extends AgArch {
 
     @Override
     public void actionExecuted(ActionExec act) {
-        System.out.println("action executed " + act);
+        System.out.println("action executed " + act); //todo
         super.actionExecuted(act);
     }
 
