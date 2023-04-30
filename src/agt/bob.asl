@@ -1,3 +1,5 @@
++tellMsg.
+
 !g1.
 
 +!g1 : count(X) & X < 3  <- +b(0); a1; !g2; a3; .my_name(N); .kill_agent(N).
@@ -9,11 +11,11 @@
 
 +count(3) <- a7.
 
-+tellMsg(_)
-    <- .print("receive tell msg").
++tellHello
+    <-  .print("receive tell hello").
 
-+!achieveMsg(_)
-    <- .print("receive achieve msg").
++!achieveHello
+    <- .print("receive achieve hello").
 
 +tick
     <- .print("tick message").
