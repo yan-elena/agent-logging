@@ -12,8 +12,8 @@ import event.intentionEvent.IntentionCreated;
 import event.intentionEvent.IntentionRemoved;
 import event.intentionEvent.IntentionSuspended;
 import event.intentionEvent.IntentionWaiting;
-import event.perceptEvent.NewPercept;
 import event.planEvent.SelectPlanEvent;
+import event.signalEvent.NewSignal;
 import event.speechActMessageEvent.NewSpeechActMessage;
 import event.speechActMessageEvent.SelectedMessage;
 import jason.asSemantics.*;
@@ -23,7 +23,6 @@ import jason.asSyntax.Trigger;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -96,32 +95,21 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     public void eventAdded(Event e) {
         Trigger trigger = e.getTrigger();
         if (trigger.getType() == Trigger.TEType.belief) {
-
-            Literal sourceLiteral = trigger.getLiteral().getAnnot("source");
-            List<String> sources = sourceLiteral != null ? sourceLiteral.getTerms().stream().map(Term::toString).toList() : new LinkedList<>();
             Literal beliefBaseLiteral = getBB().contains(trigger.getLiteral());
-            if (sources.contains("percept")) {
-//                eventLogger.publishEvent(agentName, new NewSignal(trigger));
-                eventLogger.publishEvent(agentName, new NewPercept(trigger));
-            } else {
-                switch (trigger.getOperator()) {
-                    case add -> {
-                        if (beliefBaseLiteral != null) {
-                            if (sources.isEmpty() || sources.contains("self")) {
-                                eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
-                            } else {
-                                eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
-                            }
+
+            switch (trigger.getOperator()) {
+                case add -> {
+                    eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
+                    if (beliefBaseLiteral == null) {
+                        eventLogger.publishEvent(agentName, new NewSignal(trigger));
+                    } else if (beliefBaseLiteral.getSources().size() == 1) {
+                            eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
                         }
                     }
-                    case del -> {
-                        if (beliefBaseLiteral == null) {
-                            if (sources.isEmpty() || sources.contains("self")) {
-                                eventLogger.publishEvent(agentName, new BeliefRemoved(trigger));
-                            } else {
-                                eventLogger.publishEvent(agentName, new BeliefFromSrcRemoved(trigger));
-                            }
-                        }
+                case del -> {
+                    eventLogger.publishEvent(agentName, new BeliefFromSrcRemoved(trigger));
+                    if (beliefBaseLiteral == null) {
+                        eventLogger.publishEvent(agentName, new BeliefRemoved(trigger));
                     }
                 }
             }

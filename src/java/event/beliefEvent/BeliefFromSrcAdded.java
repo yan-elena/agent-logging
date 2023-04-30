@@ -17,6 +17,6 @@ public class BeliefFromSrcAdded extends BeliefEvent {
 
     @Override
     public String logEvent() {
-        return "Added belief " + beliefInfo.getFunctor() + " from source: " + beliefInfo.getSource().get();
+        return "Added belief " + beliefInfo.getFunctor() + beliefInfo.getSource().map(s -> " from source: " + s).orElse("");
     }
 }
