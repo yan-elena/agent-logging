@@ -30,17 +30,17 @@ public class JsonFileHandler extends Handler {
     }
 
     @Override
-    public void publish(LogRecord record) {
+    public synchronized void publish(LogRecord record) {
         this.jsonArray.add(gson.toJsonTree(record));
     }
 
     @Override
-    public void flush() {
+    public synchronized void flush() {
         writer.flush();
     }
 
     @Override
-    public void close() throws SecurityException {
+    public synchronized void close() throws SecurityException {
         writer.println(gson.toJson(jsonArray));
         writer.close();
     }
