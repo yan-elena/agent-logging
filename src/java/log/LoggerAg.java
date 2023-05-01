@@ -8,15 +8,13 @@ import event.goalEvent.GoalCreated;
 import event.goalEvent.GoalRemoved;
 import event.goalEvent.GoalSuspended;
 import event.goalEvent.PlanSelected;
-import event.intentionEvent.IntentionCreated;
-import event.intentionEvent.IntentionRemoved;
-import event.intentionEvent.IntentionSuspended;
-import event.intentionEvent.IntentionWaiting;
+import event.intentionEvent.*;
 import event.planEvent.SelectPlanEvent;
 import event.signalEvent.NewSignal;
 import event.speechActMessageEvent.NewSpeechActMessage;
 import event.speechActMessageEvent.SelectedMessage;
 import jason.asSemantics.*;
+import jason.asSyntax.ListTermImpl;
 import jason.asSyntax.Literal;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
@@ -118,7 +116,13 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void intentionAdded(Intention i) {
-        this.eventLogger.publishEvent(agentName, new IntentionCreated(i));
+        ListTermImpl terms = (ListTermImpl) i.getAsTerm().getTerm(1);
+
+        if (terms.size() > 1) {
+            this.eventLogger.publishEvent(agentName, new IntentionUpdated(i));
+        } else {
+            this.eventLogger.publishEvent(agentName, new IntentionCreated(i));
+        }
     }
 
     @Override
@@ -153,5 +157,11 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
             this.eventLogger.publishEvent(agentName, new NewSpeechActMessage(m));
         }
         return accept;
+    }
+
+    @Override
+    public Intention selectIntention(Queue<Intention> intentions) {
+        System.out.println("Select Intentions: " + intentions);
+        return super.selectIntention(intentions);
     }
 }
