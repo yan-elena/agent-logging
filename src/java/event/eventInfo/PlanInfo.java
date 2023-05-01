@@ -17,7 +17,7 @@ public class PlanInfo {
      * @param plan the {@link Plan} from which the information is to be extracted
      */
     public PlanInfo(Plan plan) {
-        this.label = plan.getLabel().toString();
+        this.label = plan.getLabel().getFunctor();
         this.trigger = plan.getTrigger().toString();
         this.context = plan.getContext() != null ? plan.getContext().toString() : "";
         this.body = plan.getBody() != null ? plan.getBody().toString() : "";

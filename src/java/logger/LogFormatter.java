@@ -24,6 +24,6 @@ public class LogFormatter extends Formatter {
     @Override
     public String format(LogRecord record) {
         JsonObject object = gson.fromJson(record.getMessage(), JsonObject.class);
-        return "[" + record.getMillis() + "|" + object.get("type").getAsString() + "] " + object.get("log").getAsString() + "\n";
+        return "[" + record.getMillis() + "] " + object.get("type").getAsString() + ": " + object.get("log").getAsString() + "\n";
     }
 }

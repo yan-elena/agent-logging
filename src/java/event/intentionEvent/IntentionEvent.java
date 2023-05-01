@@ -38,10 +38,12 @@ public abstract class IntentionEvent implements Event {
     @Override
     public String logEvent() {
         return "Intention " + intentionInfo.getId() +
+                " " + intentionInfo.getTrigger() +
                 " "  + getEventMessage() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
                 ", state: " + intentionInfo.getState() +
-                "\n\ttrigger: " + intentionInfo.getTrigger() +
-                (intentionInfo.getPlanBody().isEmpty() ? "" : "\n\tplanBody: " + intentionInfo.getPlanBody());
+                (intentionInfo.getPlanBody().isEmpty() || intentionInfo.getPlanBody().contains("{ }") ?
+                        "" :
+                        "\n\tplanBody: " + intentionInfo.getPlanBody());
     }
 
     /**
