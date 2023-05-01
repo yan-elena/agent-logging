@@ -21,6 +21,7 @@ import jason.asSyntax.Trigger;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
 
@@ -99,11 +100,11 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                 case add -> {
                     eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
                     if (beliefBaseLiteral == null) {
-                        eventLogger.publishEvent(agentName, new NewSignal(trigger));
+                        eventLogger.publishEvent(agentName, new NewSignal(trigger)); // signal
                     } else if (beliefBaseLiteral.getSources().size() == 1) {
                             eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
-                        }
                     }
+                }
                 case del -> {
                     eventLogger.publishEvent(agentName, new BeliefFromSrcRemoved(trigger));
                     if (beliefBaseLiteral == null) {
@@ -117,7 +118,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void intentionAdded(Intention i) {
         ListTermImpl terms = (ListTermImpl) i.getAsTerm().getTerm(1);
-        System.out.println("-----------\nintentionAdded: " + i + "\npeek: " + new IntentionUpdated(i).getIntentionInfo().peekFirstIntendedMeans());
         if (terms.size() > 1) {
             this.eventLogger.publishEvent(agentName, new IntentionUpdated(i));
         } else {
@@ -162,5 +162,11 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public Intention selectIntention(Queue<Intention> intentions) {
         return super.selectIntention(intentions);
+    }
+
+    @Override
+    public int buf(Collection<Literal> percepts) {
+        System.out.println("Buf: " + percepts);
+        return super.buf(percepts);
     }
 }

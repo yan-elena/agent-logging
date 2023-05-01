@@ -8,9 +8,11 @@ import event.speechActMessageEvent.SendMessage;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
+import jason.asSyntax.Literal;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
+import java.util.Collection;
 import java.util.Queue;
 
 /**
@@ -80,5 +82,12 @@ public class LoggerArch extends AgArch {
     public void sendMsg(Message m) throws Exception {
         super.sendMsg(m);
         this.eventLogger.publishEvent(getAgName(), new SendMessage(m));
+    }
+
+    @Override
+    public Collection<Literal> perceive() {
+        Collection<Literal> p = super.perceive(); //todo
+        System.out.println("Perceive: " + p);
+        return p;
     }
 }
