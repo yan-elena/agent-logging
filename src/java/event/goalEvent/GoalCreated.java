@@ -15,6 +15,7 @@ public class GoalCreated extends GoalEvent {
 
     /**
      * Creates an instance of {@link GoalCreated}.
+     *
      * @param goal the trigger of the goal
      */
     public GoalCreated(Event goal) {
@@ -24,9 +25,12 @@ public class GoalCreated extends GoalEvent {
 
     @Override
     public String logEvent() {
-        return "Goal " + this.getGoalInfo().getGoalFunctor() +
-                (intention.isPresent() && !intention.get().getTrigger().contains("finished intention") ?
-                        " (sub-goal of " + intention.get().getTrigger() + ")" : "") +
-                " created";
+        StringBuilder log = new StringBuilder();
+        log.append("Goal ").append(this.getGoalInfo().getGoalFunctor());
+        if (intention.isPresent() && intention.get().peekFirstIntendedMeans().isPresent()) {
+            log.append(" (sub-goal of ").append(intention.get().peekFirstIntendedMeans().get().getTrigger()).append(")");
+        }
+        log.append(" created");
+        return log.toString();
     }
 }

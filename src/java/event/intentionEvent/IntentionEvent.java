@@ -1,6 +1,7 @@
 package event.intentionEvent;
 
 import event.Event;
+import event.eventInfo.IntendedMeansInfo;
 import event.eventInfo.IntentionInfo;
 import event.eventInfo.ReasonInfo;
 import jason.asSemantics.Intention;
@@ -37,13 +38,13 @@ public abstract class IntentionEvent implements Event {
 
     @Override
     public String logEvent() {
+        Optional<IntendedMeansInfo> intendedMeans = intentionInfo.peekFirstIntendedMeans();
         return "Intention " + intentionInfo.getId() +
-                " " + intentionInfo.getTrigger() +
+                intendedMeans.map(im -> " "  + im.getTrigger()).orElse("") +
                 " "  + getEventMessage() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
                 ", state: " + intentionInfo.getState() +
-                (intentionInfo.getPlanBody().isEmpty() || intentionInfo.getPlanBody().contains("{ }") ?
-                        "" :
-                        "\n\tplanBody: " + intentionInfo.getPlanBody());
+                "\n\tcurrent step: " + intendedMeans.map(im ->
+                    im.isFinished() || im.getCurrentStep().isEmpty() ? "finished" : im.getCurrentStep().get()).orElse("");
     }
 
     /**

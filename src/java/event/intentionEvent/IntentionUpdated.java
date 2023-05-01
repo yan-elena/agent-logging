@@ -1,6 +1,9 @@
 package event.intentionEvent;
 
+import event.eventInfo.IntendedMeansInfo;
 import jason.asSemantics.Intention;
+
+import java.util.Optional;
 
 /**
  * A specific intention event to represent an updated intention event. It occurs when a sub-goal is created.
@@ -24,6 +27,11 @@ public class IntentionUpdated extends IntentionEvent {
 
     @Override
     public String logEvent() {
-        return "Intention " + getEventMessage() + " to sub-goal " + intentionInfo.peekFirstIntendedMeans().getTrigger();
+        Optional<IntendedMeansInfo> intendedMeans = intentionInfo.peekFirstIntendedMeans();
+        return "Intention " + getEventMessage() +
+                intendedMeans.map(im -> " to sub-goal " + im.getTrigger()).orElse("") +
+                ", state: " + intentionInfo.getState() +
+                "\n\tcurrent step: " + intendedMeans.map(im ->
+                im.isFinished() || im.getCurrentStep().isEmpty() ? "finished" : im.getCurrentStep().get()).orElse("");
     }
 }

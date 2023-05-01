@@ -117,7 +117,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void intentionAdded(Intention i) {
         ListTermImpl terms = (ListTermImpl) i.getAsTerm().getTerm(1);
-
+        System.out.println("-----------\nintentionAdded: " + i + "\npeek: " + new IntentionUpdated(i).getIntentionInfo().peekFirstIntendedMeans());
         if (terms.size() > 1) {
             this.eventLogger.publishEvent(agentName, new IntentionUpdated(i));
         } else {
@@ -161,7 +161,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public Intention selectIntention(Queue<Intention> intentions) {
-        System.out.println("Select Intentions: " + intentions);
         return super.selectIntention(intentions);
     }
 }
