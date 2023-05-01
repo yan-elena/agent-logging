@@ -4,6 +4,7 @@ import event.actionEvent.ActionTriggered;
 import event.planEvent.PlanLibraryEvent;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
 import event.speechActMessageEvent.MailBoxMessages;
+import event.speechActMessageEvent.SendMessage;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
@@ -73,5 +74,11 @@ public class LoggerArch extends AgArch {
         if (!mailBox.isEmpty()) {
             this.eventLogger.publishEvent(getAgName(), new MailBoxMessages(mailBox.stream().toList()));
         }
+    }
+
+    @Override
+    public void sendMsg(Message m) throws Exception {
+        super.sendMsg(m);
+        this.eventLogger.publishEvent(getAgName(), new SendMessage(m));
     }
 }
