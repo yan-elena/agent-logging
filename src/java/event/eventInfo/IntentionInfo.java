@@ -1,7 +1,10 @@
 package event.eventInfo;
 
 import jason.asSemantics.Intention;
-import jason.asSyntax.*;
+import jason.asSyntax.ListTermImpl;
+import jason.asSyntax.PlanBody;
+import jason.asSyntax.Structure;
+import jason.asSyntax.Trigger;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,6 +16,8 @@ public class IntentionInfo {
 
     private final int id;
     private final Intention.State state;
+    private final LinkedList<IntendedMeansInfo> intendedMeansInfo;
+
     private final String trigger;
     private final List<String> planBody;
 
@@ -23,6 +28,14 @@ public class IntentionInfo {
     public IntentionInfo(Intention intention) {
         this.id = intention.getId();
         this.state = intention.getStateBasedOnPlace();
+
+
+        intendedMeansInfo = new LinkedList<>();
+        intention.spliterator().forEachRemaining(intendedMeans -> intendedMeansInfo.add(new IntendedMeansInfo(intendedMeans)));
+
+
+
+
         this.planBody = new LinkedList<>();
 
         ListTermImpl terms = (ListTermImpl) intention.getAsTerm().getTerm(1);
@@ -38,6 +51,10 @@ public class IntentionInfo {
         } else {
             this.trigger = intention.toString().substring(intention.toString().indexOf("<"));
         }
+    }
+
+    public IntendedMeansInfo peekFirstIntendedMeans() {
+        return intendedMeansInfo.peekFirst();
     }
 
     /**
