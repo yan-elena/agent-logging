@@ -1,5 +1,3 @@
-+tellMsg.
-
 !g1.
 
 +!g1 : count(X) & X < 3  <- +b(0); a1; !g2; a3; .my_name(N); .kill_agent(N).
