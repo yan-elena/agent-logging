@@ -13,6 +13,10 @@ public class PerceptInfo {
     private final String artifactName;
     private final String perceptType;
 
+    /**
+     * Creates a new instance of {@link PerceptInfo}.
+     * @param trigger the trigger of the percept to extract the information
+     */
     public PerceptInfo(Trigger trigger) {
         Literal literal = trigger.getLiteral();
         this.functor = literal.toString().split("\\[")[0];

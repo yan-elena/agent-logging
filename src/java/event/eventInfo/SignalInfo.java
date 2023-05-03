@@ -13,6 +13,10 @@ public class SignalInfo {
     private final String artifactName;
     private final String perceptType;
 
+    /**
+     * Creates a new instance of {@link SignalInfo} from the given signal trigger.
+     * @param trigger the signal trigger from which extract the information
+     */
     public SignalInfo(Trigger trigger) {
         Literal literal = trigger.getLiteral();
         this.functor = literal.toString().split("\\[")[0];
