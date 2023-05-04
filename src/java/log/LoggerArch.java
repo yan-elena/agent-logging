@@ -21,7 +21,6 @@ import java.util.Queue;
 public class LoggerArch extends AgArch {
 
     private final EventLogger eventLogger;
-    private ActionExec actionExec;
 
     /**
      * Creates a new instance of {@link LoggerArch} and initialized the logger.
@@ -87,7 +86,7 @@ public class LoggerArch extends AgArch {
     @Override
     public Collection<Literal> perceive() {
         Collection<Literal> p = super.perceive(); //todo
-        System.out.println("Perceive: " + p);
+//        System.out.println("Perceive: " + p);
         return p;
     }
 }

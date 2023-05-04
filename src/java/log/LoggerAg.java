@@ -166,7 +166,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public int buf(Collection<Literal> percepts) {
-        System.out.println("Buf: " + percepts);
+//        System.out.println("Buf: " + percepts);
         return super.buf(percepts);
     }
 }
