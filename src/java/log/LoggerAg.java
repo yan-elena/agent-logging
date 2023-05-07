@@ -9,6 +9,7 @@ import event.goalEvent.GoalRemoved;
 import event.goalEvent.GoalSuspended;
 import event.goalEvent.PlanSelected;
 import event.intentionEvent.*;
+import event.perceptEvent.NewPercept;
 import event.planEvent.SelectPlanEvent;
 import event.signalEvent.NewSignal;
 import event.speechActMessageEvent.NewSpeechActMessage;
@@ -93,7 +94,8 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void eventAdded(Event e) {
         Trigger trigger = e.getTrigger();
-        if (trigger.getType() == Trigger.TEType.belief) {
+        System.out.println("event " + trigger + " type: " + trigger.getType());
+        if (trigger.getType().equals(Trigger.TEType.belief)) {
             Literal beliefBaseLiteral = getBB().contains(trigger.getLiteral());
 
             switch (trigger.getOperator()) {
@@ -102,7 +104,11 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                     if (beliefBaseLiteral == null) {
                         eventLogger.publishEvent(agentName, new NewSignal(trigger)); // signal
                     } else if (beliefBaseLiteral.getSources().size() == 1) {
-                            eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
+                        eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
+                    }
+                    Literal src = trigger.getLiteral().getAnnot("source");
+                    if (src != null && src.getTerms().stream().anyMatch(s -> s.toString().equals("percept"))) {
+                        eventLogger.publishEvent(agentName, new NewPercept(trigger));
                     }
                 }
                 case del -> {
@@ -112,6 +118,9 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                     }
                 }
             }
+        } else if (trigger.getType().equals(Trigger.TEType.test)) {
+            System.out.println("test: " + e); //todo
+
         }
     }
 
@@ -119,7 +128,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     public void intentionAdded(Intention i) {
         ListTermImpl terms = (ListTermImpl) i.getAsTerm().getTerm(1);
         if (terms.size() > 1) {
-            this.eventLogger.publishEvent(agentName, new IntentionUpdated(i));
+//            this.eventLogger.publishEvent(agentName, new IntentionUpdated(i));
         } else {
             this.eventLogger.publishEvent(agentName, new IntentionCreated(i));
         }

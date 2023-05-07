@@ -44,14 +44,22 @@ public class LoggerArch extends AgArch {
 
     @Override
     public void reasoningCycleStarting() {
+        if (getTS().getC().hasFeedbackAction()) {
+            System.out.println(getTS().getC().getFeedbackActions());
+        }
         eventLogger.publishEvent(getAgName(), new ReasoningCycleStarted(getCycleNumber()));
     }
 
     @Override
     public void reasoningCycleFinished() {
+        super.reasoningCycleFinished();
         ActionExec action = getTS().getC().getAction();
         if (action != null)  {
             eventLogger.publishEvent(getAgName(), new ActionTriggered(action));
+        }
+
+        if (getTS().getC().hasFeedbackAction()) {
+            System.out.println(getTS().getC().getFeedbackActions());
         }
     }
 
