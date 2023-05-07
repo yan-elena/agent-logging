@@ -1,5 +1,5 @@
 /*
-   Project agent_logging
+   Project log_ag
 
    Gradle build file for JaCaMo Applications
    March 27, 2023 - 12:57:02
@@ -31,9 +31,10 @@ repositories {
 }
 
 dependencies {
+    //implementation('org.jacamo:jacamo:1.1')
     implementation('com.google.code.gson:gson:2.8.8')
-    implementation('org.jacamo:jacamo:1.1')
-//    implementation('org.jacamo:jacamo:1.2-SNAPSHOT')
+    implementation('io.github.jason-lang:jason-interpreter:3.2.1-SNAPSHOT')
+    implementation('org.jacamo:jacamo:1.2-SNAPSHOT')
 }
 
 sourceSets {
@@ -132,8 +133,8 @@ task testJaCaMo {
 
     doLast {
         def styler = 'black red green yellow blue magenta cyan white'
-            .split().toList().withIndex(30)
-            .collectEntries { key, val -> [(key) : { "\033[${val}m${it}\033[0m" }] }
+                .split().toList().withIndex(30)
+                .collectEntries { key, val -> [(key) : { "\033[${val}m${it}\033[0m" }] }
 
         def std = stdout()
         std.splitEachLine('\n') { String line ->

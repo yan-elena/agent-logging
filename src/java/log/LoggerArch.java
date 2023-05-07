@@ -1,5 +1,6 @@
 package log;
 
+import event.actionEvent.ExecutedDeed;
 import event.actionEvent.ActionTriggered;
 import event.planEvent.PlanLibraryEvent;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
@@ -8,11 +9,10 @@ import event.speechActMessageEvent.SendMessage;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
-import jason.asSyntax.Literal;
+import jason.asSyntax.Term;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
-import java.util.Collection;
 import java.util.Queue;
 
 /**
@@ -44,9 +44,6 @@ public class LoggerArch extends AgArch {
 
     @Override
     public void reasoningCycleStarting() {
-        if (getTS().getC().hasFeedbackAction()) {
-            System.out.println(getTS().getC().getFeedbackActions());
-        }
         eventLogger.publishEvent(getAgName(), new ReasoningCycleStarted(getCycleNumber()));
     }
 
@@ -54,12 +51,11 @@ public class LoggerArch extends AgArch {
     public void reasoningCycleFinished() {
         super.reasoningCycleFinished();
         ActionExec action = getTS().getC().getAction();
+        Term lastDeed = getTS().getC().getLastDeed();
         if (action != null)  {
             eventLogger.publishEvent(getAgName(), new ActionTriggered(action));
-        }
-
-        if (getTS().getC().hasFeedbackAction()) {
-            System.out.println(getTS().getC().getFeedbackActions());
+        } else if (lastDeed != null) {
+            eventLogger.publishEvent(getAgName(), new ExecutedDeed(lastDeed));
         }
     }
 
@@ -67,12 +63,6 @@ public class LoggerArch extends AgArch {
     public void stop() {
         eventLogger.saveLog(getAgName());
         super.stop();
-    }
-
-    @Override
-    public void actionExecuted(ActionExec act) {
-        System.out.println("action executed " + act); //todo
-        super.actionExecuted(act);
     }
 
     @Override
@@ -89,12 +79,5 @@ public class LoggerArch extends AgArch {
     public void sendMsg(Message m) throws Exception {
         super.sendMsg(m);
         this.eventLogger.publishEvent(getAgName(), new SendMessage(m));
-    }
-
-    @Override
-    public Collection<Literal> perceive() {
-        Collection<Literal> p = super.perceive(); //todo
-//        System.out.println("Perceive: " + p);
-        return p;
     }
 }
