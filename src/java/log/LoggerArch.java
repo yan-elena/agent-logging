@@ -1,7 +1,9 @@
 package log;
 
+import event.actionEvent.ActionFinished;
 import event.actionEvent.ExecutedDeed;
 import event.actionEvent.ActionTriggered;
+import event.actionEvent.InternalActionFinished;
 import event.planEvent.PlanLibraryEvent;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
 import event.speechActMessageEvent.MailBoxMessages;
@@ -9,6 +11,7 @@ import event.speechActMessageEvent.SendMessage;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
+import jason.asSyntax.PlanBody;
 import jason.asSyntax.Term;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
@@ -51,9 +54,15 @@ public class LoggerArch extends AgArch {
     @Override
     public void reasoningCycleFinished() {
         super.reasoningCycleFinished();
-        Term lastDeed = getTS().getC().getLastDeed();
+        PlanBody lastDeed = getTS().getC().getLastDeed();
         if (lastDeed != null) {
-            eventLogger.publishEvent(getAgName(), new ExecutedDeed(lastDeed));
+            System.out.println("log: last deed: "+lastDeed.getBodyTerm() + " of type " + lastDeed.getBodyType().name() + " from "+ lastDeed.getBodyTerm().getSrcInfo());
+            switch (lastDeed.getBodyType()) {
+                case action -> eventLogger.publishEvent(getAgName(), new ActionFinished(lastDeed));
+                case internalAction -> eventLogger.publishEvent(getAgName(), new InternalActionFinished(lastDeed));
+                default -> eventLogger.publishEvent(getAgName(), new ExecutedDeed(lastDeed));
+            }
+
         }
     }
 

@@ -1,26 +1,28 @@
 package event.actionEvent;
 
 import event.Event;
+import event.eventInfo.DeedInfo;
+import jason.asSyntax.PlanBody;
 import jason.asSyntax.Term;
 
 /**
- * An event that represents the finished execution of a deed (that includes environment action, test goals, mental
- * notes, internal actions and expressions).
+ * An event that represents the finished execution of a generic deed (that could includes environment action, test
+ * goals, mental notes, internal actions and expressions).
  */
 public class ExecutedDeed implements Event {
 
-    private final String action;
+    private final DeedInfo deedInfo;
 
     /**
      * Creates a new instance of {@link ExecutedDeed} from the given deed.
      * @param deed the executed deed
      */
-    public ExecutedDeed(Term deed) {
-        action = deed.toString();
+    public ExecutedDeed(PlanBody deed) {
+        deedInfo = new DeedInfo(deed);
     }
 
     @Override
     public String logEvent() {
-        return "Deed " + action + " executed";
+        return "Deed " + deedInfo.getTerm() + " of type " + deedInfo.getType() + " executed - from " + deedInfo.getSrcInfo();
     }
 }
