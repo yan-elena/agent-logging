@@ -1,6 +1,7 @@
 package event.actionEvent;
 
 import event.Event;
+import event.eventInfo.ActionInfo;
 import jason.asSemantics.ActionExec;
 
 /**
@@ -8,26 +9,26 @@ import jason.asSemantics.ActionExec;
  */
 public class ExternalActionTriggered implements Event {
 
-    private final String action;
+    private final ActionInfo action;
 
     /**
      * Creates an instance of  {@link ExternalActionTriggered} with the specified reasoning cycle number and the action
      * @param action the executed action
      */
     public ExternalActionTriggered(ActionExec action) {
-        this.action = action.getActionTerm().toString();
+        this.action = new ActionInfo(action);
     }
 
     /**
      * Returns the executing action.
      * @return the action
      */
-    public String getAction() {
+    public ActionInfo getAction() {
         return action;
     }
 
     @Override
     public String logEvent() {
-        return "Execute action " + action;
+        return "Execute action " + action.getTerm() + " from " + action.getSource();
     }
 }
