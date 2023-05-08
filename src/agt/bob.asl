@@ -1,11 +1,15 @@
+test1(1).
+
 !g1.
 
-+!g1 : count(X) & X < 3  <- +b(0); a1; !g2; a3; .my_name(N); .kill_agent(N).
++!g1 : count(X) & X < 3  <- +b(0); a1; !g2; a3; ?test1(T1); ?test2(T2); .print(T1, T2); A=10.
 +!g1 : count(X) & X < 5  <- a1; !g2; a3.
 +!g1 : count(X) & X >= 3 <- a4; !g3.
 
 +!g2 <- a2; inc.
 +!g3 <- a5; inc.
+
++?test2(2).
 
 +count(3) <- a7.
 

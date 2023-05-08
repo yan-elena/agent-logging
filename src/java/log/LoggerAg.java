@@ -98,7 +98,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void eventAdded(Event e) {
         Trigger trigger = e.getTrigger();
-//        System.out.println("event " + trigger + " type: " + trigger.getType());
         if (trigger.getType().equals(Trigger.TEType.belief)) {
             Literal beliefBaseLiteral = getBB().contains(trigger.getLiteral());
 
@@ -126,7 +125,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
             eventLogger.publishEvent(agentName, new NewAgentSignal(trigger));
 
         } else if (trigger.getType().equals(Trigger.TEType.test)) {
-            System.out.println("test: " + e);
+            System.out.println("test: " + e); // test-goal addition and test-goal deletion
         }
     }
 
