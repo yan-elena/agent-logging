@@ -1,7 +1,7 @@
 package log;
 
-import event.actionEvent.ActionFinished;
-import event.actionEvent.ActionTriggered;
+import event.actionEvent.ExternalActionFinished;
+import event.actionEvent.ExternalActionTriggered;
 import event.actionEvent.ExecutedDeed;
 import event.actionEvent.InternalActionFinished;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
@@ -34,7 +34,7 @@ public class LoggerArch extends AgArch {
     @Override
     public void act(ActionExec action) {
         super.act(action);
-        eventLogger.publishEvent(getAgName(), new ActionTriggered(action));
+        eventLogger.publishEvent(getAgName(), new ExternalActionTriggered(action));
     }
 
     @Override
@@ -49,7 +49,7 @@ public class LoggerArch extends AgArch {
         PlanBody lastDeed = getTS().getC().getLastDeed();
         if (lastDeed != null) {
             switch (lastDeed.getBodyType()) {
-                case action -> eventLogger.publishEvent(getAgName(), new ActionFinished(lastDeed));
+                case action -> eventLogger.publishEvent(getAgName(), new ExternalActionFinished(lastDeed));
                 case internalAction -> eventLogger.publishEvent(getAgName(), new InternalActionFinished(lastDeed));
                 default -> eventLogger.publishEvent(getAgName(), new ExecutedDeed(lastDeed));
             }
