@@ -54,7 +54,7 @@ public class SelectPlanEvent implements Event {
     public String logEvent() {
         StringBuilder log = new StringBuilder();
         log.append("Plan options for ").append(event).append(" are: \n");
-        log.append(String.join("\n\t", planOptions.stream().map(PlanInfo::toString).toList()));
+        log.append(String.join("\n", planOptions.stream().map(PlanInfo::toString).toList()));
         if (selectedPlan != null) {
             log.append("\nThe plan selected for ").append(event).append(" is ").append(selectedPlan);
         }

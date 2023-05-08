@@ -38,23 +38,21 @@ public class LoggerArch extends AgArch {
     // works only with jacamo1.2-SNAPSHOT
     @Override
     public void act(ActionExec action) {
-        eventLogger.publishEvent(getAgName(), new ActionTriggered(getTS().getC().getAction()));
         super.act(action);
+        eventLogger.publishEvent(getAgName(), new ActionTriggered(action));
     }
 
     @Override
     public void reasoningCycleStarting() {
+        super.reasoningCycleStarting();
         eventLogger.publishEvent(getAgName(), new ReasoningCycleStarted(getCycleNumber()));
     }
 
     @Override
     public void reasoningCycleFinished() {
         super.reasoningCycleFinished();
-        ActionExec action = getTS().getC().getAction();
         Term lastDeed = getTS().getC().getLastDeed();
-        if (action != null)  {
-            eventLogger.publishEvent(getAgName(), new ActionTriggered(action));
-        } else if (lastDeed != null) {
+        if (lastDeed != null) {
             eventLogger.publishEvent(getAgName(), new ExecutedDeed(lastDeed));
         }
     }

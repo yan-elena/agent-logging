@@ -8,28 +8,30 @@ import event.goalEvent.GoalCreated;
 import event.goalEvent.GoalRemoved;
 import event.goalEvent.GoalSuspended;
 import event.goalEvent.PlanSelected;
-import event.intentionEvent.*;
+import event.intentionEvent.IntentionCreated;
+import event.intentionEvent.IntentionRemoved;
+import event.intentionEvent.IntentionSuspended;
+import event.intentionEvent.IntentionWaiting;
 import event.perceptEvent.NewPercept;
+import event.planEvent.PlanAdded;
+import event.planEvent.PlanRemoved;
 import event.planEvent.SelectPlanEvent;
 import event.signalEvent.NewSignal;
 import event.speechActMessageEvent.NewSpeechActMessage;
 import event.speechActMessageEvent.SelectedMessage;
 import jason.asSemantics.*;
-import jason.asSyntax.ListTermImpl;
-import jason.asSyntax.Literal;
-import jason.asSyntax.Term;
-import jason.asSyntax.Trigger;
+import jason.asSyntax.*;
+import jason.pl.PlanLibraryListener;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Queue;
 
 /**
  * This class logs events on goals and on the circumstance.
  */
-public class LoggerAg extends Agent implements GoalListener, CircumstanceListener {
+public class LoggerAg extends Agent implements GoalListener, CircumstanceListener, PlanLibraryListener {
 
     private final EventLogger eventLogger;
     private String agentName;
@@ -51,6 +53,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         // add listeners
         getTS().addGoalListener(this);
         getTS().getC().addEventListener(this);
+        getPL().addListener(this);
     }
 
     @Override
@@ -94,7 +97,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
     @Override
     public void eventAdded(Event e) {
         Trigger trigger = e.getTrigger();
-        System.out.println("event " + trigger + " type: " + trigger.getType());
+//        System.out.println("event " + trigger + " type: " + trigger.getType());
         if (trigger.getType().equals(Trigger.TEType.belief)) {
             Literal beliefBaseLiteral = getBB().contains(trigger.getLiteral());
 
@@ -151,7 +154,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     // Agent class
 
-
     @Override
     public Message selectMessage(Queue<Message> messages) {
         Message message = super.selectMessage(messages);
@@ -168,14 +170,15 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
         return accept;
     }
 
+    // Plan listener Interface
+
     @Override
-    public Intention selectIntention(Queue<Intention> intentions) {
-        return super.selectIntention(intentions);
+    public void planAdded(Plan plan) {
+        this.eventLogger.publishEvent(agentName, new PlanAdded(plan));
     }
 
     @Override
-    public int buf(Collection<Literal> percepts) {
-//        System.out.println("Buf: " + percepts);
-        return super.buf(percepts);
+    public void planRemoved(Plan plan) {
+        this.eventLogger.publishEvent(agentName, new PlanRemoved(plan));
     }
 }
