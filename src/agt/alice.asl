@@ -2,10 +2,11 @@
 
 +!sayHello
     <-  .print("say hello to bob");
+        .send(bob, signal, signalHello);
         .send(bob, tell, tellHello);
-        .send(bob, achieve, achieveHello);
-        .my_name(N);
-        .kill_agent(N).
+        .send(bob, achieve, achieveHello).
+        //.my_name(N);
+        //.kill_agent(N).
 
 
 { include("$jacamoJar/templates/common-cartago.asl") }

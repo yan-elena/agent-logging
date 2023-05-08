@@ -8,19 +8,20 @@ import event.goalEvent.GoalCreated;
 import event.goalEvent.GoalRemoved;
 import event.goalEvent.GoalSuspended;
 import event.goalEvent.PlanSelected;
-import event.intentionEvent.IntentionCreated;
-import event.intentionEvent.IntentionRemoved;
-import event.intentionEvent.IntentionSuspended;
-import event.intentionEvent.IntentionWaiting;
+import event.intentionEvent.*;
 import event.perceptEvent.NewPercept;
 import event.planEvent.PlanAdded;
 import event.planEvent.PlanRemoved;
 import event.planEvent.SelectPlanEvent;
-import event.signalEvent.NewSignal;
+import event.signalEvent.NewAgentSignal;
+import event.signalEvent.NewArtifactSignal;
 import event.speechActMessageEvent.NewSpeechActMessage;
 import event.speechActMessageEvent.SelectedMessage;
 import jason.asSemantics.*;
-import jason.asSyntax.*;
+import jason.asSyntax.Literal;
+import jason.asSyntax.Plan;
+import jason.asSyntax.Term;
+import jason.asSyntax.Trigger;
 import jason.pl.PlanLibraryListener;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
@@ -105,7 +106,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                 case add -> {
                     eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
                     if (beliefBaseLiteral == null) {
-                        eventLogger.publishEvent(agentName, new NewSignal(trigger)); // signal
+                        eventLogger.publishEvent(agentName, new NewArtifactSignal(trigger)); // signal message from artifact
                     } else if (beliefBaseLiteral.getSources().size() == 1) {
                         eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
                     }
@@ -121,19 +122,19 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
                     }
                 }
             }
-        } else if (trigger.getType().equals(Trigger.TEType.test)) {
-            System.out.println("test: " + e); //todo
+        } else if (trigger.getType().equals(Trigger.TEType.signal)) { // signal message from another agent
+            eventLogger.publishEvent(agentName, new NewAgentSignal(trigger));
 
+        } else if (trigger.getType().equals(Trigger.TEType.test)) {
+            System.out.println("test: " + e);
         }
     }
 
     @Override
     public void intentionAdded(Intention i) {
-        ListTermImpl terms = (ListTermImpl) i.getAsTerm().getTerm(1);
-        if (terms.size() > 1) {
-//            this.eventLogger.publishEvent(agentName, new IntentionUpdated(i));
-        } else {
-            this.eventLogger.publishEvent(agentName, new IntentionCreated(i));
+        IntentionCreated intentionCreated = new IntentionCreated(i);
+        if (i.getStateBasedOnPlace().equals(Intention.State.undefined) && !intentionCreated.getIntentionInfo().peekFirstIntendedMeans().get().isFinished()) { // add only the first intention
+            this.eventLogger.publishEvent(agentName, intentionCreated);
         }
     }
 
