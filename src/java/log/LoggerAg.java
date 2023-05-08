@@ -123,9 +123,6 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
             }
         } else if (trigger.getType().equals(Trigger.TEType.signal)) { // signal message from another agent
             eventLogger.publishEvent(agentName, new NewAgentSignal(trigger));
-
-        } else if (trigger.getType().equals(Trigger.TEType.test)) {
-            System.out.println("test: " + e); // test-goal addition and test-goal deletion
         }
     }
 
