@@ -1,10 +1,9 @@
 package log;
 
 import event.actionEvent.ActionFinished;
-import event.actionEvent.ExecutedDeed;
 import event.actionEvent.ActionTriggered;
+import event.actionEvent.ExecutedDeed;
 import event.actionEvent.InternalActionFinished;
-import event.planEvent.PlanLibraryEvent;
 import event.reasoningCycleEvent.ReasoningCycleStarted;
 import event.speechActMessageEvent.MailBoxMessages;
 import event.speechActMessageEvent.SendMessage;
@@ -12,7 +11,6 @@ import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
 import jason.asSemantics.Message;
 import jason.asSyntax.PlanBody;
-import jason.asSyntax.Term;
 import logger.EventLogger;
 import logger.EventLoggerImpl;
 
@@ -30,12 +28,6 @@ public class LoggerArch extends AgArch {
      */
     public LoggerArch() {
         eventLogger = EventLoggerImpl.getLogger();
-    }
-
-    @Override
-    public void init() throws Exception {
-        super.init();
-        this.eventLogger.publishEvent(getAgName(), new PlanLibraryEvent(getTS().getAg().getPL().getPlans()));
     }
 
     // works only with jacamo1.2-SNAPSHOT
@@ -56,7 +48,6 @@ public class LoggerArch extends AgArch {
         super.reasoningCycleFinished();
         PlanBody lastDeed = getTS().getC().getLastDeed();
         if (lastDeed != null) {
-            System.out.println("log: last deed: "+lastDeed.getBodyTerm() + " of type " + lastDeed.getBodyType().name() + " from "+ lastDeed.getBodyTerm().getSrcInfo());
             switch (lastDeed.getBodyType()) {
                 case action -> eventLogger.publishEvent(getAgName(), new ActionFinished(lastDeed));
                 case internalAction -> eventLogger.publishEvent(getAgName(), new InternalActionFinished(lastDeed));
