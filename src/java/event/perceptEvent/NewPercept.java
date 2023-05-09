@@ -1,7 +1,7 @@
 package event.perceptEvent;
 
 import event.Event;
-import event.eventInfo.PerceptInfo;
+import event.eventInfo.ArtifactEventInfo;
 import jason.asSyntax.Trigger;
 
 /**
@@ -9,14 +9,14 @@ import jason.asSyntax.Trigger;
  */
 public class NewPercept implements Event {
 
-    private final PerceptInfo perceptInfo;
+    private final ArtifactEventInfo perceptInfo;
 
     /**
      * Creates a new instance of {@link NewPercept} with the given trigger percept.
      * @param trigger the percept trigger
      */
     public NewPercept(Trigger trigger) {
-        this.perceptInfo = new PerceptInfo(trigger);
+        this.perceptInfo = new ArtifactEventInfo(trigger);
     }
 
     @Override

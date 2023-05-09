@@ -1,7 +1,7 @@
 package event.signalEvent;
 
 import event.Event;
-import event.eventInfo.ArtifactSignalInfo;
+import event.eventInfo.ArtifactEventInfo;
 import jason.asSyntax.Trigger;
 
 /**
@@ -9,14 +9,14 @@ import jason.asSyntax.Trigger;
  */
 public class NewArtifactSignal implements Event {
 
-    private final ArtifactSignalInfo signalInfo;
+    private final ArtifactEventInfo signalInfo;
 
     /**
      * Creates a new instance of {@link NewArtifactSignal} with the given trigger signal.
      * @param trigger the signal trigger
      */
     public NewArtifactSignal(Trigger trigger) {
-        this.signalInfo = new ArtifactSignalInfo(trigger);
+        this.signalInfo = new ArtifactEventInfo(trigger);
     }
 
     @Override
