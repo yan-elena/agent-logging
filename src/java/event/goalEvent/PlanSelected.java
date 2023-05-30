@@ -20,6 +20,6 @@ public class PlanSelected extends GoalEvent {
 
     @Override
     public String logEvent() {
-        return "Plan " + this.getGoalInfo().getGoalFunctor() + " selected";
+        return "Plan " + this.getGoalInfo().getGoalFunctor() + " selected, state: " +  this.goalInfo.getGoalStates();
     }
 }

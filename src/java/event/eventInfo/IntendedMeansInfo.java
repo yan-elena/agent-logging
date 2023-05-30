@@ -11,6 +11,7 @@ import java.util.Optional;
 public class IntendedMeansInfo {
 
     private final String trigger;
+    private final String type;
     private final PlanInfo plan;
     private final String unifier;
     private final Optional<String> currentStep;
@@ -26,6 +27,7 @@ public class IntendedMeansInfo {
         this.unifier = intendedMeans.getUnif().toString();
         this.isFinished = intendedMeans.isFinished();
         this.currentStep = Optional.ofNullable(intendedMeans.getCurrentStep()).map(PlanBody::toString);
+        this.type = intendedMeans.getTrigger().getType().name();
     }
 
     /**
@@ -68,10 +70,19 @@ public class IntendedMeansInfo {
         return isFinished;
     }
 
+    /**
+     * Retrieve the type of the trigger.
+     * @return trigger type
+     */
+    public String getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return "IntendedMeansInfo{" +
                 "trigger='" + trigger + '\'' +
+                ", type='" + type + '\'' +
                 ", plan=" + plan +
                 ", unifier='" + unifier + '\'' +
                 ", currentStep=" + currentStep +

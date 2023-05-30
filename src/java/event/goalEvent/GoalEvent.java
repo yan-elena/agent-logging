@@ -2,6 +2,7 @@ package event.goalEvent;
 
 import event.Event;
 import event.eventInfo.GoalInfo;
+import event.eventInfo.IntentionInfo;
 import event.eventInfo.ReasonInfo;
 import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSyntax.Term;
@@ -14,8 +15,8 @@ import java.util.Optional;
  */
 public abstract class GoalEvent implements Event {
 
-    protected GoalInfo goalInfo;
-    protected Optional<ReasonInfo> reasonInfo;
+    protected final GoalInfo goalInfo;
+    protected final Optional<ReasonInfo> reasonInfo;
 
     /**
      * Creates an instance of {@link GoalEvent}.

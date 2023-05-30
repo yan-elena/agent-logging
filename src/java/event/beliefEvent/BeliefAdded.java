@@ -17,6 +17,6 @@ public class BeliefAdded extends BeliefEvent {
 
     @Override
     public String logEvent() {
-        return "Added belief " + beliefInfo.getFunctor();
+        return "Added belief " + beliefInfo.getLiteral();
     }
 }
