@@ -3,7 +3,7 @@ package logger;
 import com.google.gson.*;
 import gson.GsonUtils;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -15,23 +15,29 @@ public class JsonFileHandler extends Handler {
 
     private static final String PATH = "log/";
     private final Gson gson;
-    private final PrintWriter writer;
+    private final String filename;
+    private PrintWriter writer;
     private final JsonArray jsonArray;
 
     /**
      * Creates a new instance of {@link JsonFileHandler} with the specified filename.
      * @param filename the name of the file to save the log
-     * @throws IOException if there are IO problems opening the files
      */
-    public JsonFileHandler(String filename) throws IOException {
+    public JsonFileHandler(String filename) {
         this.gson = GsonUtils.createGson();
         this.jsonArray = new JsonArray();
-        this.writer = new PrintWriter(PATH + filename + ".json");
+        this.filename = filename;
     }
 
     @Override
     public synchronized void publish(LogRecord record) {
-        this.jsonArray.add(gson.toJsonTree(record));
+        try {
+            this.writer = new PrintWriter(PATH + filename + ".json");
+            this.jsonArray.add(gson.toJsonTree(record));
+            this.writer.println(gson.toJson(jsonArray));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -41,7 +47,6 @@ public class JsonFileHandler extends Handler {
 
     @Override
     public synchronized void close() throws SecurityException {
-        writer.println(gson.toJson(jsonArray));
         writer.close();
     }
 }
