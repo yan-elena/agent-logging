@@ -35,6 +35,7 @@ public class JsonFileHandler extends Handler {
             this.writer = new PrintWriter(PATH + filename + ".json");
             this.jsonArray.add(gson.toJsonTree(record));
             this.writer.println(gson.toJson(jsonArray));
+            flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
