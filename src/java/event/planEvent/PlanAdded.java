@@ -21,6 +21,6 @@ public class PlanAdded implements Event {
 
     @Override
     public String logEvent() {
-        return "Plan " + planInfo.getTrigger() + " added";
+        return "Plan " + planInfo.getTrigger() + " added to the plan library";
     }
 }
