@@ -18,12 +18,6 @@ public interface EventLogger {
     void publishEvent(String agentName, Event event);
 
     /**
-     * Returns the history of events.
-     * @return the event history
-     */
-    Map<String, EventHistory> getHistory();
-
-    /**
      * Saves the log of the agent.
      * @param agentName the name of the agent to log
      */

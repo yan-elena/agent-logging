@@ -53,11 +53,6 @@ public class EventHistoryImpl implements EventHistory {
     }
 
     @Override
-    public List<Event> getHistory() {
-        return this.history;
-    }
-
-    @Override
     public void addEvent(Event event) {
         this.history.add(event);
 

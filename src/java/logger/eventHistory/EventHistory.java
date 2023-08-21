@@ -10,12 +10,6 @@ import java.util.List;
 public interface EventHistory {
 
     /**
-     * Returns a list of event representing the history of events.
-     * @return events history
-     */
-    List<Event> getHistory();
-
-    /**
      * Adds an event to the history.
      * @param event the event to be added
      */

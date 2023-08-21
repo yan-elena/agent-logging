@@ -42,11 +42,6 @@ public class EventLoggerImpl implements EventLogger {
     }
 
     @Override
-    public Map<String, EventHistory> getHistory() {
-        return history;
-    }
-
-    @Override
     public void saveLog(String agentName) {
         history.get(agentName).saveLog();
     }

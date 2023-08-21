@@ -1,6 +1,7 @@
 package event.eventInfo;
 
 import jason.asSyntax.Plan;
+import jason.asSyntax.Trigger;
 
 /**
  * A class that save the relevant information about a plan.
@@ -18,7 +19,7 @@ public class PlanInfo {
      */
     public PlanInfo(Plan plan) {
         this.label = plan.getLabel().getFunctor();
-        this.trigger = plan.getTrigger().toString();
+        this.trigger = plan.getTrigger().getLiteral().toString();
         this.context = plan.getContext() != null ? plan.getContext().toString() : "";
         this.body = plan.getBody() != null ? plan.getBody().toString() : "";
     }
