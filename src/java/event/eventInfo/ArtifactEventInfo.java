@@ -20,9 +20,12 @@ public class ArtifactEventInfo {
     public ArtifactEventInfo(Trigger trigger) {
         Literal literal = trigger.getLiteral();
         this.functor = literal.toString().split("\\[")[0];
-        this.artifactId = literal.getAnnot("artifact_id").getTerm(0).toString();
-        this.artifactName = literal.getAnnot("artifact_name").getTerm(0).toString();
-        this.perceptType = literal.getAnnot("percept_type").getTerm(0).toString();
+        this.artifactId = literal.getAnnot("artifact_id") != null ?
+                literal.getAnnot("artifact_id").getTerm(0).toString() : "";
+        this.artifactName = literal.getAnnot("artifact_name") != null ?
+                literal.getAnnot("artifact_name").getTerm(0).toString() : "";
+        this.perceptType = literal.getAnnot("percept_type") != null ?
+                literal.getAnnot("percept_type").getTerm(0).toString() : "";
     }
 
     /**
