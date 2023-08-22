@@ -24,7 +24,7 @@ public class BeliefInfo {
      * @param trigger a {@link Trigger} object that represents the event
      */
     public BeliefInfo(Trigger trigger) {
-        this.literal = trigger.getLiteral().toString();
+        this.literal = trigger.getLiteral().copy().clearAnnots().toString();
         this.functor = trigger.getLiteral().getFunctor();
         this.operator = trigger.getOperator().toString();
         if (trigger.getLiteral().getTerms() != null) {
