@@ -2,6 +2,8 @@ package event.actionEvent;
 
 import event.Event;
 import event.eventInfo.DeedInfo;
+import event.eventInfo.IntentionInfo;
+import jason.asSemantics.Intention;
 import jason.asSyntax.PlanBody;
 
 /**
@@ -10,13 +12,16 @@ import jason.asSyntax.PlanBody;
 public class InternalActionFinished implements Event {
 
     private final DeedInfo action;
+    private final IntentionInfo intentionInfo;
 
     /**
      * Creates a new {@link InternalActionFinished} instance from the executed action.
      * @param action a {@link PlanBody} of the finished action
+     * @param intention {@link Intention} the current intention
      */
-    public InternalActionFinished(PlanBody action) {
+    public InternalActionFinished(PlanBody action, Intention intention) {
         this.action = new DeedInfo(action);
+        this.intentionInfo = new IntentionInfo(intention);
     }
 
     @Override

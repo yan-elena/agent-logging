@@ -9,6 +9,7 @@ import event.speechActMessageEvent.MailBoxMessages;
 import event.speechActMessageEvent.SendMessage;
 import jason.architecture.AgArch;
 import jason.asSemantics.ActionExec;
+import jason.asSemantics.Intention;
 import jason.asSemantics.Message;
 import jason.asSyntax.PlanBody;
 import logger.EventLogger;
@@ -34,7 +35,7 @@ public class LoggerArch extends AgArch {
     @Override
     public void act(ActionExec action) {
         super.act(action);
-        eventLogger.publishEvent(getAgName(), new ExternalActionTriggered(action));
+        eventLogger.publishEvent(getAgName(), new ExternalActionTriggered(action, getTS().getC().getSelectedIntention()));
     }
 
     @Override
@@ -47,11 +48,12 @@ public class LoggerArch extends AgArch {
     public void reasoningCycleFinished() {
         super.reasoningCycleFinished();
         PlanBody lastDeed = getTS().getC().getLastDeed();
+        Intention intention = getTS().getC().getSelectedIntention();
         if (lastDeed != null) {
             switch (lastDeed.getBodyType()) {
-                case action -> eventLogger.publishEvent(getAgName(), new ExternalActionFinished(lastDeed));
-                case internalAction -> eventLogger.publishEvent(getAgName(), new InternalActionFinished(lastDeed));
-                default -> eventLogger.publishEvent(getAgName(), new ExecutedDeed(lastDeed));
+                case action -> eventLogger.publishEvent(getAgName(), new ExternalActionFinished(lastDeed, intention));
+                case internalAction -> eventLogger.publishEvent(getAgName(), new InternalActionFinished(lastDeed, intention));
+                default -> eventLogger.publishEvent(getAgName(), new ExecutedDeed(lastDeed, intention));
             }
 
         }

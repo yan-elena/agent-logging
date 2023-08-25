@@ -128,10 +128,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void intentionAdded(Intention i) {
-        IntentionCreated intentionCreated = new IntentionCreated(i);
-        if (i.getStateBasedOnPlace().equals(Intention.State.undefined) && !intentionCreated.getIntentionInfo().peekFirstIntendedMeans().get().isFinished()) { // add only the first intention
-            this.eventLogger.publishEvent(agentName, intentionCreated);
-        }
+        this.eventLogger.publishEvent(agentName, new IntentionCreated(i));
     }
 
     @Override

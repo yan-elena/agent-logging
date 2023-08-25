@@ -2,8 +2,9 @@ package event.actionEvent;
 
 import event.Event;
 import event.eventInfo.DeedInfo;
+import event.eventInfo.IntentionInfo;
+import jason.asSemantics.Intention;
 import jason.asSyntax.PlanBody;
-import jason.asSyntax.Term;
 
 /**
  * An event that represents the finished execution of a generic deed (that could includes environment action, test
@@ -12,13 +13,16 @@ import jason.asSyntax.Term;
 public class ExecutedDeed implements Event {
 
     private final DeedInfo deedInfo;
+    private final IntentionInfo intentionInfo;
 
     /**
      * Creates a new instance of {@link ExecutedDeed} from the given deed.
      * @param deed the executed deed
+     * @param intention {@link Intention} the current intention
      */
-    public ExecutedDeed(PlanBody deed) {
+    public ExecutedDeed(PlanBody deed, Intention intention) {
         deedInfo = new DeedInfo(deed);
+        this.intentionInfo = new IntentionInfo(intention);
     }
 
     @Override
