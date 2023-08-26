@@ -6,13 +6,15 @@ import event.eventInfo.IntentionInfo;
 import jason.asSemantics.Intention;
 import jason.asSyntax.PlanBody;
 
+import java.util.Optional;
+
 /**
  * An event that represents the completion of an internal action.
  */
 public class InternalActionFinished implements Event {
 
     private final DeedInfo action;
-    private final IntentionInfo intentionInfo;
+    private final Optional<IntentionInfo> intentionInfo;
 
     /**
      * Creates a new {@link InternalActionFinished} instance from the executed action.
@@ -21,7 +23,7 @@ public class InternalActionFinished implements Event {
      */
     public InternalActionFinished(PlanBody action, Intention intention) {
         this.action = new DeedInfo(action);
-        this.intentionInfo = new IntentionInfo(intention);
+        this.intentionInfo = intention != null ? Optional.of(new IntentionInfo(intention)) : Optional.empty();
     }
 
     @Override
