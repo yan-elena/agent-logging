@@ -85,12 +85,12 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void goalSuspended(Trigger goal, Term reason) {
-        this.eventLogger.publishEvent(agentName, new GoalSuspended(goal, reason));
+        this.eventLogger.publishEvent(agentName, new GoalSuspended(goal, getTS().getC().getSelectedIntention(), reason));
     }
 
     @Override
     public void goalExecuting(Trigger goal, Term reason) {
-        this.eventLogger.publishEvent(agentName, new PlanSelected(goal, reason));
+        this.eventLogger.publishEvent(agentName, new PlanSelected(goal, getTS().getC().getSelectedIntention(), reason));
     }
 
     // Circumstance Listener Interface

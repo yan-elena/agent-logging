@@ -1,6 +1,7 @@
 package event.goalEvent;
 
 import jason.asSemantics.GoalListener;
+import jason.asSemantics.Intention;
 import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 
@@ -14,12 +15,12 @@ public class PlanSelected extends GoalEvent {
      * @param goal the trigger of the goal
      * @param reason the reason of the executing event
      */
-    public PlanSelected(Trigger goal, Term reason) {
-        super(goal, GoalListener.GoalStates.executing, reason);
+    public PlanSelected(Trigger goal, Intention intention, Term reason) {
+        super(goal, GoalListener.GoalStates.executing, intention, reason);
     }
 
     @Override
     public String logEvent() {
-        return "Plan " + this.getGoalInfo().getGoalFunctor() + " selected, state: " +  this.goalInfo.getGoalStates();
+        return "Plan " + this.getGoalInfo().getGoalFunctor() + " selected, state: " +  this.getGoalStates();
     }
 }

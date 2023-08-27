@@ -1,7 +1,10 @@
 package event.eventInfo;
 
 import jason.asSemantics.GoalListener.GoalStates;
+import jason.asSemantics.Intention;
 import jason.asSyntax.Trigger;
+
+import java.util.Optional;
 
 /**
  * A class that save the relevant information about a goal and its associated states.
@@ -9,16 +12,24 @@ import jason.asSyntax.Trigger;
 public class GoalInfo {
 
     private final String goalFunctor;
-    private final GoalStates goalStates;
+    private final Optional<IntentionInfo> intention;
 
     /**
      * Creates a new instance of {@link GoalInfo} from the given goal and state.
      * @param goal a {@link Trigger} object that represents the goal
-     * @param state a {@link GoalStates} object that represents the goal current state
+     * @param intention the intention created from the goal
      */
-    public GoalInfo(Trigger goal, GoalStates state) {
+    public GoalInfo(Trigger goal, Intention intention) {
         this.goalFunctor = goal.getLiteral().getFunctor();
-        this.goalStates = state;
+        this.intention = intention == null ? Optional.empty() : Optional.of(new IntentionInfo(intention));
+    }
+
+    /**
+     * Returns an optional of the intention associated to the goal.
+     * @return intention
+     */
+    public Optional<IntentionInfo> getIntention() {
+        return intention;
     }
 
     /**
@@ -29,11 +40,4 @@ public class GoalInfo {
         return goalFunctor;
     }
 
-    /**
-     * Returns the state of the goal associated with the event.
-     * @return the state of the goal
-     */
-    public GoalStates getGoalStates() {
-        return goalStates;
-    }
 }
