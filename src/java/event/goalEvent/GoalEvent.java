@@ -16,7 +16,7 @@ import java.util.Optional;
 public abstract class GoalEvent implements Event {
 
     protected final GoalInfo goalInfo;
-    private final GoalStates goalStates;
+    protected final GoalStates goalStates;
     protected final Optional<ReasonInfo> reasonInfo;
 
     /**
