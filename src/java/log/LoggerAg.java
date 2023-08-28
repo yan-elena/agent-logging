@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * This class logs events on goals and on the circumstance.
+ * This class logs events related to goals, circumstance, and plan library.
  */
 public class LoggerAg extends Agent implements GoalListener, CircumstanceListener, PlanLibraryListener {
 
