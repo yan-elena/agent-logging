@@ -23,6 +23,7 @@ import java.util.Queue;
 public class LoggerArch extends AgArch {
 
     private final EventLogger eventLogger;
+    private Intention currentIntention;
 
     /**
      * Creates a new instance of {@link LoggerArch} and initialized the logger.

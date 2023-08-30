@@ -23,7 +23,17 @@ abstract class DeedEvent implements Event {
      */
     public DeedEvent(PlanBody deed, Intention intention) {
         this.deedInfo = new DeedInfo(deed);
-        this.intentionInfo = intention != null ? Optional.of(new IntentionInfo(intention)) : Optional.empty();
+        if (intention != null) {
+            IntentionInfo intentionInfo = new IntentionInfo(intention);
+            if (intentionInfo.peekFirstIntendedMeans().isPresent() &&
+                    intentionInfo.peekFirstIntendedMeans().get().getPlan().getBody().contains(deedInfo.getTerm())) {
+                this.intentionInfo = Optional.of(intentionInfo);
+            } else {
+                this.intentionInfo = Optional.empty();
+            }
+        } else {
+            this.intentionInfo = Optional.empty();
+        }
     }
 
     public DeedInfo getDeedInfo() {
