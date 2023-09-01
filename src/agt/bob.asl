@@ -10,16 +10,22 @@ test1(1).
 
 +?test2(2).
 
-+count(3) <- a7.
++!g.
+
++count(3) <- !g; a7.
+
++b(0) <- !g.
 
 +tellHello
-    <-  .print("receive tell hello").
+    <-  !g; .print("receive tell hello").
 
 +!achieveHello
-    <-  .print("receive achieve hello").
+    <-  !g; .print("receive achieve hello").
+
++signalHello <- !g.
 
 +tick
-    <-  .print("tick message").
+    <-  !g; .print("tick message").
 
 { include("$jacamoJar/templates/common-cartago.asl") }
 { include("$jacamoJar/templates/common-moise.asl") }
