@@ -13,7 +13,7 @@ dependencies {
 }
 ```
 
-2. In a JaCaMo project, configure the `ag-arch` and `ag-class` in your `.jcm` file as shown below for each agent you are interested in logging.
+2. In a **JaCaMo** project, configure the `ag-arch` and `ag-class` in your `.jcm` file as shown below for each agent you are interested in logging.
 ```
     agent bob { 
       ag-arch:     log.LoggerArch
@@ -21,7 +21,7 @@ dependencies {
     }
 ```
 
-  If you want to use it in a Jason project, follow this configuration in your `.mas2j` file:
+  If you want to use it in a **Jason** project, follow this configuration in your `.mas2j` file:
 ```
      agents:
             bob     agentArchClass      log.LoggerArch
