@@ -3,6 +3,7 @@ package logger;
 import com.google.gson.*;
 import gson.GsonUtils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.logging.Handler;
@@ -48,6 +49,7 @@ public class JsonFileHandler extends Handler {
 
     @Override
     public synchronized void close() throws SecurityException {
+        flush();
         writer.close();
     }
 }

@@ -23,13 +23,13 @@ import java.util.Queue;
 public class LoggerArch extends AgArch {
 
     private final EventLogger eventLogger;
-    private Intention currentIntention;
 
     /**
      * Creates a new instance of {@link LoggerArch} and initialized the logger.
      */
     public LoggerArch() {
         eventLogger = EventLoggerImpl.getLogger();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> EventLoggerImpl.getLogger().saveLog(getAgName())));
     }
 
     // works only with jacamo1.2-SNAPSHOT

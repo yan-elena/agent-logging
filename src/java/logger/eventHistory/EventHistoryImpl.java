@@ -7,6 +7,7 @@ import event.Event;
 import logger.JsonFileHandler;
 import logger.LogFormatter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -35,6 +36,11 @@ public class EventHistoryImpl implements EventHistory {
         this.logger = Logger.getLogger(agentName);
         this.history = new LinkedList<>();
         this.gson = GsonUtils.createGson();
+
+        File dir = new File(PATH);
+        if (!dir.exists() && dir.isDirectory()) {
+            dir.mkdir();
+        }
 
         try {
             FileHandler fileHandler = new FileHandler(PATH + agentName + ".log");
