@@ -1,9 +1,11 @@
 package event.eventInfo;
 
-import jason.asSemantics.GoalListener.GoalStates;
 import jason.asSemantics.Intention;
+import jason.asSyntax.ListTerm;
+import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,6 +14,7 @@ import java.util.Optional;
 public class GoalInfo {
 
     private final String goalFunctor;
+    private final Optional<List<String>> source;
     private final Optional<IntentionInfo> intention;
 
     /**
@@ -20,7 +23,9 @@ public class GoalInfo {
      * @param intention the intention created from the goal
      */
     public GoalInfo(Trigger goal, Intention intention) {
-        this.goalFunctor = goal.getLiteral().getFunctor();
+        this.goalFunctor = goal.getLiteral().copy().clearAnnots().toString();
+        ListTerm sources = goal.getLiteral().getSources();
+        this.source = sources.isEmpty() ? Optional.empty() : Optional.of(sources.getAsList().stream().map(Term::toString).toList());
         this.intention = intention == null ? Optional.empty() : Optional.of(new IntentionInfo(intention));
     }
 
@@ -40,4 +45,11 @@ public class GoalInfo {
         return goalFunctor;
     }
 
+    /**
+     * Returns the list of sources of the belief
+     * @return an optional of the source
+     */
+    public Optional<List<String>> getSource() {
+        return source;
+    }
 }
