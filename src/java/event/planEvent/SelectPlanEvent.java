@@ -22,7 +22,7 @@ public class SelectPlanEvent implements Event {
      * @param options a list of options to select from
      */
     public SelectPlanEvent(Trigger trigger, List<Option> options) {
-        this.event = trigger.getLiteral().getFunctor();
+        this.event = trigger.getLiteral().toString();
         this.planOptions = options.stream().map(p -> new PlanInfo(p.getPlan())).toList();
     }
 
