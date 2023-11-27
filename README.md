@@ -4,11 +4,11 @@ This repository provides a logging component of the multi-level explainability f
 
 ## Multi-level Explainability
 
-<img src="https://github.com/yan-elena/agent-logging/assets/78790594/b3465e2e-b892-42b9-8ae3-3830a2d28ae6" width=50%>
+<img src="https://github.com/yan-elena/agent-logging/assets/78790594/30b7159b-bfd8-4983-b23a-841e34ab8aaf" width=50%>
 
 The primary levels of abstraction identified in this study are as follows:
-- The **Implementation Level**: a detailed narrative closely related to the Agent and Multi-Agent System for debugging and testing - for developers.
-- The **Knowledge Level**: a level that conveys the knowledge aspects of the system to analysis and verification - for designers.
+- The **Implementation Level**: a detailed narrative closely related to the Agent and Multi-Agent Systems for debugging and testing - for developers.
+- The **Design Level**: a level that describes the agent behaviour regardless of its implementation for analysis and verification - for software architects and designers.
 - The **Domain Level**: a high-level narrative that explains the behaviour with reference to the domain and requirements of the system - for users and domain experts.
 
 ## Configuration
