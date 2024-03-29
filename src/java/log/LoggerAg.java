@@ -103,12 +103,12 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
             switch (trigger.getOperator()) {
                 case add -> {
-                    eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
                     if (beliefBaseLiteral == null) {
                         eventLogger.publishEvent(agentName, new NewArtifactSignal(trigger)); // signal message from artifact
                     } else if (beliefBaseLiteral.getSources().size() == 1) {
                         eventLogger.publishEvent(agentName, new BeliefAdded(trigger));
                     }
+                    eventLogger.publishEvent(agentName, new BeliefFromSrcAdded(trigger));
                     Literal src = trigger.getLiteral().getAnnot("source");
                     if (src != null && src.getTerms().stream().anyMatch(s -> s.toString().equals("percept"))) {
                         eventLogger.publishEvent(agentName, new NewPercept(trigger));
@@ -143,6 +143,7 @@ public class LoggerAg extends Agent implements GoalListener, CircumstanceListene
 
     @Override
     public void intentionWaiting(Intention i, Term reason) {
+        System.out.println(reason);
         this.eventLogger.publishEvent(agentName, new IntentionWaiting(i, reason));
     }
 
