@@ -21,6 +21,6 @@ public class NewPercept implements Event {
 
     @Override
     public String logEvent() {
-        return "New " + perceptInfo.getPerceptType() + " percept from " + perceptInfo.getArtifactName() + ": " + perceptInfo.getFunctor();
+        return "New " + perceptInfo.getPerceptType() + " percept " + perceptInfo.getFunctor() + " from " + perceptInfo.getArtifactName();
     }
 }
