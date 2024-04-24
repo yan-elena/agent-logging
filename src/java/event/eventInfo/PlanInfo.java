@@ -59,7 +59,7 @@ public class PlanInfo {
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
-        out.append("\t").append(trigger);
+        out.append("\t@").append(label).append(" ").append(trigger);
         if (!context.isEmpty()) {
             out.append(" : ").append(context);
         }
