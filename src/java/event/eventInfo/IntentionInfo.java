@@ -14,6 +14,9 @@ public class IntentionInfo {
     private final Intention.State state;
     private final LinkedList<IntendedMeansInfo> intendedMeansInfo;
 
+    private final String trigger;
+
+
     /**
      * Creates a new instance of {@link IntentionInfo} from the given intention.
      * @param intention the intention of the agent
@@ -25,6 +28,7 @@ public class IntentionInfo {
         intendedMeansInfo = new LinkedList<>();
         intention.spliterator().forEachRemaining(intendedMeans -> intendedMeansInfo.add(new IntendedMeansInfo(intendedMeans)));
 
+        trigger = !intendedMeansInfo.isEmpty() ? intendedMeansInfo.getFirst().getPlan().getTrigger() : "";
     }
 
     /**
@@ -51,4 +55,11 @@ public class IntentionInfo {
         return state;
     }
 
+    /**
+     * Returns the trigger of the intention
+     * @return trigger
+     */
+    public String getTrigger() {
+        return trigger;
+    }
 }

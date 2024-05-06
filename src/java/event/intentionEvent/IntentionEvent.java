@@ -40,7 +40,7 @@ public abstract class IntentionEvent implements Event {
     public String logEvent() {
         Optional<IntendedMeansInfo> intendedMeans = intentionInfo.peekFirstIntendedMeans();
         return "Intention " + intentionInfo.getId() +
-                intendedMeans.map(im -> " "  + im.getTrigger()).orElse("") +
+                intendedMeans.map(im -> " "  + im.getPlan().getTrigger()).orElse("") +
                 " "  + getEventMessage() + this.reasonInfo.map(ReasonInfo::toString).orElse("") +
                 ", state: " + intentionInfo.getState() +
                 "\n\tcurrent step: " + intendedMeans.map(im ->
