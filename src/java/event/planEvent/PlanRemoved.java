@@ -21,6 +21,6 @@ public class PlanRemoved implements Event {
 
     @Override
     public String logEvent() {
-        return "Plan " + planInfo.getTrigger() + planInfo.getContext() + " removed from the plan library";
+        return "Plan @" + planInfo.getLabel() + " " + planInfo.getTrigger() + (planInfo.getContext().isBlank() ? "" : " : " + planInfo.getContext()) + " removed from the plan library";
     }
 }
