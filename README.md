@@ -13,18 +13,25 @@ The primary levels of abstraction identified in this study are as follows:
 
 ## Requirements
 
-Please use these version of Jason and JaCaMo in your multi-agent system project.
+Please use this version of Jason or JaCaMo in your multi-agent system project.
 
+For Jason applications:
 ```
 dependencies {
     implementation 'io.github.jason-lang:jason-interpreter:3.2.1-SNAPSHOT'
+}
+```
+
+For JaCaMo applications:
+```
+dependencies {
     implementation 'org.jacamo:jacamo:1.2-SNAPSHOT'
 }
 ```
 
 ## Configuration
 
-To use the logging component as library in your systems, you can follow the following configuration instructions.
+You can follow the configuration instructions below to use the logging component as a library in your project.
 
 1. Add this library as a dependency in your project gradle file:
 ```
@@ -33,7 +40,7 @@ dependencies {
 }
 ```
 
-2. In a **JaCaMo** project, configure the `ag-arch` and `ag-class` in your `.jcm` file as shown below for each agent you are interested in logging.
+2. In your **JaCaMo** project, configure the `ag-arch` and `ag-class` in your `.jcm` file as shown below for each agent you are interested in logging.
 ```
 agent bob { 
   ag-arch:     log.LoggerArch
