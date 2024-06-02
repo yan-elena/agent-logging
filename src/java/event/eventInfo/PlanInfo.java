@@ -12,6 +12,7 @@ public class PlanInfo {
     private final String trigger;
     private final String context;
     private final String body;
+    private final String log;
 
     /**
      * Creates a new instance of {@link PlanInfo}.
@@ -22,6 +23,7 @@ public class PlanInfo {
         this.trigger = plan.getTrigger().getLiteral().toString();
         this.context = plan.getContext() != null ? plan.getContext().toString() : "";
         this.body = plan.getBody() != null ? plan.getBody().toString() : "";
+        this.log = this.toString();
     }
 
     /**
@@ -54,6 +56,10 @@ public class PlanInfo {
      */
     public String getBody() {
         return body;
+    }
+
+    public String getLog() {
+        return log;
     }
 
     @Override
