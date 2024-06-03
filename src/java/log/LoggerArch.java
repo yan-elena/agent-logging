@@ -79,6 +79,6 @@ public class LoggerArch extends AgArch {
     @Override
     public void sendMsg(Message m) throws Exception {
         super.sendMsg(m);
-        this.eventLogger.publishEvent(getAgName(), new SendMessage(m));
+        this.eventLogger.publishEvent(getAgName(), new SendMessage(m, getTS().getC().getSelectedIntention()));
     }
 }
