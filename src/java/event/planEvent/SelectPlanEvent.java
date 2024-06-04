@@ -56,7 +56,8 @@ public class SelectPlanEvent implements Event {
         log.append("Plan options for ").append(event).append(" are: \n");
         log.append(String.join("\n", planOptions.stream().map(PlanInfo::toString).toList()));
         if (selectedPlan != null) {
-            log.append("\nThe plan selected for ").append(event).append(" is @").append(selectedPlan.getLabel());
+            log.append("\nThe plan selected for ").append(event).append(" is @").append(selectedPlan.getLabel())
+                    .append(" ").append(selectedPlan.getTrigger());
         }
         return log.toString();
     }
