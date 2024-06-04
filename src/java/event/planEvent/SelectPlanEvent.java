@@ -3,9 +3,11 @@ package event.planEvent;
 import event.Event;
 import event.eventInfo.PlanInfo;
 import jason.asSemantics.Option;
+import jason.asSyntax.Term;
 import jason.asSyntax.Trigger;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A class that representing an event for a plan selection.
@@ -13,6 +15,7 @@ import java.util.List;
 public class SelectPlanEvent implements Event {
 
     private final String event;
+    private final Optional<List<String>> sources;
     private final List<PlanInfo> planOptions;
     private PlanInfo selectedPlan;
 
@@ -22,7 +25,8 @@ public class SelectPlanEvent implements Event {
      * @param options a list of options to select from
      */
     public SelectPlanEvent(Trigger trigger, List<Option> options) {
-        this.event = trigger.getLiteral().toString();
+        this.event = trigger.getLiteral().getFunctor();
+        this.sources = trigger.getLiteral().getSources() == null ? Optional.empty() : Optional.of(trigger.getLiteral().getSources().getAsList().stream().map(Term::toString).toList());
         this.planOptions = options.stream().map(p -> new PlanInfo(p.getPlan())).toList();
     }
 
