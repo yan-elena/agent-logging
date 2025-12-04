@@ -4,7 +4,7 @@ This repository provides a logging component of the multi-level explainability f
 
 ## A Multi-Level Explainability Framework for Engineering and Understanding BDI Agents
 
-<img src="https://github.com/user-attachments/files/15937276/agent-multi-level.pdf" width=50%>
+<img src="https://github.com/user-attachments/assets/69de5bc6-edee-4d47-a18b-ee5995800c3d" width=50%>
 
 The primary levels of abstraction identified in this study are as follows:
 - The **Implementation Level**: a detailed narrative closely related to the Agent and Multi-Agent Systems for debugging and testing.
